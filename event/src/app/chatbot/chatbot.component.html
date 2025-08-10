@@ -1,0 +1,1001 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>212 Concierge - Chatbot Gastronomie Marocaine</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8B6F47;
+            --primary-dark: #6B5737;
+            --secondary: #5D534A;
+            --accent: #C4A97C;
+            --accent-light: #E3D9C0;
+            --light: #F5F1EB;
+            --dark: #2A2623;
+            --text: #333333;
+            --text-light: #7A7A7A;
+            --cuisine-color: #E76F51;
+            --cuisine-color-dark: #D95C3A;
+            --cuisine-glow: rgba(231, 111, 81, 0.15);
+            --restaurant-color: #E76F51;
+            --recipe-color: #2A9D8F;
+            --chef-color: #E9C46A;
+            --trend-color: #F4A261;
+            --reservation-color: #457B9D;
+            --delivery-color: #9B5DE5;
+            --sidebar-width: 300px;
+            --subsidebar-width: 260px;
+            --suggestion-width: 320px;
+            --history-width: 280px;
+            --header-height: 80px;
+            --icon-bar-width: 70px; /* New variable for icon bar */
+            --transition-speed: 0.3s;
+            --transition-timing: cubic-bezier(0.25, 0.1, 0.25, 1);
+            --shadow-sm: 0 1px 3px rgba(0,0,0,0.12);
+            --shadow-md: 0 4px 6px rgba(0,0,0,0.1);
+            --shadow-lg: 0 10px 25px rgba(0,0,0,0.1);
+            --shadow-xl: 0 20px 40px rgba(0,0,0,0.15);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Montserrat', sans-serif;
+            color: var(--text);
+            background-color: #f9f7f3;
+            line-height: 1.6;
+            height: 100vh;
+            overflow: hidden;
+            background-image: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80');
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+        }
+
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(245, 241, 235, 0.92) 0%, rgba(245, 241, 235, 0.85) 100%);
+            z-index: -1;
+        }
+
+        /* Custom Scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: rgba(245, 241, 235, 0.5);
+            border-radius: 10px;
+        }
+        ::-webkit-scrollbar-thumb {
+            background-color: var(--primary);
+            border-radius: 10px;
+            border: 2px solid transparent;
+            background-clip: content-box;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background-color: var(--accent);
+        }
+
+        /* Chat App Container */
+        .app-container {
+            display: flex;
+            flex-direction: column;
+            height: 100vh;
+            position: relative;
+        }
+
+        /* Header Styles */
+        .chat-header {
+            background: linear-gradient(135deg, var(--dark), var(--secondary));
+            height: var(--header-height);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            box-shadow: var(--shadow-lg);
+            z-index: 100;
+            position: relative;
+            border-bottom: 1px solid rgba(196, 169, 124, 0.3);
+        }
+
+        .header-container {
+            width: 100%;
+            max-width: 1400px;
+            padding: 0 30px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+
+        .chat-logo {
+            position: absolute;
+            left: 30px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            text-decoration: none;
+            transition: all var(--transition-speed) ease;
+        }
+
+        .chat-logo:hover {
+            transform: translateY(-2px);
+        }
+
+        .chat-logo-icon {
+            font-size: 26px;
+            color: var(--accent);
+            transition: all 0.3s ease;
+        }
+
+        .chat-logo-text {
+            font-family: 'Playfair Display', serif;
+            font-size: 22px;
+            font-weight: 700;
+            color: white;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header-controls {
+            position: absolute;
+            right: 30px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .header-btn {
+            width: 42px;
+            height: 42px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.15);
+            border: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: white;
+            box-shadow: var(--shadow-sm);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .header-btn:hover {
+            background: var(--cuisine-color);
+            transform: scale(1.1);
+            box-shadow: var(--shadow-md);
+        }
+
+        .header-btn:hover::before {
+            opacity: 1;
+        }
+
+        .header-btn.active {
+            background: var(--cuisine-color);
+            box-shadow: 0 0 0 3px rgba(231, 111, 81, 0.3);
+        }
+
+        .chat-tabs {
+            display: flex;
+            gap: 10px;
+            background: rgba(42, 38, 35, 0.9);
+            padding: 8px;
+            border-radius: 50px;
+            border: 1px solid rgba(196, 169, 124, 0.4);
+            box-shadow: var(--shadow-xl);
+            backdrop-filter: blur(5px);
+        }
+
+        .chat-tab {
+            padding: 12px 28px;
+            border-radius: 30px;
+            font-weight: 600;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chat-tab::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--accent);
+            transform: translateY(5px);
+            opacity: 0;
+            transition: all 0.3s ease;
+        }
+
+        .chat-tab.cuisine {
+            background: var(--cuisine-color);
+            color: white;
+            box-shadow: 0 3px 15px rgba(231, 111, 81, 0.4);
+        }
+
+        .chat-tab.cityguide, .chat-tab.events {
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .chat-tab.active {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .chat-tab.active::after {
+            transform: translateY(0);
+            opacity: 1;
+        }
+
+        .chat-tab.cuisine:hover {
+            background: var(--cuisine-color-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 25px rgba(231, 111, 81, 0.5);
+        }
+
+        .chat-tab.cityguide:hover, .chat-tab.events:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+
+        /* Main Chat Area */
+        .chat-main {
+            display: flex;
+            flex: 1;
+            overflow: hidden;
+            position: relative;
+            padding-left: var(--icon-bar-width); /* NEW: Make space for the icon bar */
+        }
+
+        /* NEW: Icon Bar for categories */
+        .icon-bar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: var(--icon-bar-width);
+            background: linear-gradient(135deg, var(--dark), var(--secondary));
+            z-index: 25;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding-top: 25px;
+            gap: 18px;
+            box-shadow: var(--shadow-lg);
+            border-right: 1px solid rgba(196, 169, 124, 0.3);
+        }
+
+        .icon-bar-item {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1.3rem;
+            position: relative;
+        }
+
+        .icon-bar-item:hover {
+            background: var(--cuisine-color);
+            transform: scale(1.15);
+            box-shadow: 0 0 15px var(--cuisine-glow);
+        }
+
+        /* Sidebar Styles */
+        .sidebar, .sub-sidebar, .suggestion-sidebar, .history-sidebar {
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(12px);
+            transition: all var(--transition-speed) var(--transition-timing);
+            position: absolute;
+            height: 100%; /* Changed to take full height of main area */
+            overflow-y: auto;
+            top: 0; /* Changed to align with top of main area */
+            bottom: 0;
+            opacity: 0;
+            box-shadow: var(--shadow-xl);
+        }
+
+        .sidebar {
+            width: var(--sidebar-width);
+            border-right: 1px solid rgba(139, 111, 71, 0.15);
+            transform: translateX(-100%);
+            z-index: 30; /* Higher z-index to appear above icon bar */
+            left: 0;
+        }
+
+        .sidebar-visible {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        .sidebar-header {
+            padding: 22px;
+            border-bottom: 1px solid rgba(139, 111, 71, 0.1);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(255, 255, 255, 0.95);
+            position: sticky;
+            top: 0;
+            z-index: 1;
+        }
+
+        .sidebar-title {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.4rem;
+            color: var(--dark);
+            font-weight: 600;
+            letter-spacing: 0.5px;
+        }
+
+        .close-sidebar, .close-suggestions, .close-history {
+            background: none;
+            border: none;
+            color: var(--text-light);
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 34px;
+            height: 34px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .close-sidebar:hover, .close-suggestions:hover, .close-history:hover {
+            background: rgba(231, 111, 81, 0.1);
+            color: var(--cuisine-color);
+            transform: rotate(90deg);
+        }
+
+        .category-list {
+            padding: 15px 0;
+        }
+
+        .category-item {
+            padding: 16px 26px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            border-left: 4px solid transparent;
+            margin: 0 12px;
+            border-radius: 8px;
+        }
+
+        .category-item::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to right, rgba(231, 111, 81, 0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .category-item:hover {
+            background: rgba(231, 111, 81, 0.05);
+            transform: translateX(5px);
+        }
+
+        .category-item:hover::before {
+            opacity: 1;
+        }
+
+        .category-item.active {
+            background: rgba(231, 111, 81, 0.08);
+            font-weight: 500;
+            box-shadow: inset 4px 0 0 var(--cuisine-color);
+        }
+
+        .category-item[data-category="restaurants"] {
+            border-left-color: var(--restaurant-color);
+        }
+        .category-item[data-category="recipes"] {
+            border-left-color: var(--recipe-color);
+        }
+        .category-item[data-category="chefs"] {
+            border-left-color: var(--chef-color);
+        }
+        .category-item[data-category="trends"] {
+            border-left-color: var(--trend-color);
+        }
+        .category-item[data-category="reservations"] {
+            border-left-color: var(--reservation-color);
+        }
+        .category-item[data-category="delivery"] {
+            border-left-color: var(--delivery-color);
+        }
+
+        .category-item.active .category-name {
+            color: var(--dark);
+        }
+
+        .category-icon {
+            width: 42px;
+            height: 42px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2rem;
+            transition: all 0.3s ease;
+            flex-shrink: 0;
+        }
+
+        .category-item[data-category="restaurants"] .category-icon {
+            background: rgba(231, 111, 81, 0.1);
+            color: var(--restaurant-color);
+        }
+        .category-item[data-category="recipes"] .category-icon {
+            background: rgba(42, 157, 143, 0.1);
+            color: var(--recipe-color);
+        }
+        .category-item[data-category="chefs"] .category-icon {
+            background: rgba(233, 196, 106, 0.1);
+            color: var(--chef-color);
+        }
+        .category-item[data-category="trends"] .category-icon {
+            background: rgba(244, 162, 97, 0.1);
+            color: var(--trend-color);
+        }
+        .category-item[data-category="reservations"] .category-icon {
+            background: rgba(69, 123, 157, 0.1);
+            color: var(--reservation-color);
+        }
+        .category-item[data-category="delivery"] .category-icon {
+            background: rgba(155, 93, 229, 0.1);
+            color: var(--delivery-color);
+        }
+
+        .category-item:hover .category-icon {
+            transform: scale(1.1);
+        }
+
+        .category-name {
+            font-weight: 500;
+            color: var(--text);
+            font-size: 1.05rem;
+            transition: all 0.3s ease;
+        }
+
+        /* Sub Sidebar Styles */
+        .sub-sidebar {
+            width: var(--subsidebar-width);
+            background: rgba(245, 241, 235, 0.98);
+            border-right: 1px solid rgba(139, 111, 71, 0.15);
+            transform: translateX(-100%);
+            z-index: 28; /* Below main sidebar but above content */
+            left: var(--sidebar-width);
+        }
+
+        .sub-sidebar-visible {
+            transform: translateX(0);
+            opacity: 1;
+        }
+
+        /* Other styles are omitted for brevity but are identical to the original */
+        .subcategory-list { padding: 15px 12px 12px 12px; }
+        .subcategory-item { padding: 14px 22px 14px 36px; cursor: pointer; transition: all 0.3s ease; font-size: 0.97rem; color: var(--text); position: relative; border-radius: 6px; margin: 0 10px; }
+        .subcategory-item::before { content: ''; position: absolute; left: 16px; top: 50%; transform: translateY(-50%); width: 8px; height: 8px; border-radius: 50%; background: transparent; transition: all 0.3s ease; }
+        .subcategory-item:hover { background: rgba(231, 111, 81, 0.08); color: var(--cuisine-color); transform: translateX(5px); }
+        .subcategory-item.active { background: rgba(231, 111, 81, 0.1); color: var(--cuisine-color); font-weight: 600; }
+        .subcategory-item.active::before { background: var(--cuisine-color); box-shadow: 0 0 0 2px rgba(231, 111, 81, 0.2); transform: translateY(-50%) scale(1.2); }
+        .history-sidebar { width: var(--history-width); border-right: 1px solid rgba(139, 111, 71, 0.15); transform: translateX(-100%); z-index: 30; left: 0; }
+        .history-sidebar-visible { transform: translateX(0); opacity: 1; }
+        .history-list { padding: 15px 0; }
+        .history-item { padding: 16px 26px; cursor: pointer; transition: all 0.3s ease; font-size: 0.97rem; color: var(--text); border-left: 4px solid transparent; margin: 0 12px; border-radius: 8px; position: relative; }
+        .history-item::before { content: ''; position: absolute; left: 0; top: 0; width: 100%; height: 100%; background: linear-gradient(to right, rgba(231, 111, 81, 0.05), transparent); opacity: 0; transition: opacity 0.3s ease; }
+        .history-item:hover { background: rgba(231, 111, 81, 0.05); border-left-color: var(--cuisine-color); }
+        .history-item:hover::before { opacity: 1; }
+        .history-item.active { background: rgba(231, 111, 81, 0.08); border-left-color: var(--cuisine-color); font-weight: 500; }
+        .chat-area { flex: 1; display: flex; flex-direction: column; height: 100%; position: relative; overflow: hidden; background: rgba(255, 255, 255, 0.7); backdrop-filter: blur(5px); }
+        .chat-messages { flex: 1; overflow-y: auto; padding: 30px; display: flex; flex-direction: column; gap: 20px; z-index: 1; scroll-behavior: smooth; }
+        .message { max-width: 75%; padding: 18px 24px; line-height: 1.6; position: relative; animation: fadeIn 0.4s var(--transition-timing); box-shadow: var(--shadow-md); transition: all 0.3s ease; }
+        .bot-message { align-self: flex-start; background: white; border-radius: 24px 24px 24px 8px; color: var(--text); border: 1px solid rgba(139, 111, 71, 0.12); }
+        .user-message { align-self: flex-end; background: linear-gradient(135deg, var(--cuisine-color), var(--cuisine-color-dark)); color: white; border-radius: 24px 24px 8px 24px; box-shadow: 0 4px 20px var(--cuisine-glow); }
+        .category-selected-message { background: rgba(255, 255, 255, 0.9); border: 1px dashed var(--cuisine-color); border-radius: 16px; padding: 18px; margin: 15px auto; text-align: center; color: var(--cuisine-color); font-weight: 500; max-width: 80%; animation: pulse 2s infinite; backdrop-filter: blur(5px); box-shadow: 0 4px 15px rgba(231, 111, 81, 0.1); }
+        .chat-input-area { position: relative; z-index: 2; padding: 0 30px 25px; background: rgba(255, 255, 255, 0.8); border-top: 1px solid rgba(139, 111, 71, 0.15); backdrop-filter: blur(5px); }
+        .chat-input-container { display: flex; gap: 15px; align-items: center; max-width: 900px; margin: 0 auto; width: 100%; padding: 0 15px; }
+        .input-actions { display: flex; gap: 10px; }
+        .action-btn { width: 44px; height: 44px; border-radius: 50%; background: rgba(245, 241, 235, 0.9); border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; color: var(--text-light); box-shadow: var(--shadow-sm); position: relative; overflow: hidden; }
+        .action-btn::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(231, 111, 81, 0.1), transparent); opacity: 0; transition: opacity 0.3s ease; }
+        .action-btn:hover { background: rgba(231, 111, 81, 0.1); color: var(--cuisine-color); transform: scale(1.1); }
+        .action-btn:hover::before { opacity: 1; }
+        .chat-input { flex: 1; padding: 16px 24px; border: 1px solid rgba(139, 111, 71, 0.2); border-radius: 28px; font-family: 'Montserrat', sans-serif; font-size: 1rem; transition: all 0.3s ease; background: rgba(245, 241, 235, 0.8); min-height: 52px; box-shadow: var(--shadow-sm); resize: none; height: 52px; max-height: 150px; overflow-y: auto; }
+        .chat-input:focus { outline: none; border-color: var(--cuisine-color); box-shadow: 0 0 0 3px var(--cuisine-glow); background: white; }
+        .send-btn { width: 52px; height: 52px; border-radius: 50%; background: linear-gradient(135deg, var(--cuisine-color), var(--cuisine-color-dark)); color: white; border: none; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; box-shadow: 0 4px 20px var(--cuisine-glow); position: relative; overflow: hidden; }
+        .send-btn::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(255,255,255,0.2), transparent); opacity: 0; transition: opacity 0.3s ease; }
+        .send-btn:hover { transform: translateY(-3px) scale(1.05); box-shadow: 0 6px 25px var(--cuisine-glow); }
+        .send-btn:hover::before { opacity: 1; }
+        .suggestion-sidebar { width: var(--suggestion-width); border-left: 1px solid rgba(139, 111, 71, 0.15); transform: translateX(100%); z-index: 20; right: 0; background: rgba(255, 255, 255, 0.98); backdrop-filter: blur(12px); }
+        .suggestion-sidebar-visible { transform: translateX(0); opacity: 1; }
+        .suggestion-header { padding: 22px; border-bottom: 1px solid rgba(139, 111, 71, 0.1); display: flex; justify-content: space-between; align-items: center; background: rgba(255, 255, 255, 0.95); position: sticky; top: 0; z-index: 1; }
+        .suggestion-title { font-family: 'Playfair Display', serif; font-size: 1.4rem; color: var(--dark); font-weight: 600; letter-spacing: 0.5px; }
+        .suggestion-cards { padding: 18px; display: grid; grid-template-columns: 1fr; gap: 18px; }
+        .suggestion-card { background: white; border-radius: 14px; overflow: hidden; box-shadow: var(--shadow-md); transition: all 0.3s ease; border: 1px solid rgba(139, 111, 71, 0.15); position: relative; }
+        .suggestion-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(231, 111, 81, 0.05), transparent); opacity: 0; transition: opacity 0.3s ease; }
+        .suggestion-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); border-color: var(--cuisine-color); }
+        .suggestion-card:hover::before { opacity: 1; }
+        .suggestion-image { height: 160px; background-size: cover; background-position: center; position: relative; transition: all 0.5s ease; }
+        .suggestion-card:hover .suggestion-image { transform: scale(1.02); }
+        .suggestion-image::after { content: ''; position: absolute; top: 0; left: 0; right: 0; bottom: 0; background: linear-gradient(to top, rgba(0, 0, 0, 0.6), transparent 60%); }
+        .suggestion-content { padding: 18px; position: relative; z-index: 1; background: white; }
+        .suggestion-name { font-weight: 600; margin-bottom: 10px; color: var(--dark); font-size: 1.15rem; font-family: 'Playfair Display', serif; }
+        .suggestion-meta { display: flex; gap: 14px; margin-bottom: 12px; flex-wrap: wrap; }
+        .suggestion-meta span { display: flex; align-items: center; gap: 6px; font-size: 0.85rem; color: var(--text-light); }
+        .suggestion-meta i { font-size: 0.75rem; }
+        .suggestion-desc { font-size: 0.9rem; color: var(--text-light); margin-bottom: 16px; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.5; }
+        .suggestion-btn { width: 100%; padding: 10px; background: rgba(231, 111, 81, 0.1); color: var(--cuisine-color); border: none; border-radius: 10px; font-size: 0.9rem; font-weight: 600; cursor: pointer; transition: all 0.3s ease; display: flex; align-items: center; justify-content: center; gap: 8px; position: relative; overflow: hidden; }
+        .suggestion-btn::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(231, 111, 81, 0.2), transparent); opacity: 0; transition: opacity 0.3s ease; }
+        .suggestion-btn:hover { background: rgba(231, 111, 81, 0.2); transform: translateY(-2px); }
+        .suggestion-btn:hover::before { opacity: 1; }
+        .sidebar-toggle { position: absolute; top: 25px; width: 40px; height: 40px; background: white; border: none; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; z-index: 30; box-shadow: var(--shadow-lg); transition: all 0.3s ease; color: var(--primary); }
+        .sidebar-toggle:hover { background: var(--cuisine-color); color: white; transform: scale(1.1); box-shadow: 0 5px 20px rgba(231, 111, 81, 0.3); }
+        .left-toggle { left: 25px; }
+        .right-toggle { right: 25px; }
+        .toggle-label { position: absolute; white-space: nowrap; font-size: 0.8rem; font-weight: 600; color: white; background: var(--cuisine-color); padding: 6px 12px; border-radius: 14px; opacity: 0; transition: all 0.3s ease; pointer-events: none; box-shadow: var(--shadow-sm); }
+        .left-toggle .toggle-label { left: 50px; content: 'Catégories'; }
+        .right-toggle .toggle-label { right: 50px; content: 'Suggestions'; }
+        .sidebar-toggle:hover .toggle-label { opacity: 1; transform: translateX(0); }
+        .quick-questions { margin-top: 35px; padding-top: 28px; border-top: 1px dashed rgba(139, 111, 71, 0.3); }
+        .quick-questions h4 { font-size: 1rem; color: var(--text-light); margin-bottom: 20px; text-transform: uppercase; letter-spacing: 1px; text-align: center; position: relative; }
+        .quick-questions h4::before, .quick-questions h4::after { content: ''; position: absolute; top: 50%; width: 30px; height: 1px; background: rgba(139, 111, 71, 0.3); }
+        .quick-questions h4::before { left: 25%; }
+        .quick-questions h4::after { right: 25%; }
+        .question-bubbles { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; padding: 0 25px; }
+        .question-bubble { background: rgba(245, 241, 235, 0.9); border: 1px solid rgba(139, 111, 71, 0.15); border-radius: 24px; padding: 12px 20px; font-size: 0.9rem; cursor: pointer; transition: all 0.3s ease; box-shadow: var(--shadow-sm); }
+        .question-bubble:hover { background: rgba(231, 111, 81, 0.1); border-color: var(--cuisine-color); transform: translateY(-3px); box-shadow: 0 4px 12px rgba(231, 111, 81, 0.15); }
+        .typing-indicator { display: inline-flex; align-items: center; padding: 12px 18px; background: white; border-radius: 24px; border: 1px solid rgba(139, 111, 71, 0.15); box-shadow: var(--shadow-sm); margin-bottom: 16px; align-self: flex-start; animation: fadeIn 0.3s ease-out; }
+        .typing-dot { width: 8px; height: 8px; background: var(--cuisine-color); border-radius: 50%; margin: 0 4px; animation: typingAnimation 1.4s infinite ease-in-out; }
+        .typing-dot:nth-child(1) { animation-delay: 0s; }
+        .typing-dot:nth-child(2) { animation-delay: 0.2s; }
+        .typing-dot:nth-child(3) { animation-delay: 0.4s; }
+        .welcome-message { background: white; border-radius: 24px; padding: 25px; margin-bottom: 25px; box-shadow: var(--shadow-md); border: 1px solid rgba(139, 111, 71, 0.1); text-align: center; animation: fadeInUp 0.6s ease-out; position: relative; overflow: hidden; }
+        .welcome-message::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(135deg, rgba(231, 111, 81, 0.03), transparent); z-index: 0; }
+        .welcome-message h3 { font-family: 'Playfair Display', serif; color: var(--primary); margin-bottom: 12px; font-size: 1.5rem; position: relative; }
+        .welcome-message p { color: var(--text-light); font-size: 1rem; margin-bottom: 18px; position: relative; }
+        .floating-element { position: absolute; border-radius: 50%; background: rgba(196, 169, 124, 0.1); filter: blur(20px); z-index: 0; }
+        .floating-element-1 { width: 150px; height: 150px; top: 20%; left: 10%; animation: float 15s infinite ease-in-out; }
+        .floating-element-2 { width: 200px; height: 200px; bottom: 15%; right: 10%; animation: float 18s infinite ease-in-out reverse; }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(12px) scale(0.98); } to { opacity: 1; transform: translateY(0) scale(1); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes typingAnimation { 0%, 60%, 100% { transform: translateY(0); opacity: 0.6; } 30% { transform: translateY(-5px); opacity: 1; } }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(231, 111, 81, 0.2); } 70% { box-shadow: 0 0 0 12px rgba(231, 111, 81, 0); } 100% { box-shadow: 0 0 0 0 rgba(231, 111, 81, 0); } }
+        @keyframes float { 0%, 100% { transform: translateY(0) translateX(0); } 25% { transform: translateY(-20px) translateX(10px); } 50% { transform: translateY(10px) translateX(-15px); } 75% { transform: translateY(-10px) translateX(15px); } }
+        @media (max-width: 1200px) { :root { --sidebar-width: 280px; --subsidebar-width: 240px; --suggestion-width: 300px; } }
+        @media (max-width: 992px) { .chat-tab span { display: none; } .chat-tab { padding: 10px 20px; } .chat-input-container { padding: 12px; max-width: 90%; } }
+        @media (max-width: 768px) { :root { --header-height: 70px; --sidebar-width: 260px; --subsidebar-width: 220px; --suggestion-width: 280px; } .header-container { padding: 0 20px; } .chat-logo-text { font-size: 20px; } .chat-tab { padding: 8px 18px; } .message { max-width: 85%; } .sidebar-toggle { width: 36px; height: 36px; top: 20px; } .chat-messages { padding: 20px; } }
+        @media (max-width: 576px) { :root { --header-height: 60px; --sidebar-width: 240px; --icon-bar-width: 60px; } .chat-logo-text { display: none; } .chat-messages { padding: 15px; } .send-btn { width: 46px; height: 46px; } .sidebar-toggle { width: 32px; height: 32px; font-size: 0.9rem; top: 15px; } .chat-input-container { max-width: 100%; padding: 0; } .chat-input-area { padding: 0 15px 15px; } .question-bubbles { padding: 0 15px; } .quick-questions h4::before, .quick-questions h4::after { width: 20px; } .quick-questions h4::before { left: 15%; } .quick-questions h4::after { right: 15%; } }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Floating decorative elements -->
+        <div class="floating-element floating-element-1"></div>
+        <div class="floating-element floating-element-2"></div>
+
+        <header class="chat-header">
+            <div class="header-container">
+                <a href="#" class="chat-logo">
+                    <i class="fas fa-concierge-bell chat-logo-icon"></i>
+                    <span class="chat-logo-text">212 Concierge</span>
+                </a>
+
+                <div class="chat-tabs">
+                    <a href="#" class="chat-tab cuisine active"><i class="fas fa-utensils"></i><span>Cuisine</span></a>
+                    <a href="#" class="chat-tab cityguide"><i class="fas fa-map-marked-alt"></i><span>Guide</span></a>
+                    <a href="#" class="chat-tab events"><i class="fas fa-calendar-alt"></i><span>Événements</span></a>
+                </div>
+
+                <div class="header-controls">
+                    <button class="header-btn" id="toggleHistoryBtn" title="Historique">
+                        <i class="fas fa-history"></i>
+                    </button>
+                     <button class="header-btn" id="toggleSidebarRight" title="Suggestions">
+                        <i class="fas fa-lightbulb"></i>
+                    </button>
+                </div>
+            </div>
+        </header>
+
+        <div class="chat-main">
+            <!-- Icon Bar -->
+            <div class="icon-bar" id="iconBar">
+                <div class="icon-bar-item" data-category="restaurants" title="Restaurants"><i class="fas fa-store"></i></div>
+                <div class="icon-bar-item" data-category="recipes" title="Recettes"><i class="fas fa-book-open"></i></div>
+                <!-- CORRECTION APPLIQUÉE ICI -->
+                <div class="icon-bar-item" data-category="chefs" title="Suggestions"><i class="fas fa-lightbulb"></i></div>
+                <div class="icon-bar-item" data-category="trends" title="Tendances"><i class="fas fa-chart-line"></i></div>
+                <div class="icon-bar-item" data-category="reservations" title="Réservations"><i class="fas fa-calendar-check"></i></div>
+                <div class="icon-bar-item" data-category="delivery" title="Livraison"><i class="fas fa-motorcycle"></i></div>
+            </div>
+
+            <!-- Sidebars -->
+            <div class="sidebar" id="mainSidebar">
+                <div class="sidebar-header">
+                    <h3 class="sidebar-title">Explorer</h3>
+                    <button class="close-sidebar" id="closeSidebar"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="category-list">
+                    <div class="category-item" data-category="restaurants"><div class="category-icon"><i class="fas fa-store"></i></div><div class="category-name">Restaurants</div></div>
+                    <div class="category-item" data-category="recipes"><div class="category-icon"><i class="fas fa-book-open"></i></div><div class="category-name">Recettes</div></div>
+                    <!-- CORRECTION APPLIQUÉE ICI -->
+                    <div class="category-item" data-category="chefs"><div class="category-icon"><i class="fas fa-lightbulb"></i></div><div class="category-name">Suggestions</div></div>
+                    <div class="category-item" data-category="trends"><div class="category-icon"><i class="fas fa-chart-line"></i></div><div class="category-name">Tendances</div></div>
+                    <div class="category-item" data-category="reservations"><div class="category-icon"><i class="fas fa-calendar-check"></i></div><div class="category-name">Réservations</div></div>
+                    <div class="category-item" data-category="delivery"><div class="category-icon"><i class="fas fa-motorcycle"></i></div><div class="category-name">Livraison</div></div>
+                </div>
+            </div>
+
+            <div class="sub-sidebar" id="subSidebar">
+                <!-- Sub-category lists are unchanged -->
+                <div class="subcategory-list" id="restaurantsSub" style="display:none;">
+                    <div class="subcategory-item active" data-subcategory="all">Tous</div>
+                    <div class="subcategory-item" data-subcategory="traditional">Traditionnel</div>
+                    <div class="subcategory-item" data-subcategory="international">International</div>
+                    <div class="subcategory-item" data-subcategory="luxury">Luxe</div>
+                    <div class="subcategory-item" data-subcategory="hidden">Adresses cachées</div>
+                    <div class="subcategory-item" data-subcategory="views">Avec vue</div>
+                    <div class="subcategory-item" data-subcategory="romantic">Romantique</div>
+                </div>
+                <div class="subcategory-list" id="recipesSub" style="display:none;">
+                    <div class="subcategory-item active" data-subcategory="all">Toutes</div>
+                    <div class="subcategory-item" data-subcategory="tagines">Tajines</div>
+                    <div class="subcategory-item" data-subcategory="couscous">Couscous</div>
+                    <div class="subcategory-item" data-subcategory="pastilla">Pastilla</div>
+                    <div class="subcategory-item" data-subcategory="seafood">Fruits de mer</div>
+                    <div class="subcategory-item" data-subcategory="desserts">Desserts</div>
+                    <div class="subcategory-item" data-subcategory="vegetarian">Végétarien</div>
+                </div>
+                <div class="subcategory-list" id="chefsSub" style="display:none;">
+                    <div class="subcategory-item active" data-subcategory="all">Toutes</div>
+                    <div class="subcategory-item" data-subcategory="favorites">Favoris des chefs</div>
+                    <div class="subcategory-item" data-subcategory="new">Nouveautés</div>
+                    <div class="subcategory-item" data-subcategory="seasonal">De saison</div>
+                    <div class="subcategory-item" data-subcategory="ingredients">Ingrédients</div>
+                    <div class="subcategory-item" data-subcategory="pairings">Accords mets-vins</div>
+                </div>
+                <div class="subcategory-list" id="trendsSub" style="display:none;"></div>
+                <div class="subcategory-list" id="reservationsSub" style="display:none;"></div>
+                <div class="subcategory-list" id="deliverySub" style="display:none;"></div>
+            </div>
+
+            <div class="history-sidebar" id="historySidebar">
+                <div class="sidebar-header">
+                    <h3 class="sidebar-title">Historique</h3>
+                    <button class="close-history" id="closeHistory"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="history-list">
+                    <div class="history-item">Recherche de restaurants</div>
+                    <div class="history-item">Recette de tajine</div>
+                    <div class="history-item">Réservations récentes</div>
+                    <div class="history-item">Suggestions du chef</div>
+                    <div class="history-item">Tendances culinaires</div>
+                </div>
+            </div>
+
+            <!-- Main Chat Area -->
+            <div class="chat-area">
+                <div class="chat-messages" id="chatMessages">
+                    <div class="welcome-message">
+                        <h3>Bienvenue chez 212 Concierge</h3>
+                        <p>Votre assistant personnel pour découvrir les meilleures expériences culinaires marocaines. Cliquez sur une icône à gauche pour commencer.</p>
+                    </div>
+
+                    <div class="quick-questions">
+                        <h4>Questions rapides</h4>
+                        <div class="question-bubbles">
+                            <div class="question-bubble">Restaurants avec vue</div>
+                            <div class="question-bubble">Adresses romantiques</div>
+                            <div class="question-bubble">Spécialités marocaines</div>
+                            <div class="question-bubble">Réservation ce soir</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="chat-input-area">
+                    <div class="chat-input-container">
+                        <div class="input-actions">
+                            <button class="action-btn" title="Microphone"><i class="fas fa-microphone"></i></button>
+                            <button class="action-btn" title="Fichier"><i class="fas fa-paperclip"></i></button>
+                        </div>
+                        <textarea class="chat-input" id="userInput" placeholder="Posez votre question..." rows="1"></textarea>
+                        <button class="send-btn" id="sendMessage"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="suggestion-sidebar" id="suggestionSidebar">
+                <!-- Suggestion sidebar content is unchanged -->
+                 <div class="suggestion-header">
+                    <h3 class="suggestion-title">Nos Suggestions</h3>
+                    <button class="close-suggestions" id="closeSuggestions"><i class="fas fa-times"></i></button>
+                </div>
+                <div class="suggestion-cards">
+                    <div class="suggestion-card">
+                        <div class="suggestion-image" style="background-image: url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1374&q=80')"></div>
+                        <div class="suggestion-content">
+                            <h4 class="suggestion-name">Dar Moha</h4>
+                            <div class="suggestion-meta">
+                                <span class="suggestion-rating"><i class="fas fa-star"></i> 4.8</span>
+                                <span class="suggestion-price"><i class="fas fa-tag"></i> $$$</span>
+                                <span class="suggestion-location"><i class="fas fa-map-marker-alt"></i> Marrakech</span>
+                            </div>
+                            <p class="suggestion-desc">Cuisine marocaine moderne dans un palais traditionnel restauré avec élégance. Spécialités : Pastilla de pigeon, tajine d'agneau aux pruneaux.</p>
+                            <button class="suggestion-btn"><i class="fas fa-info-circle"></i> En savoir plus</button>
+                        </div>
+                    </div>
+                    <div class="suggestion-card">
+                        <div class="suggestion-image" style="background-image: url('https://images.unsplash.com/photo-1551504734-5ee1c4a1479b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')"></div>
+                        <div class="suggestion-content">
+                            <h4 class="suggestion-name">Tajine d'agneau</h4>
+                            <div class="suggestion-meta">
+                                <span class="suggestion-time"><i class="fas fa-clock"></i> 2h30</span>
+                                <span class="suggestion-difficulty"><i class="fas fa-signal"></i> Moyen</span>
+                            </div>
+                            <p class="suggestion-desc">Recette traditionnelle avec des saveurs sucrées-salées, parfaite pour les occasions spéciales. Ingrédients clés : Agneau, pruneaux, amandes, épices ras-el-hanout.</p>
+                            <button class="suggestion-btn"><i class="fas fa-utensils"></i> Voir la recette</button>
+                        </div>
+                    </div>
+                    <div class="suggestion-card">
+                        <div class="suggestion-image" style="background-image: url('https://images.unsplash.com/photo-1606787366850-de6330128bfc?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80')"></div>
+                        <div class="suggestion-content">
+                            <h4 class="suggestion-name">Atelier de cuisine</h4>
+                            <div class="suggestion-meta">
+                                <span class="suggestion-date"><i class="fas fa-calendar-day"></i> 15 Juin</span>
+                                <span class="suggestion-price"><i class="fas fa-tag"></i> 450 MAD</span>
+                            </div>
+                            <p class="suggestion-desc">Apprenez à préparer un couscous traditionnel avec un chef dans la médina de Fès. Durée : 3h. Inclus : Marché aux épices, dégustation, livret de recettes.</p>
+                            <button class="suggestion-btn"><i class="fas fa-calendar-alt"></i> Réserver</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Main elements
+        const mainSidebar = document.getElementById('mainSidebar');
+        const subSidebar = document.getElementById('subSidebar');
+        const suggestionSidebar = document.getElementById('suggestionSidebar');
+        const historySidebar = document.getElementById('historySidebar');
+        const iconBarItems = document.querySelectorAll('.icon-bar-item'); // NEW
+        const toggleSidebarRight = document.getElementById('toggleSidebarRight');
+        const toggleHistoryBtn = document.getElementById('toggleHistoryBtn');
+        const closeSidebarBtn = document.getElementById('closeSidebar');
+        const closeSuggestionsBtn = document.getElementById('closeSuggestions');
+        const closeHistoryBtn = document.getElementById('closeHistory');
+        const chatMessages = document.getElementById('chatMessages');
+        const userInput = document.getElementById('userInput');
+        const sendMessageBtn = document.getElementById('sendMessage');
+        const categoryItems = document.querySelectorAll('.category-item');
+        const subcategoryItems = document.querySelectorAll('.subcategory-item');
+        const questionBubbles = document.querySelectorAll('.question-bubble');
+        let currentCategory = null;
+        let currentSubcategory = 'all';
+        let isTyping = false;
+
+        // Initialize chat
+        function initChat() {
+            setupEventListeners();
+            autoResizeTextarea();
+        }
+
+        // Auto-resize textarea
+        function autoResizeTextarea() {
+            userInput.addEventListener('input', function() {
+                this.style.height = 'auto';
+                this.style.height = (this.scrollHeight) + 'px';
+            });
+        }
+
+        // Setup event listeners
+        function setupEventListeners() {
+            // NEW: Open main sidebar when an icon is clicked
+            iconBarItems.forEach(icon => {
+                icon.addEventListener('click', () => {
+                    mainSidebar.classList.add("sidebar-visible");
+
+                    // Close other sidebars if they are open
+                    suggestionSidebar.classList.remove("suggestion-sidebar-visible");
+                    historySidebar.classList.remove("history-sidebar-visible");
+                    toggleSidebarRight.classList.remove("active");
+                    toggleHistoryBtn.classList.remove("active");
+                });
+            });
+
+            // Toggle sidebars
+            toggleSidebarRight.addEventListener("click", toggleSuggestionSidebar);
+            toggleHistoryBtn.addEventListener("click", toggleHistorySidebar);
+
+            // Close sidebars
+            closeSidebarBtn.addEventListener("click", () => {
+                mainSidebar.classList.remove("sidebar-visible");
+                subSidebar.classList.remove("sub-sidebar-visible");
+            });
+
+            closeSuggestionsBtn.addEventListener("click", toggleSuggestionSidebar);
+            closeHistoryBtn.addEventListener("click", toggleHistorySidebar);
+
+            // Category selection
+            categoryItems.forEach(item => {
+                item.addEventListener("click", handleCategorySelection);
+            });
+
+            // Subcategory selection
+            subcategoryItems.forEach(item => {
+                item.addEventListener("click", handleSubcategorySelection);
+            });
+
+            // Question bubbles
+            questionBubbles.forEach(bubble => {
+                bubble.addEventListener("click", function() {
+                    userInput.value = this.textContent;
+                    sendUserMessage();
+                });
+            });
+
+            // Send message
+            sendMessageBtn.addEventListener("click", sendUserMessage);
+            userInput.addEventListener("keypress", function(e) {
+                if (e.key === "Enter" && !e.shiftKey) {
+                    e.preventDefault();
+                    sendUserMessage();
+                }
+            });
+        }
+
+        // Toggle suggestion sidebar
+        function toggleSuggestionSidebar() {
+            const isVisible = suggestionSidebar.classList.toggle("suggestion-sidebar-visible");
+            toggleSidebarRight.classList.toggle("active", isVisible);
+
+            if (isVisible) {
+                // Close other sidebars when opening this one
+                mainSidebar.classList.remove("sidebar-visible");
+                subSidebar.classList.remove("sub-sidebar-visible");
+                historySidebar.classList.remove("history-sidebar-visible");
+                toggleHistoryBtn.classList.remove("active");
+            }
+        }
+
+        // Toggle history sidebar
+        function toggleHistorySidebar() {
+            const isVisible = historySidebar.classList.toggle("history-sidebar-visible");
+            toggleHistoryBtn.classList.toggle("active", isVisible);
+
+            if (isVisible) {
+                // Close other sidebars when opening this one
+                mainSidebar.classList.remove("sidebar-visible");
+                subSidebar.classList.remove("sub-sidebar-visible");
+                suggestionSidebar.classList.remove("suggestion-sidebar-visible");
+                toggleSidebarRight.classList.remove("active");
+            }
+        }
+
+        // Handle category selection
+        function handleCategorySelection(e) {
+            const item = e.currentTarget;
+            const category = item.dataset.category;
+
+            // Prevent re-opening sub-sidebar if already active and visible
+            if (item.classList.contains("active") && subSidebar.classList.contains("sub-sidebar-visible")) {
+                return;
+            }
+
+            // Update active state
+            categoryItems.forEach(catItem => {
+                catItem.classList.remove("active");
+            });
+            item.classList.add("active");
+
+            // Show relevant subcategories
+            document.querySelectorAll(".subcategory-list").forEach(list => {
+                list.style.display = "none";
+            });
+
+            document.querySelectorAll(".subcategory-item").forEach(subItem => {
+                subItem.classList.remove("active");
+            });
+
+            const subList = document.getElementById(`${category}Sub`);
+            if (subList) {
+                subList.style.display = "block";
+                // Activate the first subcategory item by default
+                if (subList.querySelector(".subcategory-item")) {
+                    subList.querySelector(".subcategory-item").classList.add("active");
+                    currentSubcategory = subList.querySelector(".subcategory-item").dataset.subcategory;
+                } else {
+                    currentSubcategory = "all";
+                }
+            } else {
+                 currentSubcategory = "all";
+            }
+
+            subSidebar.classList.add("sub-sidebar-visible");
+            currentCategory = category;
+
+            addCategorySelectedMessage(`Prêt pour vos questions sur : <strong>${getCategoryName(category)}</strong>.`);
+        }
+
+        // This function remains the same
+        function handleSubcategorySelection(e) {
+            const item = e.currentTarget;
+            if (item.classList.contains("active")) return;
+
+            item.parentElement.querySelectorAll(".subcategory-item").forEach(subItem => {
+                subItem.classList.remove("active");
+            });
+            item.classList.add("active");
+            currentSubcategory = item.dataset.subcategory;
+            addCategorySelectedMessage(`Spécialisation : <strong>${getSubcategoryName(currentSubcategory)}</strong>.`);
+
+            setTimeout(() => {
+                mainSidebar.classList.remove("sidebar-visible");
+                subSidebar.classList.remove("sub-sidebar-visible");
+            }, 1500);
+        }
+
+        // All other Javascript functions (showTypingIndicator, hideTypingIndicator, sendUserMessage, addMessage, etc.)
+        // remain exactly as they were in the original code. They are omitted here for brevity but are unchanged.
+        function showTypingIndicator() { if (isTyping) return; isTyping = true; const indicator = document.createElement("div"); indicator.classList.add("typing-indicator"); indicator.innerHTML = '<span class="typing-dot"></span><span class="typing-dot"></span><span class="typing-dot"></span>'; chatMessages.appendChild(indicator); chatMessages.scrollTop = chatMessages.scrollHeight; }
+        function hideTypingIndicator() { const indicator = document.querySelector(".typing-indicator"); if (indicator) indicator.remove(); isTyping = false; }
+        function sendUserMessage() { const message = userInput.value.trim(); if (message === "") return; addUserMessage(message); userInput.value = ""; userInput.style.height = 'auto'; showTypingIndicator(); setTimeout(() => { hideTypingIndicator(); let response = generateBotResponse(message); addBotMessage(response); }, 1500 + 1000 * Math.random()); }
+        function addMessage(content, type, style) { const selectedMsg = document.querySelector(".category-selected-message"); if (selectedMsg) selectedMsg.remove(); const message = document.createElement("div"); message.classList.add(type, style); message.innerHTML = content; chatMessages.appendChild(message); chatMessages.scrollTop = chatMessages.scrollHeight; }
+        function addUserMessage(content) { addMessage(content, "message", "user-message"); }
+        function addBotMessage(content) { addMessage(content, "message", "bot-message"); }
+        function addCategorySelectedMessage(content) { addMessage(content, "message", "category-selected-message"); }
+        function generateBotResponse(message) { const msg = message.toLowerCase(); if (msg.includes("bonjour") || msg.includes("salut")) { return "Bonjour ! Comment puis-je vous assister avec la gastronomie marocaine aujourd'hui ?"; } if (msg.includes("merci")) { return "Avec grand plaisir ! N'hésitez pas si vous avez d'autres questions."; } if (currentCategory) { switch(currentCategory) { case "restaurants": if (msg.includes("meilleur") || msg.includes("recommand")) { if (currentSubcategory === "luxury") { return "Pour une expérience de luxe, je recommande <strong>La Grande Table Marocaine</strong> au Royal Mansour, une référence absolue. Souhaitez-vous que j'essaie de vous obtenir une réservation ?"; } else if (currentSubcategory === "romantic") { return "Pour un dîner romantique, <strong>Le Jardin Secret</strong> à Marrakech offre une ambiance magique avec ses jardins luxuriants. Leur menu de spécialités marocaines revisitées est exceptionnel."; } return "Pour une excellente expérience, je vous suggère <strong>Nomad</strong> à Marrakech pour sa cuisine moderne et sa vue imprenable. Je peux aussi vous recommander des options plus traditionnelles si vous préférez."; } return "Concernant les restaurants, je peux vous aider à trouver l'adresse parfaite. Quelle est votre envie du moment ?"; case "recipes": if (msg.includes("tajine") || msg.includes("tagine")) { return "Pour un tajine d'agneau aux pruneaux parfait, le secret est une cuisson très lente et l'ajout d'une cuillère de miel en fin de cuisson. Souhaitez-vous la recette détaillée ?"; } else if (msg.includes("couscous")) { return "Le couscous traditionnel nécessite une semoule de qualité supérieure et au moins 7 légumes différents. La vapeur doit être douce et régulière pour un résultat parfait."; } return "Je possède de nombreuses recettes authentiques. Cherchez-vous quelque chose en particulier, comme un <strong>couscous royal</strong> ou une <strong>pastilla</strong> ?"; case "chefs": return "Les grands chefs conseillent d'utiliser des épices fraîchement moulues. Un chef de renom, Moha Fedal, a révolutionné la cuisine marocaine dans son restaurant <strong>Dar Moha</strong>. C'est une visite incontournable."; default: return `Bien sûr. Concernant <strong>${getCategoryName(currentCategory)}</strong>, je peux vous fournir des informations précises. Quelle est votre question exacte ?`; } } return "Je suis à votre service. Pour mieux vous guider, sélectionnez une catégorie en cliquant sur une des icônes à gauche."; }
+        function getCategoryName(category) { const item = document.querySelector(`.category-item[data-category="${category}"] .category-name`); return item ? item.textContent : category; }
+        function getSubcategoryName(subcategory) { const item = document.querySelector(`.subcategory-item[data-subcategory="${subcategory}"]`); return item ? item.textContent : subcategory; }
+
+        // Initialize chat when page loads
+        window.addEventListener("load", initChat);
+    </script>
+</body>
+</html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3arboon - Plateforme de Réservation</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        /* CSS sera inséré ici */
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <!-- Header -->
+ <header class="header">
+        <div class="header-container">
+            <div class="header-left">
+                <div class="logo-group">
+                    <div class="hands-logo">
+                        <i class="fas fa-hands"></i>
+                    </div>
+                    <div class="logo">3arboon</div>
+                </div>
+                <nav class="navbar">
+                    <ul class="nav-links">
+                        <li><a href="#">Accueil</a></li>
+                        <li><a href="#">Services</a></li>
+                        <li><a href="#">Offres</a></li>
+                        <li><a href="#">À propos</a></li>
+                        <li><a href="#">Contact</a></li>
+                    </ul>
+                </nav>
+            </div>
+            
+            <div class="header-right">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Rechercher...">
+                </div>
+                <button class="auth-btn">Connexion</button>
+            </div>
+        </div>
+    </header>
+    <!-- Hero Section -->
+  <div class="main-content">
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h2>Réservez l'excellence en un clic</h2>
+            <p>Découvrez les meilleurs services près de chez vous</p>
+            
+            <div class="search-filters">
+                <div class="filter-group">
+                    <label for="ville"><i class="fas fa-map-marker-alt"></i> Ville</label>
+                    <select id="ville">
+                        <option value="">Sélectionnez une ville</option>
+                        <option value="casablanca">Casablanca</option>
+                        <option value="rabat">Rabat</option>
+                        <option value="marrakech">Marrakech</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="categorie"><i class="fas fa-list"></i> Catégorie</label>
+                    <select id="categorie">
+                        <option value="">Toutes catégories</option>
+                        <option value="professionnel">Services Professionnels</option>
+                        <option value="sante">Santé & Bien-être</option>
+                    </select>
+                </div>
+                
+                <button class="search-btn">Rechercher</button>
+            </div>
+        </div>
+    </section>
+    <!-- User Type Selection -->
+    <section class="user-type">
+        <div class="type-card particulier">
+            <div class="card-main">
+                <div class="card-content">
+                    <h3>Spécial Particulier</h3>
+                    <p>Solutions personnalisées pour répondre à tous vos besoins individuels avec excellence</p>
+                   
+                </div>
+                <div class="card-icon-area">
+                    <div class="card-icon-bg"></div>
+                    <i class="fas fa-user card-icon"></i>
+                </div>
+            </div>
+        </div>
+        
+        <div class="type-card professionnel">
+            <div class="card-main">
+                <div class="card-content">
+                    <h3>Spécial Professionnel</h3>
+                    <p>Services premium et solutions expertes dédiées à votre réussite professionnelle</p>
+                   
+                </div>
+                <div class="card-icon-area">
+                    <div class="card-icon-bg"></div>
+                    <i class="fas fa-briefcase card-icon"></i>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Opportunities Section -->
+    <section class="opportunities">
+        <div class="section-header">
+            <h2>Nos Opportunités & Offres</h2>
+            
+            <div class="filters">
+                <div class="filter-dropdown">
+                    <span>Trier par <i class="fas fa-chevron-down"></i></span>
+                    <ul class="dropdown-menu">
+                        <li>Plus récents</li>
+                        <li>Plus populaires</li>
+                        <li>Meilleures notes</li>
+                    </ul>
+                </div>
+                
+                <div class="filter-tags">
+                    <span class="tag active">Tous</span>
+                    <span class="tag">Promotions</span>
+                    <span class="tag">Nouveautés</span>
+                    <span class="tag">Exclusivités</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="opportunities-grid">
+            <!-- Card 1 -->
+            <div class="opportunity-card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cHJvZmVzc2lvbmFsJTIwc2VydmljZXN8ZW58MHx8MHx8fDA%3D&auto=format&fit=crop&w=500&q=60" alt="Services Professionnels">
+                    <div class="card-badge">Premium</div>
+                </div>
+                <div class="card-content">
+                    <h3>Services Professionnels</h3>
+                    <p class="card-description">Experts qualifiés pour vos besoins professionnels spécifiques</p>
+                    <div class="card-meta">
+                        <span class="rating"><i class="fas fa-star"></i> 4.9</span>
+                        <span class="price">À partir de <strong>200 DH</strong></span>
+                    </div>
+                </div>
+                <div class="card-hover">
+                    <button>Voir détails</button>
+                    <button class="fav-btn"><i class="far fa-heart"></i></button>
+                </div>
+            </div>
+            
+            <!-- Card 2 -->
+            <div class="opportunity-card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8Zml0bmVzc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Santé/Sport/Bien-être">
+                    <div class="card-badge discount">-20%</div>
+                </div>
+                <div class="card-content">
+                    <h3>Santé/Sport/Bien-être</h3>
+                    <p class="card-description">Prenez soin de votre corps et de votre esprit</p>
+                    <div class="card-meta">
+                        <span class="rating"><i class="fas fa-star"></i> 4.7</span>
+                        <span class="price"><del>300 DH</del> <strong>240 DH</strong></span>
+                    </div>
+                </div>
+                <div class="card-hover">
+                    <button>Voir détails</button>
+                    <button class="fav-btn"><i class="far fa-heart"></i></button>
+                </div>
+            </div>
+            
+            <!-- Card 3 -->
+            <div class="opportunity-card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y29uc3RydWN0aW9ufGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" alt="Équipements/Travaux/Chantier">
+                    <div class="card-badge">Nouveau</div>
+                </div>
+                <div class="card-content">
+                    <h3>Équipements/Travaux/Chantier</h3>
+                    <p class="card-description">Matériel et services pour tous vos projets</p>
+                    <div class="card-meta">
+                        <span class="rating"><i class="fas fa-star"></i> 4.5</span>
+                        <span class="price">À partir de <strong>150 DH/jour</strong></span>
+                    </div>
+                </div>
+                <div class="card-hover">
+                    <button>Voir détails</button>
+                    <button class="fav-btn"><i class="far fa-heart"></i></button>
+                </div>
+            </div>
+            
+            <!-- Card 4 -->
+            <div class="opportunity-card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8Y2Fyc3xlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Véhicules et Engins">
+                    <div class="card-badge">Top</div>
+                </div>
+                <div class="card-content">
+                    <h3>Véhicules et Engins</h3>
+                    <p class="card-description">Location de véhicules pour tous vos déplacements</p>
+                    <div class="card-meta">
+                        <span class="rating"><i class="fas fa-star"></i> 4.8</span>
+                        <span class="price">À partir de <strong>400 DH/jour</strong></span>
+                    </div>
+                </div>
+                <div class="card-hover">
+                    <button>Voir détails</button>
+                    <button class="fav-btn"><i class="far fa-heart"></i></button>
+                </div>
+            </div>
+            
+            <!-- Card 5 -->
+            <div class="opportunity-card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8cmVzdGF1cmFudHxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Restaurants">
+                    <div class="card-badge discount">-15%</div>
+                </div>
+                <div class="card-content">
+                    <h3>Restaurants</h3>
+                    <p class="card-description">Découvrez les meilleures tables de la ville</p>
+                    <div class="card-meta">
+                        <span class="rating"><i class="fas fa-star"></i> 4.6</span>
+                        <span class="price"><del>250 DH</del> <strong>212 DH</strong></span>
+                    </div>
+                </div>
+                <div class="card-hover">
+                    <button>Voir détails</button>
+                    <button class="fav-btn"><i class="far fa-heart"></i></button>
+                </div>
+            </div>
+            
+            <!-- Card 6 -->
+            <div class="opportunity-card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8aG90ZWxzfGVufDB8fDB8fHww&auto=format&fit=crop&w=500&q=60" alt="Voyage/Hébergement">
+                    <div class="card-badge">Luxe</div>
+                </div>
+                <div class="card-content">
+                    <h3>Voyage/Hébergement</h3>
+                    <p class="card-description">Évadez-vous dans des lieux exceptionnels</p>
+                    <div class="card-meta">
+                        <span class="rating"><i class="fas fa-star"></i> 4.9</span>
+                        <span class="price">À partir de <strong>800 DH/nuit</strong></span>
+                    </div>
+                </div>
+                <div class="card-hover">
+                    <button>Voir détails</button>
+                    <button class="fav-btn"><i class="far fa-heart"></i></button>
+                </div>
+            </div>
+            
+            <!-- Card 7 -->
+            <div class="opportunity-card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1509822929063-6b6cfc9b42f2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8dGF4aXxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Transport">
+                    <div class="card-badge">Économique</div>
+                </div>
+                <div class="card-content">
+                    <h3>Transport</h3>
+                    <p class="card-description">Déplacez-vous en toute sérénité</p>
+                    <div class="card-meta">
+                        <span class="rating"><i class="fas fa-star"></i> 4.4</span>
+                        <span class="price">À partir de <strong>50 DH</strong></span>
+                    </div>
+                </div>
+                <div class="card-hover">
+                    <button>Voir détails</button>
+                    <button class="fav-btn"><i class="far fa-heart"></i></button>
+                </div>
+            </div>
+            
+            <!-- Card 8 -->
+            <div class="opportunity-card">
+                <div class="card-image">
+                    <img src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8ZGVjb3JhdGlvbnxlbnwwfHwwfHx8MA%3D%3D&auto=format&fit=crop&w=500&q=60" alt="Décoration & Animation">
+                    <div class="card-badge">Populaire</div>
+                </div>
+                <div class="card-content">
+                    <h3>Décoration & Animation</h3>
+                    <p class="card-description">Rendez vos événements inoubliables</p>
+                    <div class="card-meta">
+                        <span class="rating"><i class="fas fa-star"></i> 4.7</span>
+                        <span class="price">À partir de <strong>1200 DH</strong></span>
+                    </div>
+                </div>
+                <div class="card-hover">
+                    <button>Voir détails</button>
+                    <button class="fav-btn"><i class="far fa-heart"></i></button>
+                </div>
+            </div>
+        </div>
+    </section>
+  </div>
+</body>
+</html>

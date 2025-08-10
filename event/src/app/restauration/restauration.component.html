@@ -1,0 +1,1024 @@
+<div id="__next">
+  <div class="css-0">
+    <div id="root">
+
+       <div class="css-1xtadha elkhwc30">
+          <span aria-controls="register-my-restaurant" role="link" style="cursor:pointer" class="css-1unvnzj e1xxesyf0">
+            <span class="css-1q7w1qw ektx8jp0"><span>Inscrire mon restaurant</span></span>
+          </span>
+          <div class="css-ycqgn3 e1iziv2k0"></div>
+          <span aria-controls="help-link" role="link" style="cursor:pointer" class="css-1unvnzj e1xxesyf0">
+            <span class="css-1q7w1qw ektx8jp0"><span>Aide</span></span>
+          </span>
+      </div>
+
+  <header class="site-header">
+      <div class="header-top">
+        <div class="logo-container">
+          <img src="okla.jpg" alt="Okla Logo" class="logo">
+          <h1 class="site-name">Okla</h1>
+        </div>
+        <nav class="main-nav">
+          <ul class="nav-list">
+            <li class="nav-item"><a href="#">Accueil</a></li>
+            <li class="nav-item"><a href="#">Restaurants</a></li>
+            <li class="nav-item"><a href="#">Plats</a></li>
+            <li class="nav-item"><a href="#">Promotions</a></li>
+            <li class="nav-item"><a href="#">Contact</a></li>
+          </ul>
+        </nav>
+        <div class="auth-buttons">
+          <button class="login-btn" (click)="openModal('login')" type="button">Connexion</button>
+          <button class="register-btn" (click)="openModal('register')" type="button">Inscription</button>
+          <button class="reservation-btn" (click)="openModal('reservation')" type="button">Réserver</button>
+        </div>
+
+        <!-- Icônes flottantes -->
+        <div class="floating-icons">
+          <a href="chatbot">
+          <div class="chatbot-icon" title="Assistant virtuel">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M12 2C6.48 2 2 6.48 2 12c0 1.54.36 2.98.97 4.29L1 23l6.71-1.97C9.02 21.64 10.46 22 12 22c5.52 0 10-4.48 10-10S17.52 2 12 2zM8.5 13.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm3.5 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm3.5 0c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z"/>
+            </svg>
+          </div>
+          </a>
+          
+          <div class="feedback-icon" title="Recommandations & Problèmes" (click)="toggleFeedbackModal()">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M20 2H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h4l4 4 4-4h4c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zm-7 13h-2v-2h2v2zm0-4h-2V7h2v4z"/>
+            </svg>
+          </div>
+        </div>
+      </div>
+      
+      <div class="hero-image">
+        <div class="search-container">
+          <h2 class="hero-title">Trouvez les meilleurs restaurants près de chez vous</h2>
+          <div class="search-bar">
+            <div class="search-field">
+              <select class="search-select">
+                <option value="ville">Ville</option>
+                <option value="paris">Tanger</option>
+                <option value="lyon">casablanca</option>
+                <option value="marseille">Tétouan</option>
+                <option value="lyon">Chefchaouen</option>
+                <option value="marseille">Rabat</option>
+              </select>
+            </div>
+            <div class="search-field">
+              <input type="text" placeholder="Rechercher un restaurant ou un plat...">
+            </div>
+            <button class="search-btn">Rechercher</button>
+          </div>
+        </div>
+      </div>
+  </header>
+               
+  <main class="euvbs3s1 css-1iy8byd">
+ 
+   
+    <section class="best-offers-section">
+      <div class="container">
+        <h2 class="section-title">Nos meilleures offres</h2>
+        
+        <!-- Boutons de pourcentage de réduction -->
+       <div class="discount-buttons">
+          <button 
+            class="discount-btn"
+            [class.active]="selectedDiscount === 0"
+            (click)="resetFilter()"
+            type="button">
+            Toutes les offres
+          </button>
+
+          <button 
+            *ngFor="let percentage of discountPercentages"
+            class="discount-btn"
+            [class.active]="selectedDiscount === percentage"
+            (click)="applyFilter(percentage)"
+            type="button">
+            -{{ percentage }}%
+          </button>
+        </div>
+        <div class="offers-carousel-container">
+          <!-- Navigation arrows -->
+          <button class="carousel-arrow prev-arrow" (click)="scrollCarousel('left')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+            </svg>
+          </button>
+          
+          <div class="offers-carousel" id="offersCarousel">
+            <!-- Première carte spéciale (toujours visible) -->
+            <div class="special-offer-card">
+              <div class="offer-image-container">
+                <img src="reduction.jpg" alt="Promotion spéciale" class="offer-image">
+              </div>
+              <div class="offer-content">
+                <span class="offer-title">Jusqu'à 60% de réduction</span>
+                <p class="offer-description">Triez par promos et offres spéciales</p>
+                <span class="see-more">
+                  Voir plus
+                  <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+                    <path fill-rule="evenodd" d="M8.25 20.5a1.002 1.002 0 0 1-.673-1.74l7.436-6.756-7.436-6.765a1 1 0 1 1 1.346-1.478l8.249 7.504a1 1 0 0 1 0 1.479L8.923 20.24c-.193.174-.433.26-.673.26"></path>
+                  </svg>
+                </span>
+              </div>
+            </div>
+            
+            <!-- Cartes restaurants filtrées - CHANGEMENT ICI -->
+            <div 
+              *ngFor="let restaurant of filteredRestaurants; trackBy: trackByRestaurantId"
+              class="restaurant-card">
+              <div class="restaurant-image-container">
+                <img [src]="restaurant.image" [alt]="restaurant.name" class="restaurant-image">
+              </div>
+              <div class="restaurant-infos">
+                <div class="restaurant-header">
+                  <span class="cuisine-type">{{ restaurant.cuisineType }}</span>
+                </div>
+                <h3 class="restaurant-name">{{ restaurant.name }}</h3>
+                <span class="restaurant-location">{{ restaurant.location }}</span>
+                <span class="average-price">Prix moyen : {{ restaurant.averagePrice }} MAD</span>
+                <div class="promo-badge">{{ restaurant.promoText }}</div>
+              </div>
+            </div>
+          </div>
+          
+          <button class="carousel-arrow next-arrow" (click)="scrollCarousel('right')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+              <path fill="currentColor" d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+            </svg>
+          </button>
+        </div>
+      </div>
+    </section>
+
+    <section class="css-1xdhyk6 euvbs3s0">
+        <br>
+        <h2 class="section-title">Restaurants par régime alimentaire</h2>
+        
+        <div class="discount-buttons">
+            <button 
+            class="discount-btn"
+            [class.active]="selectedDietType === null"
+            (click)="resetDietFilter()"
+            type="button">
+            Tous les régimes
+            </button>
+
+            <button 
+            *ngFor="let type of getDietTypes()"
+            class="discount-btn"
+            [class.active]="selectedDietType === type"
+            (click)="filterByDietType(type)"
+            type="button">
+            {{ getDietTypeName(type) }}
+            </button>
+        </div>
+        
+        <div class="css-j8f28z">
+            <div class="carousel-container">
+            <button class="carousel-arrow left" (click)="scrollCarousels('left')">&larr;</button>
+            
+            <div class="dietary-carousel" id="dietCarousel">
+                <div class="dietary-categories">
+                <div class="dietary-card" *ngFor="let diet of visibleDiets">
+                    <div class="card-image" [style.background-image]="'url(' + diet.image + ')'">
+                    <div class="card-overlay"></div>
+                    <div class="card-content">
+                        <div class="dietary-icon">
+                        {{ diet.icon }}
+                        </div>
+                        <h3>{{ diet.name }}</h3>
+                        <p>{{ diet.description }}</p>
+                    </div>
+                    </div>
+                    <a href="#" class="dietary-link">Explorer <span>&rarr;</span></a>
+                </div>
+                </div>
+            </div>
+            
+            <button class="carousel-arrow right" (click)="scrollCarousels('right')">&rarr;</button>
+            </div>
+        </div>
+    </section>
+
+
+    <!-- Section Nos suggestions avec filtres par cuisine -->
+    <section class="best-offers-section">
+    <div class="container">
+        <br><br>
+        <h2 class="section-title">Nos suggestions</h2>
+        
+        <!-- Boutons de filtrage par type de cuisine -->
+        <div class="discount-buttons">
+        <button 
+            class="discount-btn"
+            [class.active]="selectedCuisine === 'all'"
+            (click)="resetCuisineFilter()"
+            type="button">
+            Toutes les cuisines
+        </button>
+
+        <button 
+            *ngFor="let cuisine of cuisineTypes"
+            class="discount-btn"
+            [class.active]="selectedCuisine === cuisine"
+            (click)="applyCuisineFilter(cuisine)"
+            type="button">
+            {{ cuisine }}
+        </button>
+        </div>
+
+        <div class="offers-carousel-container">
+        <!-- Navigation arrows -->
+        <button class="carousel-arrow prev-arrow" (click)="scrollSuggestionsCarousel('left')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M15.41 7.41L14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+            </svg>
+        </button>
+        
+        <div class="offers-carousel" id="suggestionsCarousel">
+            <!-- Cartes restaurants filtrées -->
+            <div 
+            *ngFor="let restaurant of filteredSuggestions; trackBy: trackByRestaurantId"
+            class="restaurant-card">
+            <div class="restaurant-image-container">
+                <img [src]="restaurant.image" [alt]="restaurant.name" class="restaurant-image">
+            </div>
+            <div class="restaurant-infos">
+                <div class="restaurant-header">
+                <span class="cuisine-type">{{ restaurant.cuisineType }}</span>
+                </div>
+                <h3 class="restaurant-name">{{ restaurant.name }}</h3>
+                <span class="restaurant-location">{{ restaurant.location }}</span>
+                <span class="average-price">Prix moyen : {{ restaurant.averagePrice }} MAD</span>
+                <div class="promo-badge" *ngIf="restaurant.specialOffer">{{ restaurant.specialOffer }}</div>
+            </div>
+            </div>
+        </div>
+        
+        <button class="carousel-arrow next-arrow" (click)="scrollSuggestionsCarousel('right')">
+            <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24">
+            <path fill="currentColor" d="M10 6L8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/>
+            </svg>
+        </button>
+        </div>
+    </div>
+    </section>
+                
+    <section class="top-chart-banner">
+      <br>
+      <div class="banner-container">
+        <div class="banner-card">
+          <div class="banner-content">
+            <div class="banner-text">
+              <h1 class="banner-title">
+                <span class="title-part">Découvrez le Top&nbsp;100</span>
+                <span class="title-part">Tanger</span>
+              </h1>
+              <a href="#" class="cta-button">
+                Explorer la sélection
+                <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24">
+                  <path d="M8.25 20.5a1.002 1.002 0 0 1-.673-1.74l7.436-6.756-7.436-6.765a1 1 0 1 1 1.346-1.478l8.249 7.504a1 1 0 0 1 0 1.479L8.923 20.24c-.193.174-.433.26-.673.26"/>
+                </svg>
+              </a>
+            </div>
+          </div>
+          <div class="banner-image">
+            <img src="plat.jpg" alt="Spécialités culinaires de Tanger" class="food-image">
+            <div class="image-overla"></div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="css-1xdhyk6 euvbs3s0">
+        <div class="container">
+          <div class="css-j8f28z" style="--scrollbar-width: 15px;">
+            <div>
+              <div class="css-83qekz">
+                <div class="column css-evb4e1" span="12">
+                  <h2 class="section-title">Votre envie du moment&nbsp;?</h2>
+                </div>
+              </div>
+              <div class="evxpl800 css-1t1t80r">
+                <div class="slick-slider slick-initialized" dir="ltr">
+                  
+                  <div class="slick-list">
+                    <div class="slick-track" style="width: 2325px; opacity: 1; transform: translate3d(0px, 0px, 0px);">
+                    <div data-index="0" class="slick-slide slick-active slick-current" tabindex="-1" aria-hidden="false" style="outline: none;"><div><div class="e10tnpl21 column css-1m3trn5"><a href="" class="css-pw07y1 e10tnpl23"><div class="css-qg27gg e10tnpl24"><abbr aria-hidden="true" title="Français" class="css-ek0ra5 e10tnpl22">F</abbr><img alt="" loading="lazy" decoding="async" data-nimg="fill" class="css-1xdhyk6 e10tnpl20" sizes="6.5rem" src="https://res.cloudinary.com/tf-lab/image/upload/w_3840,c_fill,q_auto,f_auto/Homepage/CuisineShelf/434.jpg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;"></div><div class="css-1q73qz3 elkhwc30"><span class="css-xl8ooa e7dhrrp0">Français</span></div></a></div></div></div>
+                    <div data-index="1" class="slick-slide slick-active" tabindex="-1" aria-hidden="false" style="outline: none;"><div><div class="e10tnpl21 column css-1m3trn5"><a href="" class="css-pw07y1 e10tnpl23"><div class="css-qg27gg e10tnpl24"><abbr aria-hidden="true" title="Asiatique" class="css-ek0ra5 e10tnpl22">A</abbr><img alt="" loading="lazy" decoding="async" data-nimg="fill" class="css-1xdhyk6 e10tnpl20" sizes="6.5rem" src="https://res.cloudinary.com/tf-lab/image/upload/w_3840,c_fill,q_auto,f_auto/Homepage/CuisineShelf/387.jpg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;"></div><div class="css-1q73qz3 elkhwc30"><span class="css-xl8ooa e7dhrrp0">Asiatique</span></div></a></div></div></div>
+                    <div data-index="2" class="slick-slide slick-active" tabindex="-1" aria-hidden="false" style="outline: none;"><div><div class="e10tnpl21 column css-1m3trn5"><a href="" class="css-pw07y1 e10tnpl23"><div class="css-qg27gg e10tnpl24"><abbr aria-hidden="true" title="Italien" class="css-ek0ra5 e10tnpl22">I</abbr><img alt="" loading="lazy" decoding="async" data-nimg="fill" class="css-1xdhyk6 e10tnpl20" sizes="6.5rem" src="https://res.cloudinary.com/tf-lab/image/upload/w_3840,c_fill,q_auto,f_auto/Homepage/CuisineShelf/436.jpg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;"></div><div class="css-1q73qz3 elkhwc30"><span class="css-xl8ooa e7dhrrp0">Italien</span></div></a></div></div></div>
+                    <div data-index="3" class="slick-slide slick-active" tabindex="-1" aria-hidden="false" style="outline: none;"><div><div class="e10tnpl21 column css-1m3trn5"><a href="" class="css-pw07y1 e10tnpl23"><div class="css-qg27gg e10tnpl24"><abbr aria-hidden="true" title="Japonais" class="css-ek0ra5 e10tnpl22">J</abbr><img alt="" loading="lazy" decoding="async" data-nimg="fill" class="css-1xdhyk6 e10tnpl20" sizes="6.5rem" src="https://res.cloudinary.com/tf-lab/image/upload/w_3840,c_fill,q_auto,f_auto/Homepage/CuisineShelf/391.jpg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;"></div><div class="css-1q73qz3 elkhwc30"><span class="css-xl8ooa e7dhrrp0">Japonais</span></div></a></div></div></div>
+                    <div data-index="4" class="slick-slide slick-active" tabindex="-1" aria-hidden="false" style="outline: none;"><div><div class="e10tnpl21 column css-1m3trn5"><a href="" class="css-pw07y1 e10tnpl23"><div class="css-qg27gg e10tnpl24"><abbr aria-hidden="true" title="Oriental" class="css-ek0ra5 e10tnpl22">O</abbr><img alt="" loading="lazy" decoding="async" data-nimg="fill" class="css-1xdhyk6 e10tnpl20" sizes="6.5rem" src="https://res.cloudinary.com/tf-lab/image/upload/w_3840,c_fill,q_auto,f_auto/Homepage/CuisineShelf/460.jpg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;"></div><div class="css-1q73qz3 elkhwc30"><span class="css-xl8ooa e7dhrrp0">Oriental</span></div></a></div></div></div>  
+                    <div data-index="5" class="slick-slide slick-active" tabindex="-1" aria-hidden="false" style="outline: none;"><div><div class="e10tnpl21 column css-1m3trn5"><a href="" class="css-pw07y1 e10tnpl23"><div class="css-qg27gg e10tnpl24"><abbr aria-hidden="true" title="Méditérranéen" class="css-ek0ra5 e10tnpl22">M</abbr><img alt="" loading="lazy" decoding="async" data-nimg="fill" class="css-1xdhyk6 e10tnpl20" sizes="6.5rem" src="https://res.cloudinary.com/tf-lab/image/upload/w_3840,c_fill,q_auto,f_auto/Homepage/CuisineShelf/789.jpg" style="position: absolute; height: 100%; width: 100%; inset: 0px; color: transparent;"></div><div class="css-1q73qz3 elkhwc30"><span class="css-xl8ooa e7dhrrp0">Méditérranéen</span></div></a></div></div></div>    
+                  </div>
+                </div>        
+              </div></div></div></div>
+          </div>
+    </section>
+
+    <section class="events-section">
+      <div class="events-container">
+         <h2 class="section-title">Réservations pour événements</h2>
+        <div class="css-j8f28z" style="--scrollbar-width: 10px;">
+        <div class="events-grid">
+                   
+         
+          <div class="event-card groups">
+            <div class="event-image"></div>
+            <div class="event-content">
+              <h3>Grands groupes</h3>
+              <p>À partir de 15 personnes - Menus spéciaux et espaces dédiés</p>
+              <a href="#" class="event-button">Voir les options</a>
+            </div>
+          </div>
+          
+          <div class="event-card parties">
+            <div class="event-image"></div>
+            <div class="event-content">
+              <h3>Fêtes privées</h3>
+              <p>Anniversaires, retrouvailles et célébrations familiales</p>
+              <a href="#" class="event-button">Organiser un événement</a>
+            </div>
+          </div>
+
+
+          <div class="event-card corporate">
+            <div class="event-image"></div>
+            <div class="event-content">
+              <h3>Événements d'entreprise</h3>
+              <p>Espaces adaptés pour séminaires et réceptions professionnelles</p>
+              <a href="#" class="event-button">Réserver</a>
+            </div>
+          </div>
+
+          <div class="event-card wedding">
+            <div class="event-image"></div>
+            <div class="event-content">
+              <h3>Mariages</h3>
+              <p>Salons privés et menus personnalisés pour votre grand jour</p>
+              <a href="#" class="event-button">Demander un devis</a>
+            </div>
+          </div>
+
+        </div>
+        </div>
+      </div>
+    </section>
+          
+   <section class="best-offers-section">
+        <div class="container">
+            <div>
+                <div class="section-header">
+                    <h2 class="section-title">Nouveautés marocaines</h2>
+                    <button class="see-all-button">
+                        Tout afficher
+                    </button>
+                </div>
+                
+                <div class="offers-carousel-container">
+                   
+                    
+                    <div class="offers-carousel">
+                        <!-- Restaurant 1 - Dar Moha -->
+                        <div class="restaurant-card">
+                            <a href="#" style="text-decoration: none;">
+                                <div class="restaurant-image-container">
+                                    <img class="restaurant-image" alt="Dar Moha" src="DarMoha.jpg">
+                                </div>
+                                <div class="restaurant-infos">
+                                    <div class="restaurant-header">
+                                        <span class="cuisine-type">Marocain Gastronomique</span>
+                                    </div>
+                                    <h3 class="restaurant-name">Dar Moha</h3>
+                                    <span class="restaurant-location">Marrakech</span>
+                                    <span class="average-price">Prix moyen: 350 MAD</span>
+                                    <div class="promo-badge">Menu dégustation -30%</div>
+                                </div>
+                            </a>
+                        </div>
+                        
+                        <!-- Restaurant 2 - Al Fassia -->
+                        <div class="restaurant-card">
+                            <a href="#" style="text-decoration: none;">
+                                <div class="restaurant-image-container">
+                                    <img class="restaurant-image" alt="Al Fassia" src="Al Fassia.jpg">
+                                </div>
+                                <div class="restaurant-infos">
+                                    <div class="restaurant-header">
+                                        <span class="cuisine-type">Cuisine Marocaine</span>
+                                    </div>
+                                    <h3 class="restaurant-name">Al Fassia</h3>
+                                    <span class="restaurant-location">Casablanca</span>
+                                    <span class="average-price">Prix moyen: 280 MAD</span>
+                                    <div class="promo-badge">Menu spécial -25%</div>
+                                </div>
+                            </a>
+                        </div>
+                        
+                        <!-- Restaurant 3 - Le Foundouk -->
+                        <div class="restaurant-card">
+                            <a href="#" style="text-decoration: none;">
+                                <div class="restaurant-image-container">
+                                    <img class="restaurant-image" alt="Le Foundouk" src="Le Foundouk.jpg">
+                                </div>
+                                <div class="restaurant-infos">
+                                    <div class="restaurant-header">
+                                        <span class="cuisine-type">Fusion Marocaine</span>
+                                    </div>
+                                    <h3 class="restaurant-name">Le Foundouk</h3>
+                                    <span class="restaurant-location">Marrakech</span>
+                                    <span class="average-price">Prix moyen: 320 MAD</span>
+                                    <div class="promo-badge">Dîner spectacle -20%</div>
+                                </div>
+                            </a>
+                        </div>
+                        
+                        <!-- Restaurant 4 - La Sqala -->
+                        <div class="restaurant-card">
+                            <a href="#" style="text-decoration: none;">
+                                <div class="restaurant-image-container">
+                                    <img class="restaurant-image" alt="La Sqala" src="La Sqala.jpg">
+                                </div>
+                                <div class="restaurant-infos">
+                                    <div class="restaurant-header">
+                                        <span class="cuisine-type">Cuisine Traditionnelle</span>
+                                    </div>
+                                    <h3 class="restaurant-name">La Sqala</h3>
+                                    <span class="restaurant-location">Casablanca</span>
+                                    <span class="average-price">Prix moyen: 250 MAD</span>
+                                    <div class="promo-badge">Déjeuner -15%</div>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="gift-card-section">
+       <br>
+      <div class="container">
+        <div class="gift-card-container">
+          <a (click)="showGiftCardPage()" class="gift-card-link">
+            <div class="holographic-effect"></div>
+            <div class="gift-card-content">
+              <div class="logo-wrapper">
+                <div class="logo-bubble">
+                  <img src="okla2.jpg" alt="Okla Logo" class="logo">
+                </div>
+                <h1 class="site-title">Okla</h1>
+              </div>
+              
+              <div class="card-info">
+                <h3 class="card-title">Cartes cadeaux Okla</h3>
+                <p class="card-description">8.000 restaurants - Une seule carte</p>
+                <div class="sparkles">
+                  <div class="sparkle"></div>
+                  <div class="sparkle"></div>
+                  <div class="sparkle"></div>
+                </div>
+              </div>
+              
+              <span class="buy-button">
+                <span class="button-text">ACHETER MAINTENANT</span>
+                <span class="button-icon">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
+                    <path fill="currentColor" d="M8.25 20.5a1.002 1.002 0 0 1-.673-1.74l7.436-6.756-7.436-6.765a1 1 0 1 1 1.346-1.478l8.249 7.504a1 1 0 0 1 0 1.479L8.923 20.24c-.193.174-.433.26-.673.26"/>
+                  </svg>
+                </span>
+              </span>
+            </div>
+            
+            <div class="card-image-wrapper">
+              <img src="cadeau.jpg" alt="Carte cadeau Okla" class="card-image">
+              <div class="reflection"></div>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <section class="how-it-works">
+      <div class="container">
+        <h2 class="section-title">Comment ça marche ?</h2>
+        
+        <div class="features-carousel">
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path fill="currentColor" fill-rule="evenodd" d="M10.658 21.707a1 1 0 0 1-1.414 0l-7.071-7.071a1 1 0 0 1 0-1.414l8.485-8.485a1 1 0 0 1 .707-.293h7.071a1 1 0 0 1 1 1v7.07a1 1 0 0 1-.292.708zM4.294 13.93l5.657 5.657 7.485-7.485V6.444H11.78zm9.9-5.657a1 1 0 1 1 1.413 1.414 1 1 0 0 1-1.414-1.414" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <div class="feature-content">
+              <h3 class="feature-title">Avantages exclusifs</h3>
+              <p class="feature-text">Des promotions sur un grand nombre de restaurants et bien d'autres avantages avec notre programme de fidélité</p>
+            </div>
+          </div>
+          
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path fill="currentColor" fill-rule="evenodd" d="M13.437 1.616a1 1 0 0 1 1.847.768l-1.04 2.5a1 1 0 0 1-1.847-.768zm3.648-.02a1 1 0 1 1 1.83.808l-3.344 7.574a7 7 0 1 1-7.564.272L4.106 2.447a1 1 0 0 1 1.789-.894l3.9 7.801a7 7 0 0 1 1.367-.304L7.936 2.439a1 1 0 0 1 1.798-.877l3.701 7.585q.145.03.288.066zM17 16a5 5 0 0 0-4.36-4.96h-.006A5 5 0 1 0 17 16m-5.1-3.3a1 1 0 0 1 1.6.8v5a1 1 0 1 1-2 0v-3l-.4.3a1 1 0 0 1-1.2-1.6z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <div class="feature-content">
+              <h3 class="feature-title">Meilleur choix</h3>
+              <p class="feature-text">Une sélection hors pair de restaurants pour chacune de vos envies</p>
+            </div>
+          </div>
+          
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path fill="currentColor" fill-rule="evenodd" d="M12 3.61 9.483 8.68a1 1 0 0 1-.752.546l-5.617.816 4.06 3.931a1 1 0 0 1 .29.889l-.96 5.561 5.032-2.631a1 1 0 0 1 .927 0l5.032 2.631-.959-5.561a1 1 0 0 1 .29-.889l4.06-3.931-5.617-.816a1 1 0 0 1-.752-.545zM10.289 2.56c.701-1.412 2.72-1.412 3.422 0l2.364 4.763 5.29.769c1.559.226 2.197 2.143 1.055 3.25l-3.823 3.702.902 5.228c.27 1.568-1.379 2.736-2.768 2.01L12 19.805 7.269 22.28c-1.39.727-3.039-.441-2.768-2.009l.902-5.228L1.58 11.34c-1.142-1.106-.504-3.023 1.055-3.25l5.29-.768zl.87.432z" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <div class="feature-content">
+              <h3 class="feature-title">Avis utilisateurs</h3>
+              <p class="feature-text">Des recommandations et avis d'une puissante communauté</p>
+            </div>
+          </div>
+          
+          <div class="feature-card">
+            <div class="feature-icon">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="none" viewBox="0 0 24 24">
+                <path fill="currentColor" fill-rule="evenodd" d="M15 1a1 1 0 0 1 1 1v4a1 1 0 1 1-2 0V5h-3.5a1 1 0 0 1 0-2H14V2a1 1 0 0 1 1-1M2 10a1 1 0 0 1 1-1h18a1 1 0 0 1 1 1v9a3 3 0 0 1-3 3H5a3 3 0 0 1-3-3zm2 1v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8z" clip-rule="evenodd"></path>
+                <path fill="currentColor" fill-rule="evenodd" d="M5 5a1 1 0 0 0-1 1v4a1 1 0 1 1-2 0V6a3 3 0 0 1 3-3h2a1 1 0 0 1 0 2z" clip-rule="evenodd"></path>
+                <path fill="currentColor" fill-rule="evenodd" d="M7 1a1 1 0 0 1 1 1v4a1 1 0 0 1-2 0V2a1 1 0 0 1 1-1M17.5 4a1 1 0 0 1 1-1h.5a3 3 0 0 1 3 3v4a1 1 0 1 1-2 0V6a1 1 0 0 0-1-1h-.5a1 1 0 0 1-1-1" clip-rule="evenodd"></path>
+              </svg>
+            </div>
+            <div class="feature-content">
+              <h3 class="feature-title">Réservation facile</h3>
+              <p class="feature-text">Immédiate, gratuite, partout où vous êtes. 24h/24. 7j/7</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+      
+    <section class="other-cities-section">
+      <div class="cities-container">
+        <div class="cities-header">
+          <h2 class="section-title">Autres villes au Maroc</h2>
+          <button class="see-all-button">Voir plus</button>
+        </div>
+
+        <div class="cities-carousel">
+              
+          <div class="carousel-track">
+            <div class="city-card">
+              <a href="#">
+                <div class="city-image-container">
+                  <img src="Tanger.jpg" alt="Tanger" class="city-image">
+                  <div class="image-overlay"></div>
+                  <span class="city-name">Tanger</span>
+                </div>
+              </a>
+            </div>
+            
+            <div class="city-card">
+              <a href="#">
+                <div class="city-image-container">
+                  <img src="casablanca.jpg" alt="Casablanca" class="city-image">
+                  <div class="image-overlay"></div>
+                  <span class="city-name">Casablanca</span>
+                </div>
+              </a>
+            </div>
+            
+            <div class="city-card">
+              <a href="#">
+                <div class="city-image-container">
+                  <img src="Rabat.jpg" alt="Rabat" class="city-image">
+                  <div class="image-overlay"></div>
+                  <span class="city-name">Rabat</span>
+                </div>
+              </a>
+            </div>
+            
+            <div class="city-card">
+              <a href="#">
+                <div class="city-image-container">
+                  <img src="marrakech.jpg" alt="Marrakech" class="city-image">
+                  <div class="image-overlay"></div>
+                  <span class="city-name">Marrakech</span>
+                </div>
+              </a>
+            </div>
+            
+            <div class="city-card">
+              <a href="#">
+                <div class="city-image-container">
+                  <img src="chefchaouen.jpg" alt="Chefchaouen" class="city-image">
+                  <div class="image-overlay"></div>
+                  <span class="city-name">Chefchaouen</span>
+                </div>
+              </a>
+            </div>
+            
+            <div class="city-card">
+              <a href="#">
+                <div class="city-image-container">
+                  <img src="Tétouan.jpg" alt="Tétouan" class="city-image">
+                  <div class="image-overlay"></div>
+                  <span class="city-name">Tétouan</span>
+                </div>
+              </a>
+            </div>
+
+            <div class="city-card">
+              <a href="#">
+                <div class="city-image-container">
+                  <img src="fés.jpg" alt="Fès" class="city-image">
+                  <div class="image-overlay"></div>
+                  <span class="city-name">Fès</span>
+                </div>
+              </a>
+            </div>
+
+            <div class="city-card">
+              <a href="#">
+                <div class="city-image-container">
+                  <img src="AlHocema.jpg" alt="AlHoceïma" class="city-image">
+                  <div class="image-overlay"></div>
+                  <span class="city-name">Al Hoceïma</span>
+                </div>
+              </a>
+            </div>
+
+            <div class="city-card">
+              <a href="#">
+                <div class="city-image-container">
+                  <img src="Layoune.jpg" alt="Laâyoune" class="city-image">
+                  <div class="image-overlay"></div>
+                  <span class="city-name">Laâyoune</span>
+                </div>
+              </a>
+            </div>
+
+            
+          </div>
+        
+        </div>
+      </div>
+    </section>
+    
+    <section class="restaurant-owner-section">
+      <div class="section-container">
+        <div class="owner-contact-wrapper">
+          <div class="title-container">
+            <div class="grid-column full-width">                                                   
+              <h2 class="section-title">Êtes-vous un restaurateur&nbsp;?</h2>
+            </div>
+          </div>
+          
+          <div class="content-container">
+            <div class="image-column">
+              <img width="530" height="330" alt="Restaurateur" src="restaurateur.jpg" class="restaurant-image" loading="lazy">
+            </div>   
+            
+            <div class="info-column">
+              <div class="info-block">
+                <div class="info-content">
+                  <h3 class="info-title">Inscrivez votre restaurant</h3>
+                  <p class="info-text">Donnez-nous plus de détails, et nous vous contacterons le plus rapidement possible.</p>
+                </div>
+                <div class="action-link">
+                  <a class="info-button">Voir plus d'informations</a>
+                </div>
+              </div>
+              
+              <div class="info-block">
+                <div class="info-content">
+                  <h3 class="info-title">Déjà client</h3>
+                  <p class="info-text">Connectez-vous à Okla et contactez-nous avec le Chat.</p>
+                </div>
+                <div class="action-link">
+                   <button class="info-button" (click)="openModal('login')" type="button">Connectez-vous à Okla</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    
+     <br><br>
+
+    <footer class="okla-footer">
+      <div class="footer-container">
+        <!-- Section principale - disposition horizontale -->
+        <div class="footer-main">
+          <!-- Section gauche - Logo, slogan et menu -->
+          <div class="brand-section">
+            <div class="logos">OKLA</div>
+            <p class="slogan">Découvrez les meilleures tables</p>
+            
+            <!-- Menu sous le logo -->
+            <nav class="footer-menu">
+              <a href="#">Accueil</a>
+              <a href="#">Restaurants</a>
+              <a href="#">Villes</a>
+              <a href="#">Blog</a>
+              <a href="#">Àpropos</a>
+              <a href="#">Partenaires</a>
+              <a href="#">Contact</a>
+              <a href="#">Aide</a>
+            </nav>
+          </div>
+
+          <!-- Section centrale - Formulaire de contact (largeur réduite) -->
+          <div class="contact-section">
+            <h3>Avez-vous des questions?</h3>
+            <form class="contact-form">
+              <input type="email" placeholder="Email" required>
+              <textarea placeholder="Message" rows="3" required></textarea>
+              <button type="submit">ENVOYER</button>
+            </form>
+          </div>
+
+          <!-- Section droite - Réseaux sociaux -->
+          <div class="social-section">
+            <h3>Suivez-nous</h3>
+            <div class="social-icons">
+              <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+              <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+              <a href="#" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+              <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+              <a href="#" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Copyright en bas -->
+        <div class="copyright">
+          <p>contact.okla&#64;gmail.com</p>
+          <p>© 2025 OKLA. Tous droits réservés.</p>
+        </div>
+      </div>
+    </footer>
+                                        
+  </main>
+
+
+</div>
+</div>
+</div>  
+        
+
+
+<div class="modal-overlay" *ngIf="showLoginModal || showRegisterModal || showReservationModal || showAccountModal">
+  <!-- Login Modal -->
+  <div class="modal" *ngIf="showLoginModal">
+    <button class="close-modal" (click)="closeAllModals()">&times;</button>
+    <h2>Connexion</h2>
+    <form class="auth-form" (ngSubmit)="onLoginSubmit()">
+      <div class="form-group">
+        <label for="login-email">Email</label>
+        <input type="email" id="login-email" [(ngModel)]="loginData.email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="login-password">Mot de passe</label>
+        <input type="password" id="login-password" [(ngModel)]="loginData.password" name="password" required>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="submit-btn">Se connecter</button>
+        <a href="#" class="forgot-password">Mot de passe oublié ?</a>
+      </div>
+      <div class="social-login">
+        <p>Ou connectez-vous avec</p>
+        <div class="social-buttons">
+          <button type="button" class="social-btn google">
+            <i class="fab fa-google"></i> Google
+          </button>
+          <button type="button" class="social-btn facebook">
+            <i class="fab fa-facebook-f"></i> Facebook
+          </button>
+        </div>
+      </div>
+    </form>
+  </div>
+  
+  <!-- Register Modal -->
+  <div class="modal" *ngIf="showRegisterModal">
+    <button class="close-modal" (click)="closeAllModals()">&times;</button>
+    <h2>Créer un compte</h2>
+    <form class="auth-form" (ngSubmit)="onRegisterSubmit()">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="register-firstName">Prénom</label>
+          <input type="text" id="register-firstName" [(ngModel)]="registerData.firstName" name="firstName" required>
+        </div>
+        <div class="form-group">
+          <label for="register-lastName">Nom</label>
+          <input type="text" id="register-lastName" [(ngModel)]="registerData.lastName" name="lastName" required>
+        </div>
+      </div>
+      <div class="form-group">
+        <label for="register-email">Email</label>
+        <input type="email" id="register-email" [(ngModel)]="registerData.email" name="email" required>
+      </div>
+      <div class="form-group">
+        <label for="register-phone">Téléphone</label>
+        <input type="tel" id="register-phone" [(ngModel)]="registerData.phone" name="phone" required>
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="register-password">Mot de passe</label>
+          <input type="password" id="register-password" [(ngModel)]="registerData.password" name="password" required>
+        </div>
+        <div class="form-group">
+          <label for="register-confirm">Confirmation</label>
+          <input type="password" id="register-confirm" [(ngModel)]="registerData.confirmPassword" name="confirmPassword" required>
+        </div>
+      </div>
+      <div class="form-checkbox">
+        <input type="checkbox" id="register-terms" [(ngModel)]="registerData.acceptTerms" name="acceptTerms" required>
+        <label for="register-terms">J'accepte les conditions générales</label>
+      </div>
+      <div class="form-actions">
+        <button type="submit" class="submit-btn">S'inscrire</button>
+      </div>
+    </form>
+  </div>
+  
+  <!-- Reservation Modal -->
+  <div class="modal" *ngIf="showReservationModal">
+    <button class="close-modal" (click)="closeAllModals()">&times;</button>
+    <h2>Réserver une table</h2>
+    <form class="reservation-form" (ngSubmit)="onReservationSubmit()">
+      <div class="form-row">
+        <div class="form-group">
+          <label for="reservation-city">Ville</label>
+          <select id="reservation-city" [(ngModel)]="reservationData.city" name="city" required>
+            <option value="">Sélectionnez une ville</option>
+            <option value="tanger">Tanger</option>
+            <option value="casablanca">Casablanca</option>
+            <option value="rabat">Rabat</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="reservation-restaurant">Restaurant</label>
+          <select id="reservation-restaurant" [(ngModel)]="reservationData.restaurant" name="restaurant" required>
+            <option value="">Choisissez un restaurant</option>
+            <option value="1">Tajine Palace</option>
+            <option value="2">Couscous Royal</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label for="reservation-date">Date</label>
+          <input type="date" id="reservation-date" [(ngModel)]="reservationData.date" name="date" required>
+        </div>
+        <div class="form-group">
+          <label for="reservation-time">Heure</label>
+          <input type="time" id="reservation-time" [(ngModel)]="reservationData.time" name="time" required>
+        </div>
+      </div>
+      
+      <div class="form-row">
+        <div class="form-group">
+          <label for="reservation-guests">Nombre de personnes</label>
+          <select id="reservation-guests" [(ngModel)]="reservationData.guests" name="guests" required>
+            <option value="1">1 personne</option>
+            <option value="2" selected>2 personnes</option>
+            <option value="3">3 personnes</option>
+            <option value="4">4 personnes</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="reservation-cuisine">Type de cuisine</label>
+          <select id="reservation-cuisine" [(ngModel)]="reservationData.cuisineType" name="cuisineType">
+            <option value="">Tous types</option>
+            <option value="marocain">Marocaine</option>
+            <option value="internationale">Internationale</option>
+          </select>
+        </div>
+      </div>
+      
+      <div class="form-row">
+      <div class="form-group">
+        <label for="reservation-requirements">Exigences spéciales</label>
+        <textarea id="reservation-requirements" [(ngModel)]="reservationData.requirements" name="requirements" rows="1"></textarea>
+      </div>
+      
+      <div class="form-group">
+        <label for="reservation-name">Nom complet</label>
+        <input type="text" id="reservation-name" [(ngModel)]="reservationData.name" name="name" required>
+      </div>
+      
+      </div>
+      <div class="form-row">
+        <div class="form-group">
+          <label for="reservation-email">Email</label>
+          <input type="email" id="reservation-email" [(ngModel)]="reservationData.email" name="email" required>
+        </div>
+        <div class="form-group">
+          <label for="reservation-phone">Téléphone</label>
+          <input type="tel" id="reservation-phone" [(ngModel)]="reservationData.phone" name="phone" required>
+        </div>
+      </div>
+      
+      <div class="form-actions">
+        <button type="submit" class="submit-btn">Réserver maintenant</button>
+      </div>
+    </form>
+  </div>
+</div>
+
+
+
+
+<div class="gift-card-purchase-page" [class.visible]="showPurchasePage">
+  <div class="purchase-overlay" (click)="hideGiftCardPage()"></div>
+  
+  <div class="purchase-container">
+    <button class="close-btn" (click)="hideGiftCardPage()">
+      &times;
+    </button>
+    
+    <h2>Cartes Cadeaux Okla</h2>
+    <p class="subtitle">Offrez l'expérience culinaire parfaite</p>
+    
+    <div class="gift-card-options">
+      <div class="gift-option" *ngFor="let option of giftOptions" 
+           [class.selected]="selectedOption === option.value"
+           (click)="selectOption(option.value)">
+        <div class="option-value">{{ option.value }} DH</div>
+        <div class="option-bonus" *ngIf="option.bonus">+ {{ option.bonus }} DH offerts</div>
+      </div>
+    </div>
+    
+    <div class="custom-amount">
+      <label>Montant personnalisé (entre 100 et 5000 DH):</label>
+      <input type="number" [(ngModel)]="customAmount" min="100" max="5000" 
+             placeholder="Entrez le montant">
+    </div>
+    
+    <div class="recipient-info">
+      <h3>Informations du bénéficiaire</h3>
+      <div class="form-group">
+        <input type="text" placeholder="Nom complet du bénéficiaire">
+      </div>
+      <div class="form-group">
+        <input type="email" placeholder="Email du bénéficiaire">
+      </div>
+      <div class="form-group">
+        <textarea placeholder="Message personnalisé (optionnel)"></textarea>
+      </div>
+    </div>
+    
+    <div class="payment-methods">
+      <h3>Méthode de paiement</h3>
+      <div class="payment-options">
+        <div class="payment-option" *ngFor="let method of paymentMethods"
+             [class.selected]="selectedMethod === method.id"
+             (click)="selectPaymentMethod(method.id)">
+          <img [src]="method.icon" [alt]="method.name">
+          <span>{{ method.name }}</span>
+        </div>
+      </div>
+    </div>
+    
+    <button class="purchase-btn" (click)="confirmPurchase()">
+      CONFIRMER L'ACHAT - {{ getTotalAmount() }} DH
+    </button>
+  </div>
+</div>
+
+
+
+<div class="feedback-modal" [class.active]="showFeedbackModal">
+  <div class="modal-overlay" (click)="toggleFeedbackModal()"></div>
+  
+  <div class="modal-content">
+    <button class="close-btn" (click)="toggleFeedbackModal()">&times;</button>
+    
+    <h3>Recommandations & Commentaires</h3>
+    
+    <div class="comments-section">
+      <div class="comments-list">
+        <div class="comment" *ngFor="let comment of comments">
+          <div class="comment-header">
+            <span class="user-name">{{comment.user}}</span>
+            <span class="comment-date">{{comment.date | date:'dd/MM/yyyy'}}</span>
+          </div>
+          <div class="comment-text">{{comment.text}}</div>
+        </div>
+      </div>
+      
+      <div class="add-comment">
+        <textarea [(ngModel)]="newComment" placeholder="Ajoutez votre commentaire..."></textarea>
+        <button (click)="addComment()" [disabled]="!newComment.trim()">Envoyer</button>
+      </div>
+    </div>
+  </div>
+</div>
