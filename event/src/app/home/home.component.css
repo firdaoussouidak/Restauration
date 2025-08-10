@@ -303,7 +303,7 @@
             height: 45px;
             border-radius: 4px;
             cursor: pointer;
-            font-weight: 600;
+            font-weight: 550;
             text-transform: uppercase;
             letter-spacing: 1px;
             transition: all 0.3s ease;
@@ -311,6 +311,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            font-family: 'Playfair Display', serif;
         }
 
         .search-btn:hover {
@@ -614,9 +615,9 @@
 
 .section-header h2 {
     font-size: 2rem;
-    color: #1a2a6c;
+    color: #000000;
     position: relative;
-    padding-bottom: 0.5rem;
+    padding-bottom: 1rem;
 }
 
 .section-header h2::after {
@@ -624,9 +625,9 @@
     position: absolute;
     bottom: 0;
     left: 0;
-    width: 60px;
+    width: 120px;
     height: 3px;
-    background: linear-gradient(to right, #1a2a6c, #b21f1f);
+    background: linear-gradient(to right, #000c3a, #645200);
 }
 
 .filters {
@@ -640,10 +641,14 @@
     background: white;
     border: 1px solid #ddd;
     border-radius: 4px;
-    padding: 0.6rem 1rem;
+    padding: 0.4rem 1rem;
     cursor: pointer;
-    font-weight: 500;
+    font-weight: 550;
     transition: all 0.3s ease;
+    width: 140px;
+    height: 40px;
+    font-family: 'Playfair Display', serif;
+
 }
 
 .filter-dropdown:hover {
@@ -705,7 +710,7 @@
 }
 
 .tag.active {
-    background: linear-gradient(135deg, #1a2a6c, #b21f1f);
+    background: linear-gradient(135deg, #21243f, #21243f);
     color: white;
 }
 
@@ -751,7 +756,7 @@
     position: absolute;
     top: 15px;
     right: 15px;
-    background: #1a2a6c;
+    background: #21243f;
     color: white;
     padding: 0.3rem 0.8rem;
     border-radius: 20px;
@@ -762,7 +767,7 @@
 }
 
 .card-badge.discount {
-    background: #ff4757;
+    background: #8b7763;
 }
 
 .card-badge.luxe {
@@ -823,7 +828,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background: rgba(26, 42, 108, 0.9);
+    background: rgba(217, 217, 223, 0.9);
     display: flex;
     flex-direction: column;
     align-items: center;
