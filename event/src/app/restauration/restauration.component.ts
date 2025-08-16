@@ -354,6 +354,20 @@ onDocumentClick(event: Event): void {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
  DietType = {
     RESTRICTION: 'restriction',
     ETHICAL: 'ethical',

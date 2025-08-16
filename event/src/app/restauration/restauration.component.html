@@ -28,9 +28,8 @@
           </ul>
         </nav>
         <div class="auth-buttons">
-          <button class="login-btn" (click)="openModal('login')" type="button">Connexion</button>
-          <button class="register-btn" (click)="openModal('register')" type="button">Inscription</button>
-          <button class="reservation-btn" (click)="openModal('reservation')" type="button">Réserver</button>
+          <button class="login-btn" type="button">Commander</button>
+          <button class="register-btn" (click)="openModal('reservation')" type="button">Réserver</button>
         </div>
 
         <!-- Icônes flottantes -->
@@ -132,6 +131,7 @@
               class="restaurant-card">
               <div class="restaurant-image-container">
                 <img [src]="restaurant.image" [alt]="restaurant.name" class="restaurant-image">
+                <div class="promo-badge image-badge">{{ restaurant.promoText }}</div>
               </div>
               <div class="restaurant-infos">
                 <div class="restaurant-header">
@@ -140,7 +140,11 @@
                 <h3 class="restaurant-name">{{ restaurant.name }}</h3>
                 <span class="restaurant-location">{{ restaurant.location }}</span>
                 <span class="average-price">Prix moyen : {{ restaurant.averagePrice }} MAD</span>
-                <div class="promo-badge">{{ restaurant.promoText }}</div>
+                <div class="restaurant-actions">
+                  <button class="action-btn reserv-btn" (click)="openModal('reservation')">Réserver table</button>
+                  <button class="action-btn order-btn">Commander plat</button>
+                </div>
+
               </div>
             </div>
           </div>

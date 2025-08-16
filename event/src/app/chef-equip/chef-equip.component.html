@@ -1,0 +1,754 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="header-left">
+                <div class="logo-group">
+                    <div class="hands-logo">
+                        <i class="fas fa-utensils"></i>
+                    </div>
+                    <div class="logo">ChefEquip</div>
+                </div>
+                <nav class="navbar">
+                    <ul class="nav-links">
+                        <li><a href="#">Accueil</a></li>
+                        <li><a href="#">Équipements</a></li>
+                        <li><a href="#">Catégories</a></li>
+                        <li><a href="#">Offres</a></li>
+                        <li><a href="#">Blog</a></li>
+                    </ul>
+                </nav>
+            </div>
+            
+            <div class="header-right">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Rechercher...">
+                </div>
+                <button class="auth-btn">Connexion</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h2>Location d'Équipements Professionnels de Cuisine</h2>
+            <p>Découvrez notre sélection premium pour professionnels et passionnés</p>
+            
+            <div class="search-filters">
+                <div class="filter-groups">
+                    <label for="ville"><i class="fas fa-map-marker-alt"></i> Ville</label>
+                    <select id="ville">
+                        <option value="">Sélectionnez une ville</option>
+                        <option value="casablanca">Casablanca</option>
+                        <option value="rabat">Rabat</option>
+                        <option value="marrakech">Marrakech</option>
+                        <option value="tanger">Tanger</option>
+                        <option value="fes">Fès</option>
+                    </select>
+                </div>
+                
+                <div class="filter-groups">
+                    <label for="categorie"><i class="fas fa-list"></i> Catégorie</label>
+                    <select id="categorie">
+                        <option value="">Toutes catégories</option>
+                        <option value="cuisson">Équipements de Cuisson</option>
+                        <option value="froid">Matériel de Froid</option>
+                        <option value="preparation">Préparation</option>
+                        <option value="service">Service</option>
+                    </select>
+                </div>
+                
+                <button class="search-btn">Rechercher</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <div class="container">
+            <!-- Offers Section -->
+           <section class="promo-section">
+                <div class="container">
+                    <div class="section-title-container">
+                        <h2 class="section-title">Nos Offres Exceptionnelles</h2>
+                        <button class="filter-btn" (click)="toggleFilter('filterCard')">
+                            <i class="fas fa-filter"></i> Filtrer
+                        </button>
+                    </div>
+                                            
+                    <div class="promo-scroller">
+                        <div class="promo-cards" id="promoCards">
+                            <!-- Carte de filtrage -->
+                            <div class="filter-card" id="filterCard">
+                                <div class="filter-header">
+                                    <h3 class="filter-title">Filtres</h3>
+                                    <div class="filter-actions">
+                                        <button class="reset-btn" (click)="resetAllFilters('promo')" title="Réinitialiser">
+                                            <i class="fas fa-undo"></i>
+                                        </button>
+                                        <button class="close-btn" (click)="toggleFilter('filterCard')" title="Fermer">
+                                            <i class="fas fa-times"></i>
+                                        </button>
+                                    </div>
+                                </div>
+
+                                <div class="filter-group">
+                                    <label class="filter-label">Localisation</label>
+                                    <select class="filter-select" [(ngModel)]="filters.promo.location">
+                                        <option value="">Toutes les villes</option>
+                                        <option value="casablanca">Casablanca</option>
+                                        <option value="rabat">Rabat</option>
+                                        <option value="marrakech">Marrakech</option>
+                                        <option value="tanger">Tanger</option>
+                                        <option value="fes">Fès</option>
+                                    </select>
+                                </div>
+
+                                <div class="filter-group">
+                                    <label class="filter-label">Catégorie</label>
+                                    <select class="filter-select" [(ngModel)]="filters.promo.category">
+                                        <option value="">Toutes les catégories</option>
+                                        <option value="four">Four</option>
+                                        <option value="plancha">Plancha</option>
+                                        <option value="pack">Pack</option>
+                                        <option value="frigo">Réfrigération</option>
+                                        <option value="cuisson">Cuisson</option>
+                                    </select>
+                                </div>
+
+                                <div class="filter-group">
+                                    <label class="filter-label">Budget (DH/jour)</label>
+                                    <select class="filter-select" [(ngModel)]="filters.promo.budget">
+                                        <option value="">Tous les budgets</option>
+                                        <option value="0-500">0 - 500 DH</option>
+                                        <option value="500-1000">500 - 1000 DH</option>
+                                        <option value="1000-2000">1000 - 2000 DH</option>
+                                        <option value="2000+">Plus de 2000 DH</option>
+                                    </select>
+                                </div>
+
+                                <div class="filter-group">
+                                    <label class="filter-label">Disponibilité</label>
+                                    <input type="date" class="filter-select" [(ngModel)]="filters.promo.date">
+                                </div>
+                            </div>
+
+                            <!-- Carte 1 -->
+                            <div class="promo-card" *ngFor="let item of filteredPromoItems" 
+                                 [class.hidden]="!isPromoItemVisible(item)">
+                                <div class="promo-media">
+                                    <img [src]="item.image" [alt]="item.title">
+                                    <div class="promo-overlay">
+                                        <button class="quick-view">
+                                            <i class="fas fa-eye"></i> Vue rapide
+                                        </button>
+                                    </div>
+                                </div>
+                                <div class="promo-details">
+                                    <h3>{{item.title}}</h3>
+                                    <div class="specs">
+                                        <span *ngFor="let spec of item.specs">
+                                            <i [class]="spec.icon"></i> {{spec.text}}
+                                        </span>
+                                    </div>
+                                    <div class="pricing">
+                                        <span class="old-price">{{item.oldPrice}} DH/jour</span>
+                                        <span class="current-price">{{item.currentPrice}} DH/jour</span>
+                                    </div>
+                                    <div class="promo-actions">
+                                        <button class="reserve-btn">
+                                            Réserver
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <button class="scroll-arrow left-arrow">
+                            <i class="fas fa-chevron-left"></i>
+                        </button>
+                        <button class="scroll-arrow right-arrow">
+                            <i class="fas fa-chevron-right"></i>
+                        </button>
+                    </div>
+                    
+                    <div class="view-all-container">
+                        <a href="#" class="view-all-link">
+                            Voir toutes nos offres <i class="fas fa-arrow-right"></i>
+                        </a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section Cuisson -->
+            <section class="category-scroll-section">
+                <div class="category-header">
+                    <div class="section-title-container">
+                        <h2 class="section-title">Équipements de Cuisson</h2>
+                        <button class="filter-btn" (click)="toggleFilter('filterCardCuisine')">
+                            <i class="fas fa-filter"></i> Filtrer
+                        </button>
+                    </div>
+                    <a href="#" class="view-all">Voir tout <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="scroll-container">
+                    <div class="equipment-scroll">
+                        <!-- Carte de filtrage -->
+                        <div class="filter-card" id="filterCardCuisine">
+                            <div class="filter-header">
+                                <h3 class="filter-title">Filtres Cuisson</h3>
+                                <div class="filter-actions">
+                                    <button class="reset-btn" (click)="resetAllFilters('cuisine')" title="Réinitialiser">
+                                        <i class="fas fa-undo"></i>
+                                    </button>
+                                    <button class="close-btn" (click)="toggleFilter('filterCardCuisine')" title="Fermer">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="filter-group">
+                                <label class="filter-label">Localisation</label>
+                                <select class="filter-select" [(ngModel)]="filters.cuisine.location">
+                                    <option value="">Toutes les villes</option>
+                                    <option value="casablanca">Casablanca</option>
+                                    <option value="rabat">Rabat</option>
+                                    <option value="marrakech">Marrakech</option>
+                                    <option value="tanger">Tanger</option>
+                                    <option value="fes">Fès</option>
+                                </select>
+                            </div>
+
+                            <div class="filter-group">
+                                <label class="filter-label">Type d'équipement</label>
+                                <select class="filter-select" [(ngModel)]="filters.cuisine.type">
+                                    <option value="">Tous les types</option>
+                                    <option value="four">Four</option>
+                                    <option value="friteuse">Friteuse</option>
+                                    <option value="grill">Grill</option>
+                                    <option value="rechaud">Réchaund</option>
+                                </select>
+                            </div>
+
+                            <div class="filter-group">
+                                <label class="filter-label">Budget (DH/jour)</label>
+                                <select class="filter-select" [(ngModel)]="filters.cuisine.budget">
+                                    <option value="">Tous les budgets</option>
+                                    <option value="0-500">0 - 500 DH</option>
+                                    <option value="500-800">500 - 800 DH</option>
+                                    <option value="800-1000">800 - 1000 DH</option>
+                                    <option value="1000+">Plus de 1000 DH</option>
+                                </select>
+                            </div>
+
+                            <div class="filter-group">
+                                <label class="filter-label">Disponibilité</label>
+                                <input type="date" class="filter-select" [(ngModel)]="filters.cuisine.date">
+                            </div>
+                        </div>
+
+                        <!-- Four/Grill -->
+                        <div class="equipment-card" *ngFor="let item of filteredCookingEquipment" 
+                             [class.hidden]="!isCookingItemVisible(item)">
+                            <div class="equipment-img">
+                                <img [src]="item.image" [alt]="item.title">
+                            </div>
+                            <div class="equipment-content">
+                                <h3 class="equipment-title">{{item.title}}</h3>
+                                <p class="equipment-description">{{item.description}}</p>
+                                <div class="equipment-meta">
+                                    <span class="equipment-price">{{item.price}} DH/jour</span>
+                                    <span class="equipment-rating">{{getRatingStars(item.rating)}} ({{item.reviews}})</span>
+                                </div>
+                                <button class="equipment-btn">Réserver</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="scroll-btn scroll-left"><i class="fas fa-chevron-left"></i></button>
+                    <button class="scroll-btn scroll-right"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </section>
+
+            <!-- Publication -->
+            <section class="luxe-pub-section">
+                <div class="luxe-pub-container">
+                    <!-- Partie texte -->
+                    <div class="luxe-pub-text">
+                        <span class="luxe-pub-badge">Nouveauté Exclusive</span>
+                        <h2 class="luxe-pub-title">ChefMaster Pro X9</h2>
+                        <p class="luxe-pub-desc">La révolution en cuisine professionnelle arrive chez vous. Technologie brevetée pour des performances inégalées.</p>
+                        <div class="luxe-pub-price">1,250 DH<span>/jour</span></div>
+                    </div>
+                    
+                    <!-- Partie photos -->
+                    <div class="luxe-pub-gallery">
+                        <div class="luxe-photo-card left-photo">
+                            <img src="ChefMasterProX9.jpg" alt="Vue avant du produit">
+                            <div class="photo-overlay"></div>
+                        </div>
+                        <div class="luxe-photo-card right-photo">
+                            <img src="ChefMasterProX92.jpg" alt="Détail du produit">
+                            <div class="photo-overlay"></div>
+                        </div>
+                        <div class="luxe-design-element"></div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section Froid -->
+            <section class="category-scroll-section">
+                <div class="category-header">
+                    <div class="section-title-container">
+                        <h2 class="section-title">Équipements de Froid</h2>
+                        <button class="filter-btn" (click)="toggleFilter('filterCardFroid')">
+                            <i class="fas fa-filter"></i> Filtrer
+                        </button>
+                    </div>
+                    <a href="#" class="view-all">Voir tout <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="scroll-container">
+                    <div class="equipment-scroll">
+                        <!-- Carte de filtrage -->
+                        <div class="filter-card" id="filterCardFroid">
+                            <div class="filter-header">
+                                <h3 class="filter-title">Filtres Froid</h3>
+                                <div class="filter-actions">
+                                    <button class="reset-btn" (click)="resetAllFilters('froid')" title="Réinitialiser">
+                                        <i class="fas fa-undo"></i>
+                                    </button>
+                                    <button class="close-btn" (click)="toggleFilter('filterCardFroid')" title="Fermer">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="filter-group">
+                                <label class="filter-label">Localisation</label>
+                                <select class="filter-select" [(ngModel)]="filters.froid.location">
+                                    <option value="">Toutes les villes</option>
+                                    <option value="casablanca">Casablanca</option>
+                                    <option value="rabat">Rabat</option>
+                                    <option value="marrakech">Marrakech</option>
+                                    <option value="tanger">Tanger</option>
+                                    <option value="fes">Fès</option>
+                                </select>
+                            </div>
+
+                            <div class="filter-group">
+                                <label class="filter-label">Type d'équipement</label>
+                                <select class="filter-select" [(ngModel)]="filters.froid.type">
+                                    <option value="">Tous les types</option>
+                                    <option value="armoire">Armoire</option>
+                                    <option value="refrigerateur">Réfrigérateur</option>
+                                    <option value="congelateur">Congélateur</option>
+                                    <option value="machine">Machine à glaçons</option>
+                                    <option value="console">Console</option>
+                                </select>
+                            </div>
+
+                            <div class="filter-group">
+                                <label class="filter-label">Budget (DH/jour)</label>
+                                <select class="filter-select" [(ngModel)]="filters.froid.budget">
+                                    <option value="">Tous les budgets</option>
+                                    <option value="0-600">0 - 600 DH</option>
+                                    <option value="600-750">600 - 750 DH</option>
+                                    <option value="750-850">750 - 850 DH</option>
+                                    <option value="850+">Plus de 850 DH</option>
+                                </select>
+                            </div>
+
+                            <div class="filter-group">
+                                <label class="filter-label">Disponibilité</label>
+                                <input type="date" class="filter-select" [(ngModel)]="filters.froid.date">
+                            </div>
+                        </div>
+
+                        <!-- Armoire à froid -->
+                        <div class="equipment-card" *ngFor="let item of filteredColdEquipment" 
+                             [class.hidden]="!isColdItemVisible(item)">
+                            <div class="equipment-img">
+                                <img [src]="item.image" [alt]="item.title">
+                            </div>
+                            <div class="equipment-content">
+                                <h3 class="equipment-title">{{item.title}}</h3>
+                                <p class="equipment-description">{{item.description}}</p>
+                                <div class="equipment-meta">
+                                    <span class="equipment-price">{{item.price}} DH/jour</span>
+                                    <span class="equipment-rating">{{getRatingStars(item.rating)}} ({{item.reviews}})</span>
+                                </div>
+                                <button class="equipment-btn">Réserver</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="scroll-btn scroll-left"><i class="fas fa-chevron-left"></i></button>
+                    <button class="scroll-btn scroll-right"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </section>
+
+            <!-- Glovo -->
+            <section class="glovo-pub">
+                <div class="glovo-container">
+                    <!-- Partie visuelle -->
+                    <div class="glovo-visuel">
+                        <div class="glovo-badge">Livraison Express</div>
+                        <img src="livraison.jpg" alt="Livraison Glovo" class="glovo-image">
+                        <div class="glovo-overlay"></div>
+                    </div>
+                    
+                    <!-- Partie texte -->
+                    <div class="glovo-texte">
+                        <div class="glovo-heading">
+                            <h3 class="glovo-slogan">Vos équipements <span class="highlight">livrés en 90min</span></h3>
+                        </div>
+                        
+                        <div class="glovo-offer">
+                            <div class="offer-details">
+                                <div class="detail-item">
+                                    <i class="fas fa-clock"></i>
+                                    <span>Commande avant 18h</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-tools"></i>
+                                    <span>Installation incluse</span>
+                                </div>
+                                <div class="detail-item">
+                                    <i class="fas fa-shield-alt"></i>
+                                    <span>Garantie satisfaction</span>
+                                </div>
+                            </div>
+                            
+                            <div class="glovo-pricing">
+                                <div class="price-tag">
+                                    <span class="currency">DHS</span>
+                                    <span class="amount">49</span>
+                                    <span class="period">/livraison</span>
+                                </div>
+                                <div class="price-note">Tarif minimum - selon distance</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section Préparation -->
+            <section class="category-scroll-section">
+                <div class="category-header">
+                    <div class="section-title-container">
+                        <h2 class="section-title">Équipements de Préparation</h2>
+                        <button class="filter-btn" (click)="toggleFilter('filterCardPreparation')">
+                            <i class="fas fa-filter"></i> Filtrer
+                        </button>
+                    </div>
+                    <a href="#" class="view-all">Voir tout <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="scroll-container">
+                    <div class="equipment-scroll">
+                        <!-- Carte de filtrage -->
+                        <div class="filter-card" id="filterCardPreparation">
+                            <div class="filter-header">
+                                <h3 class="filter-title">Filtres Préparation</h3>
+                                <div class="filter-actions">
+                                    <button class="reset-btn" (click)="resetAllFilters('preparation')" title="Réinitialiser">
+                                        <i class="fas fa-undo"></i>
+                                    </button>
+                                    <button class="close-btn" (click)="toggleFilter('filterCardPreparation')" title="Fermer">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="filter-group">
+                                <label class="filter-label">Localisation</label>
+                                <select class="filter-select" [(ngModel)]="filters.preparation.location">
+                                    <option value="">Toutes les villes</option>
+                                    <option value="casablanca">Casablanca</option>
+                                    <option value="rabat">Rabat</option>
+                                    <option value="marrakech">Marrakech</option>
+                                    <option value="tanger">Tanger</option>
+                                    <option value="fes">Fès</option>
+                                </select>
+                            </div>
+
+                            <div class="filter-group">
+                                <label class="filter-label">Type d'équipement</label>
+                                <select class="filter-select" [(ngModel)]="filters.preparation.type">
+                                    <option value="">Tous les types</option>
+                                    <option value="trancheuse">Trancheuse</option>
+                                    <option value="robot">Robot culinaire</option>
+                                    <option value="machine">Machine à pâtes</option>
+                                    <option value="crepiere">Crépière</option>
+                                    <option value="bainmarie">Bain-marie</option>
+                                </select>
+                            </div>
+
+                            <div class="filter-group">
+                                <label class="filter-label">Budget (DH/jour)</label>
+                                <select class="filter-select" [(ngModel)]="filters.preparation.budget">
+                                    <option value="">Tous les budgets</option>
+                                    <option value="0-500">0 - 500 DH</option>
+                                    <option value="500-600">500 - 600 DH</option>
+                                    <option value="600+">Plus de 600 DH</option>
+                                </select>
+                            </div>
+
+                            <div class="filter-group">
+                                <label class="filter-label">Disponibilité</label>
+                                <input type="date" class="filter-select" [(ngModel)]="filters.preparation.date">
+                            </div>
+                        </div>
+
+                        <!-- Trancheuse -->
+                        <div class="equipment-card" *ngFor="let item of filteredPreparationEquipment" 
+                             [class.hidden]="!isPreparationItemVisible(item)">
+                            <div class="equipment-img">
+                                <img [src]="item.image" [alt]="item.title">
+                            </div>
+                            <div class="equipment-content">
+                                <h3 class="equipment-title">{{item.title}}</h3>
+                                <p class="equipment-description">{{item.description}}</p>
+                                <div class="equipment-meta">
+                                    <span class="equipment-price">{{item.price}} DH/jour</span>
+                                    <span class="equipment-rating">{{getRatingStars(item.rating)}} ({{item.reviews}})</span>
+                                </div>
+                                <button class="equipment-btn">Réserver</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="scroll-btn scroll-left"><i class="fas fa-chevron-left"></i></button>
+                    <button class="scroll-btn scroll-right"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </section>
+
+            <!-- Reduction -->
+            <section class="minimal-promo">
+                <div class="minimal-grid">
+                    <!-- Photo principale -->
+                    <div class="main-photo">
+                        <img src="OFFREEXCEPTIONNELLE1.jpg" alt="Équipement premium">
+                    </div>
+                    
+                    <!-- Photo secondaire -->
+                    <div class="secondary-photo">
+                        <img src="OFFREEXCEPTIONNELLE2.jpg" alt="Détail produit">
+                    </div>
+                    
+                    <!-- Contenu texte -->
+                    <div class="promo-content">
+                        <span class="promo-label">OFFRE EXCEPTIONNELLE</span>
+                        <h2>Pack Cuisine Complète</h2>
+                        <p>Solution clé en main pour restaurants et traiteurs</p>
+                        
+                        <div class="price-box">
+                            <span class="old-price">3,200 DH</span>
+                            <span class="current-price">2,450 DH/jour</span>
+                        </div>
+                        
+                        <a href="#" class="simple-cta">Voir disponibilités</a>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Section Service -->
+            <section class="category-scroll-section">
+                <div class="category-header">
+                    <div class="section-title-container">
+                        <h2 class="section-title">Équipements de Service</h2>
+                        <button class="filter-btn" (click)="toggleFilter('filterCardService')">
+                            <i class="fas fa-filter"></i> Filtrer
+                        </button>
+                    </div>
+                    <a href="#" class="view-all">Voir tout <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="scroll-container">
+                    <div class="equipment-scroll">
+                        <!-- Carte de filtrage -->
+                        <div class="filter-card" id="filterCardService">
+                            <div class="filter-header">
+                                <h3 class="filter-title">Filtres Service</h3>
+                                <div class="filter-actions">
+                                    <button class="reset-btn" (click)="resetAllFilters('service')" title="Réinitialiser">
+                                        <i class="fas fa-undo"></i>
+                                    </button>
+                                    <button class="close-btn" (click)="toggleFilter('filterCardService')" title="Fermer">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="filter-group">
+                                <label class="filter-label">Localisation</label>
+                                <select class="filter-select" [(ngModel)]="filters.service.location">
+                                    <option value="">Toutes les villes</option>
+                                    <option value="casablanca">Casablanca</option>
+                                    <option value="rabat">Rabat</option>
+                                    <option value="marrakech">Marrakech</option>
+                                    <option value="tanger">Tanger</option>
+                                    <option value="fes">Fès</option>
+                                </select>
+                            </div>
+
+                            <div class="filter-group">
+                                <label class="filter-label">Type d'équipement</label>
+                                <select class="filter-select" [(ngModel)]="filters.service.type">
+                                    <option value="">Tous les types</option>
+                                    <option value="cafe">Machine à café</option>
+                                    <option value="percolateur">Percolateur</option>
+                                    <option value="barbepapa">Barbe à papa</option>
+                                    <option value="popcorn">Pop-corn</option>
+                                </select>
+                            </div>
+
+                            <div class="filter-group">
+                                <label class="filter-label">Budget (DH/jour)</label>
+                                <select class="filter-select" [(ngModel)]="filters.service.budget">
+                                    <option value="">Tous les budgets</option>
+                                    <option value="0-450">0 - 450 DH</option>
+                                    <option value="450-550">450 - 550 DH</option>
+                                    <option value="550+">Plus de 550 DH</option>
+                                </select>
+                            </div>
+
+                            <div class="filter-group">
+                                <label class="filter-label">Disponibilité</label>
+                                <input type="date" class="filter-select" [(ngModel)]="filters.service.date">
+                            </div>
+                        </div>
+
+                        <!-- Machine à café -->
+                        <div class="equipment-card" *ngFor="let item of filteredServiceEquipment" 
+                             [class.hidden]="!isServiceItemVisible(item)">
+                            <div class="equipment-img">
+                                <img [src]="item.image" [alt]="item.title">
+                            </div>
+                            <div class="equipment-content">
+                                <h3 class="equipment-title">{{item.title}}</h3>
+                                <p class="equipment-description">{{item.description}}</p>
+                                <div class="equipment-meta">
+                                    <span class="equipment-price">{{item.price}} DH/jour</span>
+                                    <span class="equipment-rating">{{getRatingStars(item.rating)}} ({{item.reviews}})</span>
+                                </div>
+                                <button class="equipment-btn">Réserver</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="scroll-btn scroll-left"><i class="fas fa-chevron-left"></i></button>
+                    <button class="scroll-btn scroll-right"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </section>
+            
+            <!-- Equipment Section -->
+            <section class="equipment-section">
+                <h2 class="section-title">Équipements Populaires</h2>
+                <div class="equipment-grid">
+                    
+                    <div class="equipment-card" *ngFor="let item of popularEquipment">
+                        <div class="equipment-img">
+                            <img [src]="item.image" [alt]="item.title">
+                        </div>
+                        <div class="equipment-content">
+                            <h3 class="equipment-title">{{item.title}}</h3>
+                            <p class="equipment-desc">{{item.description}}</p>
+                            <div class="equipment-meta">
+                                <span class="equipment-price">{{item.price}} DH/jour</span>
+                                <span class="equipment-rating">{{getRatingStars(item.rating)}} ({{item.reviews}})</span>
+                            </div>
+                            <button class="equipment-btn">Voir détails</button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Blog Section -->
+            <section class="blog-section">
+                <h2 class="section-title">Actualités & Conseils</h2>
+                <div class="scroll-container">
+                    <div class="blog-scroll">
+                        <div class="blog-card" *ngFor="let post of blogPosts">
+                            <div class="blog-img">
+                                <img [src]="post.image" [alt]="post.title">
+                            </div>
+                            <div class="blog-content">
+                                <span class="blog-date">{{post.date}}</span>
+                                <h3 class="blog-title">{{post.title}}</h3>
+                                <p class="blog-excerpt">{{post.excerpt}}</p>
+                                <a href="#" class="read-more">Lire la suite →</a>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="scroll-btn scroll-left"><i class="fas fa-chevron-left"></i></button>
+                    <button class="scroll-btn scroll-right"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div class="view-all-container">
+                    <a href="#" class="view-all-link">Voir tous les articles <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </section>
+            
+            <!-- Newsletter Section -->
+            <section class="newsletter-section">
+                <h2 class="newsletter-title">Abonnez-vous à notre newsletter</h2>
+                <p class="newsletter-desc">Recevez nos offres exclusives, conseils professionnels et actualités directement dans votre boîte mail.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Votre adresse email">
+                    <button type="submit">S'abonner</button>
+                </form>
+            </section>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <div class="footer-logo">ChefEquip</div>
+                <p>Plateforme leader de location d'équipements professionnels de cuisine au Maroc. Nous mettons à votre disposition du matériel haut de gamme pour tous vos besoins culinaires.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <h3>Liens rapides</h3>
+                <ul>
+                    <li><a href="#">Accueil</a></li>
+                    <li><a href="#">Nos services</a></li>
+                    <li><a href="#">Équipements</a></li>
+                    <li><a href="#">Offres spéciales</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h3>Catégories</h3>
+                <ul>
+                    <li><a href="#">Équipements de Cuisson</a></li>
+                    <li><a href="#">Matériel de Froid</a></li>
+                    <li><a href="#">Préparation</a></li>
+                    <li><a href="#">Service</a></li>
+                    <li><a href="#">Accessoires</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-newsletter">
+                <h3>Contact</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Rue de la Cuisine, Casablanca</p>
+                <p><i class="fas fa-phone"></i> +212 6 12 34 56 78</p>
+                <p><i class="fas fa-envelope"></i> contactchefequip.ma</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2023 ChefEquip. Tous droits réservés.</p>
+        </div>
+    </footer>

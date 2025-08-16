@@ -1,0 +1,308 @@
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&family=Playfair+Display:wght@600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+
+<!-- chef-equip-detail.component.html -->
+<div class="chef-equip-detail">
+  <header class="header">
+    <div class="header-container">
+      <div class="header-left">
+        <div class="logo-group">
+          <div class="hands-logo">
+            <i class="fas fa-hands-helping"></i>
+          </div>
+          <a href="#" class="logo">HOMMR</a>
+        </div>
+        <ul class="nav-links">
+          <li><a href="#">Accueil</a></li>
+          <li><a href="#">Location</a></li>
+          <li><a href="#">Vente</a></li>
+          <li><a href="#">Services</a></li>
+          <li><a href="#">Blog</a></li>
+        </ul>
+      </div>
+      <div class="header-right">
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input type="text" placeholder="Rechercher...">
+        </div>
+        <button class="auth-btn">Connexion</button>
+      </div>
+    </div>
+  </header>
+
+
+   <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h2>Machine industrielle de haute précision</h2>
+            <p>Découvrez notre sélection premium pour professionnels et passionnés</p>
+            
+            <div class="search-filters">
+                <div class="filter-group">
+                    <label for="ville"><i class="fas fa-map-marker-alt"></i> Ville</label>
+                    <select id="ville">
+                        <option value="">Sélectionnez une ville</option>
+                        <option value="casablanca">Casablanca</option>
+                        <option value="rabat">Rabat</option>
+                        <option value="marrakech">Marrakech</option>
+                        <option value="tanger">Tanger</option>
+                        <option value="fes">Fès</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="categorie"><i class="fas fa-list"></i> Catégorie</label>
+                    <select id="categorie">
+                        <option value="">Toutes catégories</option>
+                        <option value="cuisson">Équipements de Cuisson</option>
+                        <option value="froid">Matériel de Froid</option>
+                        <option value="preparation">Préparation</option>
+                        <option value="service">Service</option>
+                    </select>
+                </div>
+                
+                <button class="search-btn">Rechercher</button>
+            </div>
+        </div>
+    </section>
+
+    
+  <main class="main-content">
+    <!-- Gallery Section -->
+    <section class="gallery-section container">
+      <div class="gallery-container">
+        <div class="thumbnail-container">
+          <div class="thumbnail active" (click)="changeMainImage('1.jpg')">
+            <img [src]="getImagePath('1.jpg')" alt="Equipement 1">
+          </div>
+          <div class="thumbnail" (click)="changeMainImage('2.jpg')">
+            <img [src]="getImagePath('2.jpg')" alt="Equipement 2">
+          </div>
+          <div class="thumbnail" (click)="changeMainImage('3.jpg')">
+            <img [src]="getImagePath('3.jpg')" alt="Equipement 3">
+          </div>
+          <div class="thumbnail" (click)="changeMainImage('4.jpg')">
+            <img [src]="getImagePath('4.jpg')" alt="Equipement 4">
+          </div>
+          <div class="thumbnail" (click)="changeMainImage('5.jpg')">
+            <img [src]="getImagePath('5.jpg')" alt="Equipement 5">
+          </div>
+        </div>
+        <div class="main-image">
+          <img [src]="getImagePath(mainImage)" alt="Equipement principal">
+        </div>
+      </div>
+    </section>
+
+    <!-- Product Info Section -->
+    <section class="product-info-section container">
+      <div class="product-details">
+        <h1 class="product-title">{{ equipment.title }}</h1>
+        
+        <div class="product-meta">
+          <div class="product-rating">
+            <div class="stars">
+              <i *ngFor="let star of getStars(equipment.rating)" [class]="star"></i>
+            </div>
+            <span class="product-review-count">{{ equipment.reviews }} avis</span>
+          </div>
+          <div class="product-status">
+            <span class="badge" [style.background]="equipment.available ? '#c4a402' : '#ccc'">
+              {{ equipment.available ? 'Disponible' : 'Indisponible' }}
+            </span>
+          </div>
+        </div>
+        
+        <div class="product-price">
+          <span class="product-old-price">{{ equipment.oldPrice }}€</span>
+          <span class="current-price">{{ equipment.price }}€ / semaine</span>
+        </div>
+        
+        <p class="product-description">
+          {{ equipment.description }}
+        </p>
+        
+        <div class="product-specs">
+          <h3 class="specs-title">Caractéristiques techniques</h3>
+          <div class="specs-grid">
+            <div class="spec-item" *ngFor="let spec of equipment.specs">
+              <div class="spec-icon">
+                <i [class]="spec.icon"></i>
+              </div>
+              <div class="spec-text">
+                <span class="spec-name">{{ spec.name }}:</span>
+                <span class="spec-value">{{ spec.value }}</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+      <!-- Booking Section -->
+      <div class="booking-section">
+        <h2 class="booking-title">Réserver cet équipement</h2>
+        
+        <div class="price-display">
+          <span class="price-label">Prix hebdomadaire:</span>
+          <span class="price-amount">{{ equipment.price }}€</span>
+        </div>
+        
+        <div class="date-picker">
+          <label for="start-date">Date de début:</label>
+          <input type="date" id="start-date" class="date-input" [(ngModel)]="startDate" (change)="updateTotalPrice()">
+        </div>
+        
+        <div class="date-picker">
+          <label for="end-date">Date de fin:</label>
+          <input type="date" id="end-date" class="date-input" [(ngModel)]="endDate" (change)="updateTotalPrice()">
+        </div>
+        
+        <div class="quantity-selector">
+          <label for="quantity">Quantité:</label>
+          <div class="quantity-control">
+            <button class="quantity-btn minus" (click)="decreaseQuantity()">-</button>
+            <input type="number" id="quantity" class="quantity-input" [(ngModel)]="quantity" min="1" (change)="validateQuantity()">
+            <button class="quantity-btn plus" (click)="increaseQuantity()">+</button>
+          </div>
+        </div>
+        
+        <div class="total-price">
+          <span>Total:</span>
+          <span>{{ totalPrice }}€</span>
+        </div>
+        
+        <button class="book-btn" [disabled]="!equipment.available">Réserver maintenant</button>
+        <button class="panier-btn" [disabled]="!equipment.available">Ajouter au panier</button>
+      </div>
+    </section>
+
+    <!-- Delivery Section -->
+    <section class="delivery-section container">
+      <h2 class="section-title">Options de Livraison</h2>
+      
+      <div class="delivery-options">
+        <div class="delivery-option" *ngFor="let option of deliveryOptions">
+          <div class="delivery-icon">
+            <i [class]="option.icon"></i>
+          </div>
+          <div class="delivery-info">
+            <h3>{{ option.name }}</h3>
+            <p>{{ option.description }}</p>
+            <p class="delivery-price">{{ option.price }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Reviews Section -->
+    <section class="reviews-section container">
+      <div class="reviews-header">
+        <div class="average-rating">
+          <span class="rating-number">{{ averageRating }}</span>
+          <div class="rating-stars">
+            <div class="stars">
+              <i *ngFor="let star of getStars(averageRating)" [class]="star"></i>
+            </div>
+            <span class="rating-count">Basé sur {{ reviews.length }} avis</span>
+          </div>
+        </div>
+        <button class="write-review-btn">Écrire un avis</button>
+      </div>
+      
+      <div class="reviews-grid">
+        <div class="review-card" *ngFor="let review of displayedReviews">
+          <div class="review-header">
+            <div class="reviewer">
+              <div class="reviewer-avatar">
+                <img [src]="review.avatar" [alt]="review.name">
+              </div>
+              <div class="reviewer-info">
+                <h4>{{ review.name }}</h4>
+                <span class="review-date">{{ review.date }}</span>
+              </div>
+            </div>
+            <div class="review-stars">
+              <i *ngFor="let star of getStars(review.rating)" [class]="star"></i>
+            </div>
+          </div>
+          <div class="review-content">
+            <p>{{ review.content }}</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Similar Products Section -->
+    <section class="equipment-section">
+      <h2 class="section-title">Équipements similaires</h2>
+      <div class="equipment-grid">
+        <div class="equipment-card" *ngFor="let similar of similarEquipments" (click)="navigateToDetail(similar.id)">
+          <div class="equipment-img">
+            <img [src]="getImagePath(similar.image)" [alt]="similar.title">
+            <span class="equipment-tag" *ngIf="similar.tag">{{ similar.tag }}</span>
+          </div>
+          <div class="equipment-content">
+            <h3 class="equipment-title">{{ similar.title }}</h3>
+            <p class="equipment-desc">{{ similar.description }}</p>
+            <div class="equipment-meta">
+              <span class="equipment-price">{{ similar.price }} DH/jour</span>
+              <span class="equipment-rating">{{ getStarRating(similar.rating) }} ({{ similar.reviews }})</span>
+            </div>
+            <button class="equipment-btn">Voir détails</button>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+   <footer class="footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <a href="#" class="footer-logo">HOMMR</a>
+                <p>HOMMR est la plateforme de référence pour la location d'équipements industriels de qualité. Nous connectons les professionnels avec les outils dont ils ont besoin pour réussir.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <h3>Liens rapides</h3>
+                <ul>
+                    <li><a href="#">Accueil</a></li>
+                    <li><a href="#">Nos équipements</a></li>
+                    <li><a href="#">Comment ça marche</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Blog</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h3>Catégories</h3>
+                <ul>
+                    <li><a href="#">Machines-outils</a></li>
+                    <li><a href="#">Équipement lourd</a></li>
+                    <li><a href="#">Outillage</a></li>
+                    <li><a href="#">Matériel de construction</a></li>
+                    <li><a href="#">Équipement spécialisé</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-newsletter">
+                <h3>Newsletter</h3>
+                <p>Abonnez-vous pour recevoir nos offres spéciales et les nouveaux équipements disponibles.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Votre email">
+                    <button type="submit"><i class="fas fa-paper-plane"></i></button>
+                </form>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2023 HOMMR. Tous droits réservés. | <a href="#">Conditions générales</a> | <a href="#">Politique de confidentialité</a></p>
+        </div>
+    </footer>
+
+</div>

@@ -660,6 +660,22 @@
   object-fit: cover;
 }
 
+.image-badge {
+  position: absolute;
+  top: 1px;
+  right: 10px;
+  margin: 0;
+  z-index: 1;
+  background-color: #f5a623; /* Version semi-transparente */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+}
+
+.restaurant-card:hover .image-badge {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+
 .restaurant-infos {
   padding: 1rem;
   display: flex;
@@ -694,7 +710,7 @@
 }
 
 .promo-badge {
-  background-color: #142a0f;
+  background-color: #f69f14;
   color: white;
   padding: 0.3rem 0.6rem;
   border-radius: 4px;
@@ -822,12 +838,84 @@ a {
 }
 
 
+/* Styles pour les boutons d'action */
+.action-buttons {
+            display: flex;
+            gap: 10px;
+            margin-top: 0.8rem;
+        }
 
+        .action-btn {
+            flex: 1;
+            padding: 0.5rem 0.72rem;
+            border-radius: 6px;
+            font-size: 0.8rem;
+            font-weight: 550;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: none;
+            text-align: center;
+            gap: 20px;
+            margin-right: 0.3rem;
+            margin-top: 0.5rem;
+        }
 
+        .reserv-btn {
+            background-color: #142a0f;
+            color: white;
+            border: 1px solid #ddd;
+            gap: 20px;
+        }
 
+        .reserv-btn:hover {
+            background-color: #ffffff;
+            color:#142a0f;
+            transform: translateY(-1px);
+            border: 1px solid #142a0f;
+            box-shadow: 0 2px 6px rgba(20, 42, 15, 0.2);
+        }
 
+        .order-btn {
+            background-color: transparent;
+            color: #142a0f;
+            border: 1px solid #142a0f;
+        }
 
+        .order-btn:hover {
+            background-color: #142a0f;
+            color: white;
+            transform: translateY(-1px);
+            box-shadow: 0 2px 6px rgba(20, 42, 15, 0.2);
+        }
 
+        .carousel-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 1;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .prev-arrow {
+            left: -20px;
+        }
+
+        .next-arrow {
+            right: -20px;
+        }
+
+        .carousel-arrow:hover {
+            background-color: #f0f0f0;
+        }
 
 
 
