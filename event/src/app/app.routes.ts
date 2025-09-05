@@ -3,7 +3,7 @@ import { Routes } from '@angular/router';
 export const routes: Routes = [
     {
         path:'',
-        redirectTo:'home',
+        redirectTo:'chef-equip',
         pathMatch:'full'
     },
     {
@@ -13,10 +13,6 @@ export const routes: Routes = [
     {
         path: 'Restauration',
         loadComponent: () => import('./restauration/restauration.component').then(m => m.RestaurationComponent)
-    },
-    {
-        path: 'Restaurationdetail',
-        loadComponent: () => import('./restauration-detail/restauration-detail.component').then(m => m.RestaurationDetailComponent)
     },
     {
         path: 'chef-equip',

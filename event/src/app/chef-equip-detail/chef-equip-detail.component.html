@@ -3,6 +3,25 @@
 
 <!-- chef-equip-detail.component.html -->
 <div class="chef-equip-detail">
+
+  <div class="top-bar">
+        <div class="top-bar-item">
+            <img src="https://flagcdn.com/w20/ma.png" alt="Maroc" class="country-flag">
+            <span>Maroc</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="top-bar-item">
+            <i class="fas fa-language"></i>
+            <span>Français</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="top-bar-item">
+            <i class="fas fa-money-bill-wave"></i>
+            <span>MAD</span>
+            <i class="fas fa-chevron-down"></i>
+        </div>
+    </div>
+
   <header class="header">
     <div class="header-container">
       <div class="header-left">
@@ -10,7 +29,7 @@
           <div class="hands-logo">
             <i class="fas fa-hands-helping"></i>
           </div>
-          <a href="#" class="logo">HOMMR</a>
+          <a href="#" class="logo">3arboon</a>
         </div>
         <ul class="nav-links">
           <li><a href="#">Accueil</a></li>
@@ -31,40 +50,6 @@
   </header>
 
 
-   <section class="hero">
-        <div class="hero-overlay"></div>
-        <div class="hero-content">
-            <h2>Machine industrielle de haute précision</h2>
-            <p>Découvrez notre sélection premium pour professionnels et passionnés</p>
-            
-            <div class="search-filters">
-                <div class="filter-group">
-                    <label for="ville"><i class="fas fa-map-marker-alt"></i> Ville</label>
-                    <select id="ville">
-                        <option value="">Sélectionnez une ville</option>
-                        <option value="casablanca">Casablanca</option>
-                        <option value="rabat">Rabat</option>
-                        <option value="marrakech">Marrakech</option>
-                        <option value="tanger">Tanger</option>
-                        <option value="fes">Fès</option>
-                    </select>
-                </div>
-                
-                <div class="filter-group">
-                    <label for="categorie"><i class="fas fa-list"></i> Catégorie</label>
-                    <select id="categorie">
-                        <option value="">Toutes catégories</option>
-                        <option value="cuisson">Équipements de Cuisson</option>
-                        <option value="froid">Matériel de Froid</option>
-                        <option value="preparation">Préparation</option>
-                        <option value="service">Service</option>
-                    </select>
-                </div>
-                
-                <button class="search-btn">Rechercher</button>
-            </div>
-        </div>
-    </section>
 
     
   <main class="main-content">
@@ -255,15 +240,16 @@
     </section>
   </main>
 
-   <footer class="footer">
+   <!-- Footer -->
+    <footer class="footer">
         <div class="footer-container">
             <div class="footer-about">
-                <a href="#" class="footer-logo">HOMMR</a>
-                <p>HOMMR est la plateforme de référence pour la location d'équipements industriels de qualité. Nous connectons les professionnels avec les outils dont ils ont besoin pour réussir.</p>
+                <div class="footer-logo">3arboon</div>
+                <p>Plateforme leader de location d'équipements professionnels de cuisine au Maroc. Nous mettons à votre disposition du matériel haut de gamme pour tous vos besoins culinaires.</p>
                 <div class="social-links">
                     <a href="#"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#"><i class="fab fa-twitter"></i></a>
                     <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
                     <a href="#"><i class="fab fa-linkedin-in"></i></a>
                 </div>
             </div>
@@ -272,25 +258,29 @@
                 <h3>Liens rapides</h3>
                 <ul>
                     <li><a href="#">Accueil</a></li>
-                    <li><a href="#">Nos équipements</a></li>
-                    <li><a href="#">Comment ça marche</a></li>
-                    <li><a href="#">FAQ</a></li>
-                    <li><a href="#">Blog</a></li>
+                    <li><a href="#">Nos services</a></li>
+                    <li><a href="#">Équipements</a></li>
+                    <li><a href="#">Offres spéciales</a></li>
+                    <li><a href="#">Contact</a></li>
                 </ul>
             </div>
             
             <div class="footer-links">
                 <h3>Catégories</h3>
                 <ul>
-                    <li><a href="#">Machines-outils</a></li>
-                    <li><a href="#">Équipement lourd</a></li>
-                    <li><a href="#">Outillage</a></li>
-                    <li><a href="#">Matériel de construction</a></li>
-                    <li><a href="#">Équipement spécialisé</a></li>
+                    <li><a href="#">Équipements de Cuisson</a></li>
+                    <li><a href="#">Matériel de Froid</a></li>
+                    <li><a href="#">Préparation</a></li>
+                    <li><a href="#">Service</a></li>
+                    <li><a href="#">Accessoires</a></li>
                 </ul>
             </div>
             
             <div class="footer-newsletter">
+                <h3>Contact</h3>
+                <p><i class="fas fa-map-marker-alt"></i> 123 Rue de la Cuisine, Casablanca</p>
+                <p><i class="fas fa-phone"></i> +212 6 12 34 56 78</p>
+                <p><i class="fas fa-envelope"></i> contactchefequip.ma</p>
                 <h3>Newsletter</h3>
                 <p>Abonnez-vous pour recevoir nos offres spéciales et les nouveaux équipements disponibles.</p>
                 <form class="newsletter-form">
@@ -301,7 +291,7 @@
         </div>
         
         <div class="footer-bottom">
-            <p>&copy; 2023 HOMMR. Tous droits réservés. | <a href="#">Conditions générales</a> | <a href="#">Politique de confidentialité</a></p>
+            <p>&copy; 2023 ChefEquip. Tous droits réservés.</p>
         </div>
     </footer>
 
