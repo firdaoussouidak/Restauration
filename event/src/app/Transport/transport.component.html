@@ -1,0 +1,810 @@
+<!doctype html>
+<html lang="fr">
+<head>
+  <meta charset="utf-8">
+  <title>Event</title>
+  <base href="/">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <!-- Ajoutez ces lignes pour Font Awesome -->
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">  <!-- Police Google -->
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="header-container">
+            <div class="header-left">
+                <div class="logo-group">
+                    <div class="hands-logo">
+<i class="fas fa-hands-helping"></i>                    </div>
+                    <div class="logo">3arboon</div>
+                </div>
+                <nav class="navbar">
+                    <ul class="nav-links">
+                        <li><a href="#">Accueil</a></li>
+                        <li><a href="#">Navettes</a></li>
+                        <li><a href="#">Location</a></li>
+                        <li><a href="#">Chauffeurs</a></li>
+                        <li><a href="#">Transports</a></li>
+                        <li><a href="#">Événements</a></li>
+                    </ul>
+                </nav>
+            </div>
+            
+            <div class="header-right">
+                <div class="search-box">
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Rechercher...">
+                </div>
+                <button class="auth-btn">Connexion</button>
+            </div>
+        </div>
+    </header>
+
+<!-- Hero Section -->
+<section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <h2>Transport au Maroc</h2>
+            <p>Réservez navettes, location de voiture, chauffeurs et transports traditionnels</p>
+            
+            <div class="search-filters">
+                <div class="filter-group">
+                    <label for="ville"><i class="fas fa-map-marker-alt"></i> Ville de départ</label>
+                    <select id="ville">
+                        <option value="">Sélectionnez une ville</option>
+                        <option value="casablanca">Casablanca</option>
+                        <option value="rabat">Rabat</option>
+                        <option value="marrakech">Marrakech</option>
+                        <option value="tanger">Tanger</option>
+                        <option value="fes">Fès</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="arrivee"><i class="fas fa-flag-checkered"></i> Ville d'arrivée</label>
+                    <select id="arrivee">
+                        <option value="">Sélectionnez une ville</option>
+                        <option value="casablanca">Casablanca</option>
+                        <option value="rabat">Rabat</option>
+                        <option value="marrakech">Marrakech</option>
+                        <option value="tanger">Tanger</option>
+                        <option value="fes">Fès</option>
+                    </select>
+                </div>
+                
+                <div class="filter-group">
+                    <label for="date"><i class="fas fa-calendar"></i> Date</label>
+                    <input type="date" id="date">
+                </div>
+                
+                <div class="filter-group">
+                    <label for="passagers"><i class="fas fa-users"></i> Passagers</label>
+                    <select id="passagers">
+                        <option value="1">1 passager</option>
+                        <option value="2">2 passagers</option>
+                        <option value="3">3 passagers</option>
+                        <option value="4">4 passagers</option>
+                        <option value="5">5+ passagers</option>
+                    </select>
+                </div>
+                
+                <button class="search-btn">Rechercher</button>
+            </div>
+        </div>
+    </section>
+      <!-- Le code de la section hero reste inchangé -->
+<!-- Main Content -->
+<main class="main-content">
+  <div class="container">
+    
+    <!-- Navettes Section -->
+    <section class="category-scroll-section">
+      <div class="category-header">
+        <div class="section-title-container">
+          <h2 class="section-title">Navettes</h2>
+          <button class="filter-btn" (click)="toggleFilter('navettes')">
+            <i class="fas fa-filter"></i> 
+            {{ isNavettesFilterActive ? 'Fermer filtres' : 'Filtrer' }}
+          </button>
+        </div>
+        <a href="#" class="view-all">Voir tout <i class="fas fa-arrow-right"></i></a>
+      </div>
+      
+      <div class="scroll-container">
+        <div #navettesScroll class="equipment-scroll">
+          <!-- Carte de filtrage -->
+          <div class="filter-card" [class.active]="isNavettesFilterActive">
+            <div class="filter-header">
+                                <h3 class="filter-title">Filtres Navettes</h3>
+                                <div class="filter-actions">
+                                    <button class="reset-btn" id="resetFiltersNavettes" title="Réinitialiser">
+                                        <i class="fas fa-undo"></i>
+                                    </button>
+                                    <button class="close-btn" id="closeFiltersNavettes" title="Fermer">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>  
+                            <div class="filter-group">
+                                <label class="filter-label">Type de navette</label>
+                                <select class="filter-select" id="typeNavetteFilter">
+                                    <option value="">Tous les types</option>
+                                    <option value="aeroport">Navette aéroport</option>
+                                    <option value="urbaine">Navette urbaine</option>
+                                </select>
+                            </div>
+
+                            <div class="filter-group">
+                                <label class="filter-label">Nombre de passagers</label>
+                                <select class="filter-select" id="passagersFilter">
+                                    <option value="">Tous</option>
+                                    <option value="1-3">1-3 passagers</option>
+                                    <option value="4-6">4-6 passagers</option>
+                                    <option value="7+">7+ passagers</option>
+                                </select>
+                            </div>
+
+                            <div class="filter-group">
+                                <label class="filter-label">Disponibilité</label>
+                                <input type="date" class="filter-select" id="dateFilterNavettes">
+                            </div>
+                            <button class="apply-btn" id="applyFiltersNavettes">Appliquer les filtres</button>
+          </div>
+
+          
+          <!-- Cartes de services -->
+ <div class="equipment-card" data-type="aeroport" data-passagers="4">
+                            <div class="equipment-img">
+                                <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Navette aéroport">
+                            </div>
+                            <div class="equipment-content">
+                                <span class="service-badge">Navette aéroport</span>
+                                <h3 class="equipment-title">Transfert Aéroport CMN</h3>
+                                <p class="equipment-description">Transfert entre l'aéroport Mohammed V et votre hôtel à Casablanca</p>
+                                <div class="transport-features">
+                                    <span class="transport-feature">4 passagers</span>
+                                    <span class="transport-feature">Climatisation</span>
+                                    <span class="transport-feature">Wi-Fi</span>
+                                </div>
+                                <div class="equipment-meta">
+                                    <span class="equipment-price">250 DH</span>
+                                    <span class="equipment-rating">★★★★☆ (42)</span>
+                                </div>
+                                <button class="equipment-btn">Réserver</button>
+                            </div>
+                        </div>         
+                           <!-- Navette urbaine -->
+                        <div class="equipment-card" data-type="urbaine" data-passagers="8">
+                            <div class="equipment-img">
+                                <img src="https://images.unsplash.com/photo-1591134448079-1d7767a4d0e5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Navette urbaine">
+                            </div>
+                            <div class="equipment-content">
+                                <span class="service-badge">Navette urbaine</span>
+                                <h3 class="equipment-title">Navette Marrakech Centre</h3>
+                                <p class="equipment-description">Service régulier entre les principaux points de Marrakech</p>
+                                <div class="transport-features">
+                                    <span class="transport-feature">8 passagers</span>
+                                    <span class="transport-feature">Fréquentes</span>
+                                    <span class="transport-feature">Accessible PMR</span>
+                                </div>
+                                <div class="equipment-meta">
+                                    <span class="equipment-price">30 DH/personne</span>
+                                    <span class="equipment-rating">★★★★★ (56)</span>
+                                </div>
+                                <button class="equipment-btn">Réserver</button>
+                            </div>
+                        </div>
+                         <!-- Navette VIP -->
+                        <div class="equipment-card" data-type="aeroport" data-passagers="3">
+                            <div class="equipment-img">
+                                <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Navette VIP">
+                            </div>
+                            <div class="equipment-content">
+                                <span class="service-badge">Navette VIP</span>
+                                <h3 class="equipment-title">Service Premium RAK</h3>
+                                <p class="equipment-description">Transfert VIP avec boissons et accueil personnalisé</p>
+                                <div class="transport-features">
+                                    <span class="transport-feature">3 passagers</span>
+                                    <span class="transport-feature">Mini-bar</span>
+                                    <span class="transport-feature">Wi-Fi</span>
+                                </div>
+                                <div class="equipment-meta">
+                                    <span class="equipment-price">450 DH</span>
+                                    <span class="equipment-rating">★★★★★ (28)</span>
+                                </div>
+                                <button class="equipment-btn">Réserver</button>
+                            </div>
+                        </div>
+        </div>
+        <button class="scroll-btn scroll-left"><i class="fas fa-chevron-left"></i></button>
+        <button class="scroll-btn scroll-right"><i class="fas fa-chevron-right"></i></button>
+      </div>
+    </section>
+
+    
+ <!-- Location de véhicules Section -->
+            <section class="category-scroll-section">
+                <div class="category-header">
+                    <div class="section-title-container">
+                        <h2 class="section-title">Location de véhicules</h2>
+                        <button class="filter-btn" id="filterToggleLocation">
+                            <i class="fas fa-filter"></i> Filtrer
+                        </button>
+                    </div>
+                    <a href="#" class="view-all">Voir tout <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="scroll-container">
+                    <div class="equipment-scroll">
+                        <!-- Carte de filtrage -->
+                        <div class="filter-card" id="filterCardLocation">
+                            <div class="filter-header">
+                                <h3 class="filter-title">Filtres Location</h3>
+                                <div class="filter-actions">
+                                    <button class="reset-btn" id="resetFiltersLocation" title="Réinitialiser">
+                                        <i class="fas fa-undo"></i>
+                                    </button>
+                                    <button class="close-btn" id="closeFiltersLocation" title="Fermer">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="filter-group">
+                                <label class="filter-label">Type de véhicule</label>
+                                <select class="filter-select" id="typeVehiculeFilter">
+                                    <option value="">Tous les types</option>
+                                    <option value="citadine">Voiture citadine</option>
+                                    <option value="suv">SUV / 4x4</option>
+                                    <option value="electrique">Véhicule électrique</option>
+                                    <option value="scooter">Scooter / moto</option>
+                                    <option value="velo">Vélos / vélos électriques</option>
+                                </select>
+                            </div>
+
+                            <div class="filter-group">
+                                <label class="filter-label">Budget (DH/jour)</label>
+                                <select class="filter-select" id="budgetFilterLocation">
+                                    <option value="">Tous les budgets</option>
+                                    <option value="0-300">0 - 300 DH</option>
+                                    <option value="300-600">300 - 600 DH</option>
+                                    <option value="600+">Plus de 600 DH</option>
+                                </select>
+                            </div>
+
+                            <div class="filter-group">
+                                <label class="filter-label">Disponibilité</label>
+                                <input type="date" class="filter-select" id="dateFilterLocation">
+                            </div>
+                        </div>
+
+                        <!-- Citadine -->
+                        <div class="equipment-card" data-type="citadine" data-price="250">
+                            <div class="equipment-img">
+                                <img src="https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Voiture citadine">
+                            </div>
+                            <div class="equipment-content">
+                                <div class="service-badge">
+                                    <i class="fas fa-car vehicle-type-icon"></i> Citadine
+                                </div>
+                                <h3 class="equipment-title">Renault Clio</h3>
+                                <p class="equipment-description">Économique et facile à garer en ville</p>
+                                <div class="transport-features">
+                                    <span class="transport-feature">5 passagers</span>
+                                    <span class="transport-feature">Climatisation</span>
+                                    <span class="transport-feature">GPS</span>
+                                </div>
+                                <div class="equipment-meta">
+                                    <span class="equipment-price">250 DH/jour</span>
+                                    <span class="equipment-rating">★★★★☆ (87)</span>
+                                </div>
+                                <button class="equipment-btn">Réserver</button>
+                            </div>
+                        </div>
+                        
+                        <!-- SUV -->
+                        <div class="equipment-card" data-type="suv" data-price="550">
+                            <div class="equipment-img">
+                                <img src="https://images.unsplash.com/photo-1541899481282-d53bffe3c35d?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="SUV">
+                            </div>
+                            <div class="equipment-content">
+                                <div class="service-badge">
+                                    <i class="fas fa-car vehicle-type-icon"></i> SUV / 4x4
+                                </div>
+                                <h3 class="equipment-title">Toyota Land Cruiser</h3>
+                                <p class="equipment-description">Idéal pour terrains montagneux et désertiques</p>
+                                <div class="transport-features">
+                                    <span class="transport-feature">7 passagers</span>
+                                    <span class="transport-feature">4x4</span>
+                                    <span class="transport-feature">Siège enfant</span>
+                                </div>
+                                <div class="equipment-meta">
+                                    <span class="equipment-price">550 DH/jour</span>
+                                    <span class="equipment-rating">★★★★★ (65)</span>
+                                </div>
+                                <button class="equipment-btn">Réserver</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Vélo électrique -->
+                        <div class="equipment-card" data-type="velo" data-price="120">
+                            <div class="equipment-img">
+                                <img src="https://images.unsplash.com/photo-1616788494707-ec28f08d05a1?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" alt="Vélo électrique">
+                            </div>
+                            <div class="equipment-content">
+                                <div class="service-badge">
+                                    <i class="fas fa-bicycle vehicle-type-icon"></i> Vélo électrique
+                                </div>
+                                <h3 class="equipment-title">Vélo électrique EcoRide</h3>
+                                <p class="equipment-description">Option écologique pour visites en ville</p>
+                                <div class="transport-features">
+                                    <span class="transport-feature">Autonomie 60km</span>
+                                    <span class="transport-feature">Casque inclus</span>
+                                    <span class="transport-feature">Assistance électrique</span>
+                                </div>
+                                <div class="equipment-meta">
+                                    <span class="equipment-price">120 DH/jour</span>
+                                    <span class="equipment-rating">★★★★☆ (93)</span>
+                                </div>
+                                <button class="equipment-btn">Réserver</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="scroll-btn scroll-left"><i class="fas fa-chevron-left"></i></button>
+                    <button class="scroll-btn scroll-right"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </section>
+
+            <!-- Chauffeur & transport privé Section -->
+            <section class="category-scroll-section">
+                <div class="category-header">
+                    <div class="section-title-container">
+                        <h2 class="section-title">Chauffeur & Transport Privé</h2>
+                        <button class="filter-btn" id="filterToggleChauffeur">
+                            <i class="fas fa-filter"></i> Filtrer
+                        </button>
+                    </div>
+                    <a href="#" class="view-all">Voir tout <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="scroll-container">
+                    <div class="equipment-scroll">
+                        <!-- Carte de filtrage -->
+                        <div class="filter-card" id="filterCardChauffeur">
+                            <div class="filter-header">
+                                <h3 class="filter-title">Filtres Chauffeur</h3>
+                                <div class="filter-actions">
+                                    <button class="reset-btn" id="resetFiltersChauffeur" title="Réinitialiser">
+                                        <i class="fas fa-undo"></i>
+                                    </button>
+                                    <button class="close-btn" id="closeFiltersChauffeur" title="Fermer">
+                                        <i class="fas fa-times"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <div class="filter-group">
+                                <label class="filter-label">Type de service</label>
+                                <select class="filter-select" id="typeServiceFilter">
+                                    <option value="">Tous les services</option>
+                                    <option value="guide">Chauffeur-guide</option>
+                                    <option value="vtc">VTC / Chauffeur privé</option>
+                                    <option value="taxi">Taxi traditionnel</option>
+                                    <option value="interville">Transferts inter-villes</option>
+                                    <option value="vip">VIP / Luxe</option>
+                                </select>
+                            </div>
+
+                            <div class="filter-group">
+                                <label class="filter-label">Langues</label>
+                                <select class="filter-select" id="langueFilter">
+                                    <option value="">Toutes langues</option>
+                                    <option value="fr">Français</option>
+                                    <option value="ar">Arabe</option>
+                                    <option value="en">Anglais</option>
+                                    <option value="es">Espagnol</option>
+                                </select>
+                            </div>
+
+                            <div class="filter-group">
+                                <label class="filter-label">Disponibilité</label>
+                                <input type="date" class="filter-select" id="dateFilterChauffeur">
+                            </div>
+                        </div>
+
+                        <!-- Chauffeur-guide -->
+                        <div class="equipment-card" data-type="guide" data-langues="fr,ar,en">
+                            <div class="equipment-img">
+                                <img src="https://images.unsplash.com/photo-1582675350707-345e03eae1e6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Chauffeur-guide">
+                            </div>
+                            <div class="equipment-content">
+                                <div class="service-badge">
+                                    <i class="fas fa-user-tie vehicle-type-icon"></i> Chauffeur-guide
+                                </div>
+                                <h3 class="equipment-title">Karim - Guide certifié</h3>
+                                <p class="equipment-description">Visitez Marrakech avec un chauffeur-guide local</p>
+                                <div class="transport-features">
+                                    <span class="lang-badge">Français</span>
+                                    <span class="lang-badge">Arabe</span>
+                                    <span class="lang-badge">Anglais</span>
+                                </div>
+                                <div class="transport-features">
+                                    <span class="transport-feature">4 passagers</span>
+                                    <span class="transport-feature">Visites incluses</span>
+                                </div>
+                                <div class="equipment-meta">
+                                    <span class="equipment-price">400 DH/h</span>
+                                    <span class="equipment-rating">★★★★★ (124)</span>
+                                </div>
+                                <button class="equipment-btn">Réserver</button>
+                            </div>
+                        </div>
+                        
+                        <!-- VTC Luxe -->
+                        <div class="equipment-card" data-type="vip" data-langues="fr,en">
+                            <div class="equipment-img">
+                                <img src="https://images.unsplash.com/photo-1550355291-bbee04a92027?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1176&q=80" alt="VTC Luxe">
+                            </div>
+                            <div class="equipment-content">
+                                <div class="service-badge">
+                                    <i class="fas fa-crown vehicle-type-icon"></i> VIP / Luxe
+                                </div>
+                                <h3 class="equipment-title">Mercedes Classe S</h3>
+                                <p class="equipment-description">Service haut de gamme avec boissons et wifi</p>
+                                <div class="transport-features">
+                                    <span class="lang-badge">Français</span>
+                                    <span class="lang-badge">Anglais</span>
+                                </div>
+                                <div class="transport-features">
+                                    <span class="transport-feature">3 passagers</span>
+                                    <span class="transport-feature">Mini-bar</span>
+                                    <span class="transport-feature">Wi-Fi</span>
+                                </div>
+                                <div class="equipment-meta">
+                                    <span class="equipment-price">600 DH/h</span>
+                                    <span class="equipment-rating">★★★★★ (78)</span>
+                                </div>
+                                <button class="equipment-btn">Réserver</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Transfert inter-villes -->
+                        <div class="equipment-card" data-type="interville" data-langues="fr,ar">
+                            <div class="equipment-img">
+                                <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Transfert inter-villes">
+                            </div>
+                            <div class="equipment-content">
+                                <div class="service-badge">
+                                    <i class="fas fa-road vehicle-type-icon"></i> Transfert inter-villes
+                                </div>
+                                <h3 class="equipment-title">Casablanca à Marrakech</h3>
+                                <p class="equipment-description">Confortable et rapide - 2h30 de trajet</p>
+                                <div class="transport-features">
+                                    <span class="lang-badge">Français</span>
+                                    <span class="lang-badge">Arabe</span>
+                                </div>
+                                <div class="transport-features">
+                                    <span class="transport-feature">4 passagers</span>
+                                    <span class="transport-feature">Climatisation</span>
+                                </div>
+                                <div class="equipment-meta">
+                                    <span class="equipment-price">800 DH</span>
+                                    <span class="equipment-rating">★★★★☆ (92)</span>
+                                </div>
+                                <button class="equipment-btn">Réserver</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="scroll-btn scroll-left"><i class="fas fa-chevron-left"></i></button>
+                    <button class="scroll-btn scroll-right"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </section>
+
+            <!-- Transports alternatifs Section -->
+            <section class="category-scroll-section">
+                <div class="category-header">
+                    <div class="section-title-container">
+                        <h2 class="section-title">Transports Alternatifs</h2>
+                        <button class="filter-btn" id="filterToggleAlternatifs">
+                            <i class="fas fa-filter"></i> Filtrer
+                        </button>
+                    </div>
+                    <a href="#" class="view-all">Voir tout <i class="fas fa-arrow-right"></i></a>
+                </div>
+                
+                <div class="scroll-container">
+                    <div class="equipment-scroll">
+                        <!-- Dromadaire -->
+                        <div class="equipment-card">
+                            <div class="equipment-img">
+                                <img src="https://images.unsplash.com/photo-1623341215095-6a4a0c5b3d33?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Dromadaire">
+                            </div>
+                            <div class="equipment-content">
+                                <div class="service-badge">
+                                    <i class="fas fa-horse vehicle-type-icon"></i> Dromadaire
+                                </div>
+                                <h3 class="equipment-title">Balade dans le désert</h3>
+                                <p class="equipment-description">Expérience authentique dans les dunes de Merzouga</p>
+                                <div class="transport-features">
+                                    <span class="transport-feature">2 heures</span>
+                                    <span class="transport-feature">Coucher de soleil</span>
+                                    <span class="transport-feature">Guide local</span>
+                                </div>
+                                <div class="equipment-meta">
+                                    <span class="equipment-price">150 DH/personne</span>
+                                    <span class="equipment-rating">★★★★★ (213)</span>
+                                </div>
+                                <button class="equipment-btn">Réserver</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Calèche -->
+                        <div class="equipment-card">
+                            <div class="equipment-img">
+                                <img src="https://images.unsplash.com/photo-1593696140826-c58b021acf8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Calèche">
+                            </div>
+                            <div class="equipment-content">
+                                <div class="service-badge">
+                                    <i class="fas fa-horse-head vehicle-type-icon"></i> Calèche
+                                </div>
+                                <h3 class="equipment-title">Tour de Marrakech en calèche</h3>
+                                <p class="equipment-description">Découvrez la ville ocre de manière traditionnelle</p>
+                                <div class="transport-features">
+                                    <span class="transport-feature">1 heure</span>
+                                    <span class="transport-feature">4 passagers max</span>
+                                    <span class="transport-feature">Circuit personnalisé</span>
+                                </div>
+                                <div class="equipment-meta">
+                                    <span class="equipment-price">200 DH</span>
+                                    <span class="equipment-rating">★★★★☆ (187)</span>
+                                </div>
+                                <button class="equipment-btn">Réserver</button>
+                            </div>
+                        </div>
+                        
+                        <!-- Bateau -->
+                        <div class="equipment-card">
+                            <div class="equipment-img">
+                                <img src="https://images.unsplash.com/photo-1508317469940-e3de49ba902e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Excursion en bateau">
+                            </div>
+                            <div class="equipment-content">
+                                <div class="service-badge">
+                                    <i class="fas fa-ship vehicle-type-icon"></i> Excursion maritime
+                                </div>
+                                <h3 class="equipment-title">Croisière à Essaouira</h3>
+                                <p class="equipment-description">Découvrez la côte atlantique depuis la mer</p>
+                                <div class="transport-features">
+                                    <span class="transport-feature">3 heures</span>
+                                    <span class="transport-feature">12 passagers max</span>
+                                    <span class="transport-feature">Apéritif inclus</span>
+                                </div>
+                                <div class="equipment-meta">
+                                    <span class="equipment-price">350 DH/personne</span>
+                                    <span class="equipment-rating">★★★★★ (142)</span>
+                                </div>
+                                <button class="equipment-btn">Réserver</button>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="scroll-btn scroll-left"><i class="fas fa-chevron-left"></i></button>
+                    <button class="scroll-btn scroll-right"><i class="fas fa-chevron-right"></i></button>
+                </div>
+            </section>
+
+            <!-- Conseils pratiques Section -->
+            <section class="equipment-section">
+                <h2 class="section-title">Conseils pratiques</h2>
+                <div class="service-card">
+                    <h3><i class="fas fa-exclamation-circle"></i> Circulation au Maroc</h3>
+                    <p>La circulation peut être intense, surtout en ville : prudence recommandée. Pour la location, un permis international est conseillé.</p>
+                </div>
+                
+                <div class="service-card">
+                    <h3><i class="fas fa-map-marked-alt"></i> Navigation</h3>
+                    <p>Utiliser un GPS ou application comme Maps.me dans les zones peu couvertes. Certains chauffeurs parlent uniquement arabe/darija ou français.</p>
+                </div>
+                
+                <div class="service-card">
+                    <h3><i class="fas fa-hands-helping"></i> Transports alternatifs</h3>
+                    <p>Pour les transports alternatifs (dromadaire, calèche), vérifiez les conditions de sécurité et bien-être animal.</p>
+                </div>
+                
+                <div class="service-card">
+                    <h3><i class="fas fa-star"></i> Réservations VIP</h3>
+                    <p>Réserver à l'avance pour les transferts VIP et les véhicules adaptés.</p>
+                </div>
+            </section>
+            
+            <!-- Nouvelle section : Transport pour Événements -->
+            <section class="event-section">
+                <div class="event-header">
+                    <h2 class="section-title">Transport pour Événements</h2>
+                    <p>Des solutions de transport sur mesure pour tous vos événements au Maroc</p>
+                </div>
+                
+                <div class="event-cards">
+                    <!-- Mariage -->
+                    <div class="event-card">
+                        <div class="event-img">
+                            <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80" alt="Transport mariage">
+                        </div>
+                        <div class="event-content">
+                            <div class="event-type">
+                                <div class="event-icon">
+                                    <i class="fas fa-heart"></i>
+                                </div>
+                                Mariage
+                            </div>
+                            <h3 class="event-title">Transport de mariage</h3>
+                            <p class="event-desc">Des véhicules de luxe pour votre grand jour. Transferts des invités, mariés et famille.</p>
+                            <div class="event-features">
+                                <span class="event-feature">Voitures vintage</span>
+                                <span class="event-feature">Limousines</span>
+                                <span class="event-feature">Minibus VIP</span>
+                            </div>
+                            <a href="#" class="event-btn">Réserver pour votre mariage</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Événement sportif -->
+                    <div class="event-card">
+                        <div class="event-img">
+                            <img src="https://images.unsplash.com/photo-1541252260730-0412e8e2108e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Transport sport">
+                        </div>
+                        <div class="event-content">
+                            <div class="event-type">
+                                <div class="event-icon">
+                                    <i class="fas fa-running"></i>
+                                </div>
+                                Événement sportif
+                            </div>
+                            <h3 class="event-title">Transport pour compétitions</h3>
+                            <p class="event-desc">Navettes et bus pour athlètes, équipes et supporters. Organisation logistique complète.</p>
+                            <div class="event-features">
+                                <span class="event-feature">Bus équipés</span>
+                                <span class="event-feature">Transferts groupe</span>
+                                <span class="event-feature">Matériel sportif</span>
+                            </div>
+                            <a href="#" class="event-btn">Organiser un transport sportif</a>
+                        </div>
+                    </div>
+                    
+                    <!-- Conférence & Séminaire -->
+                    <div class="event-card">
+                        <div class="event-img">
+                            <img src="https://images.unsplash.com/photo-1511578314322-379afb476865?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80" alt="Transport conférence">
+                        </div>
+                        <div class="event-content">
+                            <div class="event-type">
+                                <div class="event-icon">
+                                    <i class="fas fa-users"></i>
+                                </div>
+                                Conférence & Séminaire
+                            </div>
+                            <h3 class="event-title">Transferts professionnels</h3>
+                            <p class="event-desc">Solutions de transport pour vos participants, intervenants et VIPs. Service sur mesure.</p>
+                            <div class="event-features">
+                                <span class="event-feature">Accueil aéroport</span>
+                                <span class="event-feature">Navettes dédiées</span>
+                                <span class="event-feature">Véhicules VIP</span>
+                            </div>
+                            <a href="#" class="event-btn">Planifier pour un événement</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <!-- Blog Section -->
+            <section class="blog-section">
+                <h2 class="section-title">Actualités & Conseils</h2>
+                <div class="scroll-container">
+                    <div class="blog-scroll">
+                        <div class="blog-card">
+                            <div class="blog-img">
+                                <img src="https://images.unsplash.com/photo-1602002418816-5c0aeef426aa?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1074&q=80" alt="Blog 1">
+                            </div>
+                            <div class="blog-content">
+                                <span class="blog-date">15 Juin 2025</span>
+                                <h3 class="blog-title">Les meilleurs itinéraires routiers au Maroc</h3>
+                                <p class="blog-excerpt">Découvrez nos conseils pour des road trips inoubliables à travers le pays...</p>
+                                <a href="#" class="read-more">Lire la suite →</a>
+                            </div>
+                        </div>
+                        
+                        <div class="blog-card">
+                            <div class="blog-img">
+                                <img src="https://images.unsplash.com/photo-1567602901358-5ba00815eb15?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Blog 2">
+                            </div>
+                            <div class="blog-content">
+                                <span class="blog-date">2 Juin 2025</span>
+                                <h3 class="blog-title">Comment voyager responsable au Maroc</h3>
+                                <p class="blog-excerpt">Nos conseils pour un tourisme respectueux de l'environnement et des communautés locales...</p>
+                                <a href="#" class="read-more">Lire la suite →</a>
+                            </div>
+                        </div>
+                        
+                        <div class="blog-card">
+                            <div class="blog-img">
+                                <img src="https://images.unsplash.com/photo-1593697820826-6a5f202c12b7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Blog 2">
+                            </div>
+                            <div class="blog-content">
+                                <span class="blog-date">20 Mai 2025</span>
+                                <h3 class="blog-title">Le guide des transports locaux au Maroc</h3>
+                                <p class="blog-excerpt">Comment se déplacer comme un local dans les grandes villes marocaines...</p>
+                                <a href="#" class="read-more">Lire la suite →</a>
+                            </div>
+                        </div>
+                    </div>
+                    <button class="scroll-btn scroll-left"><i class="fas fa-chevron-left"></i></button>
+                    <button class="scroll-btn scroll-right"><i class="fas fa-chevron-right"></i></button>
+                </div>
+                <div class="view-all-containerS">
+                    <a href="#" class="view-all-link">Voir tous les articles <i class="fas fa-arrow-right"></i></a>
+                </div>
+            </section>
+            
+            <!-- Newsletter Section -->
+            <section class="newsletter-section">
+                <h2 class="newsletter-title">Restez informé</h2>
+                <p class="newsletter-desc">Recevez nos offres exclusives, conseils de voyage et actualités sur les transports au Maroc.</p>
+                <form class="newsletter-form">
+                    <input type="email" placeholder="Votre adresse email">
+                    <button type="submit">S'abonner</button>
+                </form>
+            </section>
+        </div>
+    </main>
+
+<!-- Footer -->
+<footer class="footer">
+        <div class="footer-container">
+            <div class="footer-about">
+                <div class="footer-logo">3arboon</div>
+                <p>Plateforme leader de réservation de services au Maroc. Nous connectons les voyageurs aux meilleures options de transport dans tout le pays.</p>
+                <div class="social-links">
+                    <a href="#"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                </div>
+            </div>
+            
+            <div class="footer-links">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="#">Navettes</a></li>
+                    <li><a href="#">Location de véhicules</a></li>
+                    <li><a href="#">Chauffeurs privés</a></li>
+                    <li><a href="#">Transports collectifs</a></li>
+                    <li><a href="#">Transports traditionnels</a></li>
+                    <li><a href="#">Événements</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-links">
+                <h3>Destinations</h3>
+                <ul>
+                    <li><a href="#">Casablanca</a></li>
+                    <li><a href="#">Marrakech</a></li>
+                    <li><a href="#">Rabat</a></li>
+                    <li><a href="#">Fès</a></li>
+                    <li><a href="#">Tanger</a></li>
+                </ul>
+            </div>
+            
+            <div class="footer-newsletter">
+                <h3>Contact</h3>
+                <p><i class="fas fa-map-marker-alt"></i> Avenue Mohammed V, Casablanca</p>
+                <p><i class="fas fa-phone"></i> +212 6 12 34 56 78</p>
+                <p><i class="fas fa-envelope"></i> contact&#64;3arboon.ma</p>
+            </div>
+        </div>
+        
+        <div class="footer-bottom">
+            <p>&copy; 2023 3arboon. Tous droits réservés.</p>
+        </div>
+    </footer>
+    </body>
+</html>
