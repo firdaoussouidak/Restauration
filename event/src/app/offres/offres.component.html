@@ -1,0 +1,570 @@
+<!-- Top Bar -->
+<div class="top-bar">
+  <div class="top-bar-selector"><i class="fas fa-globe"></i><span>Maroc</span></div>
+  <div class="top-bar-selector"><i class="fas fa-language"></i><span>Français</span></div>
+  <div class="top-bar-selector"><i class="fas fa-money-bill-wave"></i><span>MAD</span></div>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-container">
+    <div class="header-left">
+      <button class="hamburger" (click)="toggleMenu()"><i class="fas fa-bars"></i></button>
+      <div class="logo-group">
+        <div class="hands-logo">
+          <svg viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 ..."/>
+          </svg>
+        </div>
+        <div class="logo">3arboon</div>
+      </div>
+      <nav class="navbar">
+        <ul class="nav-links">
+          <li><a href="#">Accueil</a></li>
+          <li><a href="#">Offres</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="header-right">
+      <button class="partner-btn">Devenir Partenaire</button>
+      <button class="auth-btn">Connexion</button>
+      <button class="filter-toggle-header" id="headerFilterToggle" (click)="toggleFilterSidebar()">
+        <i class="fas fa-filter"></i>
+      </button>
+    </div>
+  </div>
+</header>
+
+<!-- Options Bar -->
+<div class="options-bar">
+  <div class="view-options">
+    <button class="view-btn active">
+      <i class="fas fa-th-large"></i> Grille
+    </button>
+    <button class="view-btn" (click)="toggleMapView()">
+      <i class="fas fa-map-marked-alt"></i> Carte
+    </button>
+  </div>
+  <div class="sort-options">
+    <span class="sort-label">Trier par :</span>
+    <select class="sort-select" (change)="sortOffers($event.target.value)">
+      <option value="recent">Plus récent</option>
+      <option value="price-asc">Prix croissant</option>
+      <option value="price-desc">Prix décroissant</option>
+      <option value="rating">Meilleures notes</option>
+    </select>
+  </div>
+</div>
+
+<!-- Main Content -->
+<div class="main-container">
+    <!-- Filter Sidebar -->
+    <aside class="filter-sidebar" id="filterSidebar">
+      <div class="filter-header">
+        <h3 class="filter-title"><i class="fas fa-filter"></i> Filtres</h3>
+        <button class="filter-toggle" onclick="resetFilters()">Réinitialiser</button>
+      </div>
+
+      <div class="filter-section">
+        <div class="filter-section-title" onclick="toggleFilterSection(this)">
+          <span><i class="fas fa-tags"></i> Catégorie</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="filter-section-content">
+          <div class="filter-option">
+            <input type="checkbox" id="cat1" name="category" value="Special Evenement">
+            <label for="cat1">Special Evenement <span class="filter-option-count">(42)</span></label>
+          </div>
+          <div class="filter-option">
+            <input type="checkbox" id="cat2" name="category" value="Immobilier et Lieux">
+            <label for="cat2">Immobilier et Lieux <span class="filter-option-count">(36)</span></label>
+          </div>
+          <div class="filter-option">
+            <input type="checkbox" id="cat3" name="category" value="Materiel - Vehicule - Engins">
+            <label for="cat3">Materiel - Vehicule - Engins <span class="filter-option-count">(28)</span></label>
+          </div>
+          <div class="filter-option">
+            <input type="checkbox" id="cat4" name="category" value="Multimedia">
+            <label for="cat4">Multimedia <span class="filter-option-count">(19)</span></label>
+          </div>
+          <div class="filter-option">
+            <input type="checkbox" id="cat5" name="category" value="Famille et Foyer">
+            <label for="cat5">Famille et Foyer <span class="filter-option-count">(15)</span></label>
+          </div>
+          <div class="filter-option">
+            <input type="checkbox" id="cat6" name="category" value="Service Professionnel">
+            <label for="cat6">Service Professionnel <span class="filter-option-count">(23)</span></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="filter-section">
+        <div class="filter-section-title" onclick="toggleFilterSection(this)">
+          <span><i class="fas fa-map-marker-alt"></i> Localisation</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="filter-section-content">
+          <div class="filter-option">
+            <input type="checkbox" id="loc1" name="location" value="Casablanca">
+            <label for="loc1">Casablanca <span class="filter-option-count">(32)</span></label>
+          </div>
+          <div class="filter-option">
+            <input type="checkbox" id="loc2" name="location" value="Rabat">
+            <label for="loc2">Rabat <span class="filter-option-count">(25)</span></label>
+          </div>
+          <div class="filter-option">
+            <input type="checkbox" id="loc3" name="location" value="Marrakech">
+            <label for="loc3">Marrakech <span class="filter-option-count">(18)</span></label>
+          </div>
+          <div class="filter-option">
+            <input type="checkbox" id="loc4" name="location" value="Tanger">
+            <label for="loc4">Tanger <span class="filter-option-count">(12)</span></label>
+          </div>
+          <div class="filter-option">
+            <input type="checkbox" id="loc5" name="location" value="Agadir">
+            <label for="loc5">Agadir <span class="filter-option-count">(8)</span></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="filter-section">
+        <div class="filter-section-title" onclick="toggleFilterSection(this)">
+          <span><i class="fas fa-money-bill-wave"></i> Prix (MAD)</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="filter-section-content">
+          <div class="filter-option">
+            <input type="checkbox" id="price1" name="price" value="0-500">
+            <label for="price1">Moins de 500 <span class="filter-option-count">(14)</span></label>
+          </div>
+          <div class="filter-option">
+            <input type="checkbox" id="price2" name="price" value="500-1000">
+            <label for="price2">500 - 1000 <span class="filter-option-count">(27)</span></label>
+          </div>
+          <div class="filter-option">
+            <input type="checkbox" id="price3" name="price" value="1000-2000">
+            <label for="price3">1000 - 2000 <span class="filter-option-count">(35)</span></label>
+          </div>
+          <div class="filter-option">
+            <input type="checkbox" id="price4" name="price" value="2000-5000">
+            <label for="price4">2000 - 5000 <span class="filter-option-count">(22)</span></label>
+          </div>
+          <div class="filter-option">
+            <input type="checkbox" id="price5" name="price" value="5000+">
+            <label for="price5">Plus de 5000 <span class="filter-option-count">(9)</span></label>
+          </div>
+        </div>
+      </div>
+
+      <div class="filter-section">
+        <div class="filter-section-title" onclick="toggleFilterSection(this)">
+          <span><i class="fas fa-star"></i> Évaluation</span>
+          <i class="fas fa-chevron-down"></i>
+        </div>
+        <div class="filter-section-content">
+          <div class="filter-option">
+            <input type="checkbox" id="rating1" name="rating" value="5">
+            <label for="rating1">
+              <span class="offer-rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+              </span>
+              <span class="filter-option-count">(18)</span>
+            </label>
+          </div>
+          <div class="filter-option">
+            <input type="checkbox" id="rating2" name="rating" value="4">
+            <label for="rating2">
+              <span class="offer-rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+              </span> et plus
+              <span class="filter-option-count">(42)</span>
+            </label>
+          </div>
+          <div class="filter-option">
+            <input type="checkbox" id="rating3" name="rating" value="3">
+            <label for="rating3">
+              <span class="offer-rating">
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="fas fa-star"></i>
+                <i class="far fa-star"></i>
+                <i class="far fa-star"></i>
+              </span> et plus
+              <span class="filter-option-count">(67)</span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Offers Grid -->
+    <div class="offers-grid">
+      <!-- Offer Card 1 -->
+      <div class="offer-card">
+        <div class="offer-image" style="background-image: url('https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60')">
+          <span class="offer-badge">Nouveau</span>
+        </div>
+        <div class="offer-details">
+          <h3 class="offer-title">Salle de fête luxueuse</h3>
+          <div class="offer-location">
+            <i class="fas fa-map-marker-alt"></i> Casablanca
+          </div>
+          <p class="offer-description">Salle spacieuse pour événements jusqu'à 150 personnes, avec décoration moderne et équipement complet.</p>
+          <div class="offer-price">1 200 MAD/jour</div>
+          <div class="offer-meta">
+            <span><i class="fas fa-users"></i> Jusqu'à 150 personnes</span>
+            <span class="offer-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </span>
+          </div>
+          <button class="offer-reserve-btn">
+            <i class="fas fa-calendar-check"></i> Réserver
+          </button>
+        </div>
+      </div>
+
+      <!-- Offer Card 2 -->
+      <div class="offer-card">
+        <div class="offer-image" style="background-image: url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60')">
+          <span class="offer-badge">Promo</span>
+        </div>
+        <div class="offer-details">
+          <h3 class="offer-title">Matériel de sonorisation</h3>
+          <div class="offer-location">
+            <i class="fas fa-map-marker-alt"></i> Rabat
+          </div>
+          <p class="offer-description">Pack complet de sonorisation pour événements avec micros, enceintes et table de mixage.</p>
+          <div class="offer-price">800 MAD/jour</div>
+          <div class="offer-meta">
+            <span><i class="fas fa-music"></i> Complète</span>
+            <span class="offer-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+            </span>
+          </div>
+          <button class="offer-reserve-btn">
+            <i class="fas fa-calendar-check"></i> Réserver
+          </button>
+        </div>
+      </div>
+
+      <!-- Offer Card 3 -->
+      <div class="offer-card">
+        <div class="offer-image" style="background-image: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60')">
+          <span class="offer-badge">Populaire</span>
+        </div>
+        <div class="offer-details">
+          <h3 class="offer-title">Appartement moderne</h3>
+          <div class="offer-location">
+            <i class="fas fa-map-marker-alt"></i> Marrakech
+          </div>
+          <p class="offer-description">Appartement haut standing avec 3 chambres, salon spacieux et terrasse avec vue imprenable.</p>
+          <div class="offer-price">2 500 MAD/jour</div>
+          <div class="offer-meta">
+            <span><i class="fas fa-home"></i> 3 chambres</span>
+            <span class="offer-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </span>
+          </div>
+          <button class="offer-reserve-btn">
+            <i class="fas fa-calendar-check"></i> Réserver
+          </button>
+        </div>
+      </div>
+
+      <!-- Offer Card 4 -->
+      <div class="offer-card">
+        <div class="offer-image" style="background-image: url('https://images.unsplash.com/photo-1513828583688-c52646db42da?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60')">
+          <span class="offer-badge">Meilleur choix</span>
+        </div>
+        <div class="offer-details">
+          <h3 class="offer-title">Photographe professionnel</h3>
+          <div class="offer-location">
+            <i class="fas fa-map-marker-alt"></i> Tanger
+          </div>
+          <p class="offer-description">Photographe expérimenté pour vos événements avec retouches incluses et livraison rapide.</p>
+          <div class="offer-price">1 500 MAD/événement</div>
+          <div class="offer-meta">
+            <span><i class="fas fa-camera"></i> 8h de couverture</span>
+            <span class="offer-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </span>
+          </div>
+          <button class="offer-reserve-btn">
+            <i class="fas fa-calendar-check"></i> Réserver
+          </button>
+        </div>
+      </div>
+
+      <!-- Offer Card 5 -->
+      <div class="offer-card">
+        <div class="offer-image" style="background-image: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60')">
+          <span class="offer-badge">Nouveau</span>
+        </div>
+        <div class="offer-details">
+          <h3 class="offer-title">Salle de conférence</h3>
+          <div class="offer-location">
+            <i class="fas fa-map-marker-alt"></i> Casablanca
+          </div>
+          <p class="offer-description">Salle professionnelle équipée pour vos réunions et conférences avec vidéoprojecteur et wifi.</p>
+          <div class="offer-price">1 800 MAD/jour</div>
+          <div class="offer-meta">
+            <span><i class="fas fa-user-tie"></i> Jusqu'à 50 personnes</span>
+            <span class="offer-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+            </span>
+          </div>
+          <button class="offer-reserve-btn">
+            <i class="fas fa-calendar-check"></i> Réserver
+          </button>
+        </div>
+      </div>
+
+      <!-- Offer Card 6 -->
+      <div class="offer-card">
+        <div class="offer-image" style="background-image: url('https://images.unsplash.com/photo-1545173168-9f1947eebb7f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60')">
+          <span class="offer-badge">Économique</span>
+        </div>
+        <div class="offer-details">
+          <h3 class="offer-title">Décoration événementielle</h3>
+          <div class="offer-location">
+            <i class="fas fa-map-marker-alt"></i> Agadir
+          </div>
+          <p class="offer-description">Service complet de décoration pour mariages et événements avec thème personnalisé.</p>
+          <div class="offer-price">600 MAD/jour</div>
+          <div class="offer-meta">
+            <span><i class="fas fa-paint-brush"></i> Thème personnalisé</span>
+            <span class="offer-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </span>
+          </div>
+          <button class="offer-reserve-btn">
+            <i class="fas fa-calendar-check"></i> Réserver
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <!-- Exemple section (reprends les autres identiques) -->
+    <div class="filter-section">
+      <div class="filter-section-title" (click)="toggleFilterSection($event)">
+        <span><i class="fas fa-tags"></i> Catégorie</span>
+        <i class="fas fa-chevron-down"></i>
+      </div>
+      <div class="filter-section-content">
+        <div class="filter-option">
+          <input type="checkbox" id="cat1" name="category" value="Special Evenement">
+          <label for="cat1">Special Evenement <span class="filter-option-count">(42)</span></label>
+        </div>
+        <div class="filter-option">
+          <input type="checkbox" id="cat2" name="category" value="Location">
+          <label for="cat2">Location <span class="filter-option-count">(18)</span></label>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Zone Offres -->
+  <div class="offers-grid">
+      <!-- Offer Card 1 -->
+      <div class="offer-card">
+        <div class="offer-image" style="background-image: url('https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60')">
+          <span class="offer-badge">Nouveau</span>
+        </div>
+        <div class="offer-details">
+          <h3 class="offer-title">Salle de fête luxueuse</h3>
+          <div class="offer-location">
+            <i class="fas fa-map-marker-alt"></i> Casablanca
+          </div>
+          <p class="offer-description">Salle spacieuse pour événements jusqu'à 150 personnes, avec décoration moderne et équipement complet.</p>
+          <div class="offer-price">1 200 MAD/jour</div>
+          <div class="offer-meta">
+            <span><i class="fas fa-users"></i> Jusqu'à 150 personnes</span>
+            <span class="offer-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </span>
+          </div>
+          <button class="offer-reserve-btn">
+            <i class="fas fa-calendar-check"></i> Réserver
+          </button>
+        </div>
+      </div>
+
+      <!-- Offer Card 2 -->
+      <div class="offer-card">
+        <div class="offer-image" style="background-image: url('https://images.unsplash.com/photo-1555396273-367ea4eb4db5?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60')">
+          <span class="offer-badge">Promo</span>
+        </div>
+        <div class="offer-details">
+          <h3 class="offer-title">Matériel de sonorisation</h3>
+          <div class="offer-location">
+            <i class="fas fa-map-marker-alt"></i> Rabat
+          </div>
+          <p class="offer-description">Pack complet de sonorisation pour événements avec micros, enceintes et table de mixage.</p>
+          <div class="offer-price">800 MAD/jour</div>
+          <div class="offer-meta">
+            <span><i class="fas fa-music"></i> Complète</span>
+            <span class="offer-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+            </span>
+          </div>
+          <button class="offer-reserve-btn">
+            <i class="fas fa-calendar-check"></i> Réserver
+          </button>
+        </div>
+      </div>
+
+      <!-- Offer Card 3 -->
+      <div class="offer-card">
+        <div class="offer-image" style="background-image: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60')">
+          <span class="offer-badge">Populaire</span>
+        </div>
+        <div class="offer-details">
+          <h3 class="offer-title">Appartement moderne</h3>
+          <div class="offer-location">
+            <i class="fas fa-map-marker-alt"></i> Marrakech
+          </div>
+          <p class="offer-description">Appartement haut standing avec 3 chambres, salon spacieux et terrasse avec vue imprenable.</p>
+          <div class="offer-price">2 500 MAD/jour</div>
+          <div class="offer-meta">
+            <span><i class="fas fa-home"></i> 3 chambres</span>
+            <span class="offer-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </span>
+          </div>
+          <button class="offer-reserve-btn">
+            <i class="fas fa-calendar-check"></i> Réserver
+          </button>
+        </div>
+      </div>
+
+      <!-- Offer Card 4 -->
+      <div class="offer-card">
+        <div class="offer-image" style="background-image: url('https://images.unsplash.com/photo-1513828583688-c52646db42da?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60')">
+          <span class="offer-badge">Meilleur choix</span>
+        </div>
+        <div class="offer-details">
+          <h3 class="offer-title">Photographe professionnel</h3>
+          <div class="offer-location">
+            <i class="fas fa-map-marker-alt"></i> Tanger
+          </div>
+          <p class="offer-description">Photographe expérimenté pour vos événements avec retouches incluses et livraison rapide.</p>
+          <div class="offer-price">1 500 MAD/événement</div>
+          <div class="offer-meta">
+            <span><i class="fas fa-camera"></i> 8h de couverture</span>
+            <span class="offer-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star-half-alt"></i>
+            </span>
+          </div>
+          <button class="offer-reserve-btn">
+            <i class="fas fa-calendar-check"></i> Réserver
+          </button>
+        </div>
+      </div>
+
+      <!-- Offer Card 5 -->
+      <div class="offer-card">
+        <div class="offer-image" style="background-image: url('https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60')">
+          <span class="offer-badge">Nouveau</span>
+        </div>
+        <div class="offer-details">
+          <h3 class="offer-title">Salle de conférence</h3>
+          <div class="offer-location">
+            <i class="fas fa-map-marker-alt"></i> Casablanca
+          </div>
+          <p class="offer-description">Salle professionnelle équipée pour vos réunions et conférences avec vidéoprojecteur et wifi.</p>
+          <div class="offer-price">1 800 MAD/jour</div>
+          <div class="offer-meta">
+            <span><i class="fas fa-user-tie"></i> Jusqu'à 50 personnes</span>
+            <span class="offer-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="far fa-star"></i>
+            </span>
+          </div>
+          <button class="offer-reserve-btn">
+            <i class="fas fa-calendar-check"></i> Réserver
+          </button>
+        </div>
+      </div>
+
+      <!-- Offer Card 6 -->
+      <div class="offer-card">
+        <div class="offer-image" style="background-image: url('https://images.unsplash.com/photo-1545173168-9f1947eebb7f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60')">
+          <span class="offer-badge">Économique</span>
+        </div>
+        <div class="offer-details">
+          <h3 class="offer-title">Décoration événementielle</h3>
+          <div class="offer-location">
+            <i class="fas fa-map-marker-alt"></i> Agadir
+          </div>
+          <p class="offer-description">Service complet de décoration pour mariages et événements avec thème personnalisé.</p>
+          <div class="offer-price">600 MAD/jour</div>
+          <div class="offer-meta">
+            <span><i class="fas fa-paint-brush"></i> Thème personnalisé</span>
+            <span class="offer-rating">
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+              <i class="fas fa-star"></i>
+            </span>
+          </div>
+          <button class="offer-reserve-btn">
+            <i class="fas fa-calendar-check"></i> Réserver
+          </button>
+        </div>
+      </div>
+    </div>
+</div>

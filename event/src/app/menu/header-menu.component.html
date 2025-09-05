@@ -1,0 +1,69 @@
+<!-- Top Bar -->
+<div class="top-bar">
+  <div class="top-bar-selector"><i class="fas fa-globe"></i><span>Maroc</span></div>
+  <div class="top-bar-selector"><i class="fas fa-language"></i><span>Français</span></div>
+  <div class="top-bar-selector"><i class="fas fa-money-bill-wave"></i><span>MAD</span></div>
+</div>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-container">
+    <div class="header-left">
+      <button class="hamburger" (click)="toggleMenu()"><i class="fas fa-bars"></i></button>
+      <div class="logo-group">
+        <div class="hands-logo">
+          <svg viewBox="0 0 24 24"><path d="M12 2C6.48 2 2 6.48 ..."/></svg>
+        </div>
+        <div class="logo">3arboon</div>
+      </div>
+      <nav class="navbar">
+        <ul class="nav-links">
+          <li><a href="#">Accueil</a></li>
+          <li><a href="#">Offres</a></li>
+          <li><a href="#">Contact</a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="header-right">
+      <button class="partner-btn">Devenir Partenaire</button>
+      <button class="auth-btn">Connexion</button>
+    </div>
+  </div>
+</header>
+
+<!-- Menu Latéral -->
+<div id="menu" class="menu-container" [class.show]="isMenuOpen">
+  <div class="menu-content">
+    <!-- Niveau 1 -->
+    <div id="level1" class="menu-level" [class.hidden]="activeLevel1Index !== null">
+      <div *ngFor="let item of data; let i = index" 
+           class="menu-item" 
+           [class.active]="activeLevel1Index === i"
+           (click)="selectLevel1(i)">
+        <span [innerHTML]="item.icon"> {{ item.name }}</span> ➜
+      </div>
+    </div>
+
+    <!-- Niveau 2 -->
+    <div id="level2" class="menu-level" [class.hidden]="activeLevel1Index === null">
+      <div *ngIf="activeLevel1Index !== null">
+        <div *ngFor="let item of data[activeLevel1Index].submenu; let i = index" 
+             class="menu-item" 
+             [class.active]="activeLevel2Index === i"
+             (click)="item.submenu && selectLevel2(i)">
+          <span>- {{ item.name }}</span> {{ item.submenu ? '➜' : '' }}
+        </div>
+      </div>
+    </div>
+
+    <!-- Niveau 3 -->
+    <div id="level3" class="menu-level" [class.hidden]="activeLevel2Index === null">
+      <div *ngIf="activeLevel1Index !== null && activeLevel2Index !== null">
+        <div *ngFor="let item of data[activeLevel1Index].submenu[activeLevel2Index].submenu" 
+             class="menu-item">
+          <span>- {{ item.name }}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
