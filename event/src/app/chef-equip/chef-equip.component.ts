@@ -2,13 +2,14 @@ import { Component, OnInit, Renderer2, Inject, PLATFORM_ID } from '@angular/core
 import { FormsModule } from '@angular/forms';
 import { NgFor, CommonModule } from '@angular/common';
 import { isPlatformBrowser } from '@angular/common';
+import { ViewportScroller } from '@angular/common';
 
 @Component({
   selector: 'app-chef-equip',
   templateUrl: './chef-equip.component.html',
   styleUrls: ['./chef-equip.component.css'],
   standalone: true,
-  imports: [FormsModule, NgFor, CommonModule] // Ajout de CommonModule
+  imports: [FormsModule, NgFor, CommonModule]
 })
 export class ChefEquipComponent implements OnInit {
   // ... (garde tous tes filtres et données existants)
@@ -407,7 +408,8 @@ export class ChefEquipComponent implements OnInit {
 
   constructor(
     private renderer: Renderer2,
-    @Inject(PLATFORM_ID) private platformId: Object
+    @Inject(PLATFORM_ID) private platformId: Object,
+    private viewportScroller: ViewportScroller
   ) {}
 
   ngOnInit(): void {
@@ -644,5 +646,29 @@ export class ChefEquipComponent implements OnInit {
 
   get filteredServiceEquipment() {
     return this.serviceEquipment;
+  }
+
+
+
+
+
+
+scrollToSection(sectionId: string): void {
+    this.viewportScroller.scrollToAnchor(sectionId);
+    
+    // Optionnel: Ajouter un smooth scroll supplémentaire
+    setTimeout(() => {
+      const element = document.getElementById(sectionId);
+      if (element) {
+        const headerHeight = 80; // Ajustez selon votre header
+        const elementPosition = element.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    }, 0);
   }
 }
