@@ -1,0 +1,197 @@
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<div class="container">
+        <div class="reservation-header">
+            <h1>Réservation Conférence Tech</h1>
+            <div class="event-meta">
+                <div class="event-meta-item">
+                    <i class="fas fa-calendar-days"></i>
+                    <span>20 Août 2025</span>
+                </div>
+                <div class="event-meta-item">
+                    <i class="fas fa-location-dot"></i>
+                    <span>Casablanca, Centre des Congrès</span>
+                </div>
+                <div class="event-meta-item">
+                    <i class="fas fa-tag"></i>
+                    <span>100 MAD par place</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="reservation-steps">
+            <div class="progress-line">
+                <div class="progress-bar"></div>
+            </div>
+            <div class="step completed">
+                <div class="step-number">1</div>
+                <div class="step-title">Information</div>
+            </div>
+            <div class="step active">
+                <div class="step-number">2</div>
+                <div class="step-title">Paiement</div>
+            </div>
+            <div class="step">
+                <div class="step-number">3</div>
+                <div class="step-title">Confirmation</div>
+            </div>
+        </div>
+
+        <div class="reservation-content">
+            <div class="event-summary">
+                <h2>Résumé de l'événement</h2>
+                <img src="images/events/2.png" alt="Conférence Tech" class="event-image">
+                
+                <div class="summary-item">
+                    <i class="fas fa-info-circle"></i>
+                    <div class="summary-content">
+                        <h4>Conférence Tech 2025</h4>
+                        <p>Le rendez-vous annuel des professionnels de la technologie au Maroc</p>
+                    </div>
+                </div>
+                
+                <div class="summary-item">
+                    <i class="fas fa-clock"></i>
+                    <div class="summary-content">
+                        <h4>Date et Heure</h4>
+                        <p>20 Août 2025, 9:00 - 18:00</p>
+                    </div>
+                </div>
+                
+                <div class="summary-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <div class="summary-content">
+                        <h4>Lieu</h4>
+                        <p>Centre des Congrès, Casablanca</p>
+                        <p>Salle Atlas, 2ème étage</p>
+                    </div>
+                </div>
+
+                <div class="ticket-summary">
+                    <h3>Votre Réservation</h3>
+                    <div class="ticket-row">
+                        <span>Place Standard × 2</span>
+                        <span>200 MAD</span>
+                    </div>
+                    <div class="ticket-row">
+                        <span>Frais de service</span>
+                        <span>20 MAD</span>
+                    </div>
+                    <div class="total-row ticket-row">
+                        <span>Total</span>
+                        <span>220 MAD</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="reservation-form">
+                <form id="paymentForm">
+                    <div class="form-section">
+                        <h2>Informations Personnelles</h2>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label for="firstName">Prénom</label>
+                                <input type="text" id="firstName" value="Mehdi" required>
+                            </div>
+                            <div class="form-group">
+                                <label for="lastName">Nom</label>
+                                <input type="text" id="lastName" value="Benjelloun" required>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email</label>
+                            <input type="email" id="email" value="mehdi@example.com" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Téléphone</label>
+                            <input type="tel" id="phone" value="+212 6 12 34 56 78" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="company">Entreprise (optionnel)</label>
+                            <input type="text" id="company">
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <h2>Méthode de Paiement</h2>
+                        <div class="payment-methods">
+                            <div class="payment-method active" data-method="card">
+                                <i class="far fa-credit-card"></i>
+                                <p>Carte Bancaire</p>
+                            </div>
+                            <div class="payment-method" data-method="paypal">
+                                <i class="fab fa-cc-paypal"></i>
+                                <p>PayPal</p>
+                            </div>
+                            <div class="payment-method" data-method="transfer">
+                                <i class="fas fa-university"></i>
+                                <p>Virement</p>
+                            </div>
+                        </div>
+
+                        <div class="card-details active" id="cardDetails">
+                            <div class="card-icons">
+                              <i class="fab fa-cc-visa"></i>
+    <i class="fab fa-cc-mastercard"></i>
+    <i class="fab fa-cc-amex"></i>
+    <i class="fab fa-cc-discover"></i>
+                            </div>
+                            <div class="form-group">
+                                <label for="cardNumber">Numéro de carte</label>
+                                <input type="text" id="cardNumber" placeholder="1234 5678 9012 3456">
+                            </div>
+                            <div class="form-group">
+                                <label for="cardName">Nom sur la carte</label>
+                                <input type="text" id="cardName" placeholder="MEHDI BENJELLOUN">
+                            </div>
+                            <div class="card-row">
+                                <div class="form-group">
+                                    <label for="cardExpiry">Date d'expiration</label>
+                                    <input type="text" id="cardExpiry" placeholder="MM/AA">
+                                </div>
+                                <div class="form-group">
+                                    <label for="cardCvc">CVV</label>
+                                    <input type="text" id="cardCvc" placeholder="123">
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card-details" id="paypalDetails">
+                            <p>Vous serez redirigé vers PayPal pour compléter votre paiement.</p>
+                        </div>
+
+                        <div class="card-details" id="transferDetails">
+                            <p>Veuillez effectuer un virement bancaire aux coordonnées suivantes :</p>
+                            <p><strong>Banque:</strong> Banque Populaire</p>
+                            <p><strong>IBAN:</strong> MA64 000 000 000 000 000 000 000 00</p>
+                            <p><strong>BIC:</strong> BCPOMAMCXXX</p>
+                            <p><strong>Bénéficiaire:</strong> Tech Events Maroc</p>
+                            <p><strong>Montant:</strong> 220 MAD</p>
+                            <p>Votre réservation sera confirmée après réception du paiement.</p>
+                        </div>
+                    </div>
+
+                    <div class="form-section">
+                        <div class="form-group">
+                            <input type="checkbox" id="terms" required>
+                            <label for="terms">J'accepte les <a href="#">conditions générales</a> et la <a href="#">politique de confidentialité</a></label>
+                        </div>
+                        <div class="form-group">
+                            <input type="checkbox" id="newsletter">
+                            <label for="newsletter">Je souhaite recevoir des informations sur les futurs événements</label>
+                        </div>
+                    </div>
+
+                    <button type="submit" class="submit-btn">Payer 220 MAD et Confirmer</button>
+                </form>
+
+                <div class="nav-buttons">
+                    <button class="nav-btn">
+                        <i class="fas fa-arrow-left"></i> Retour
+                    </button>
+                    <button class="nav-btn primary" disabled>
+                        Suivant <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>

@@ -1,0 +1,429 @@
+<div id="filterSidebar">
+  <div class="filter-header">
+    <h3>Filtrer les événements</h3>
+    <button class="close-filter" id="closeFilter">&times;</button>
+  </div>
+  
+  <div class="filter-section">
+    <h4>Catégories</h4>
+    <div class="filter-options">
+      <div class="filter-option">
+        <input type="checkbox" id="category-sport" checked>
+        <label for="category-sport">Sportif</label>
+      </div>
+      <div class="filter-option">
+        <input type="checkbox" id="category-concert" checked>
+        <label for="category-concert">Concerts</label>
+      </div>
+      <div class="filter-option">
+        <input type="checkbox" id="category-theatre" checked>
+        <label for="category-theatre">Théatre</label>
+      </div>
+      <div class="filter-option">
+        <input type="checkbox" id="category-festival" checked>
+        <label for="category-festival">Festival</label>
+      </div>
+      <div class="filter-option">
+        <input type="checkbox" id="category-cirque" checked>
+        <label for="category-cirque">Cirque</label>
+      </div>
+      <div class="filter-option">
+        <input type="checkbox" id="category-humour" checked>
+        <label for="category-humour">Humour</label>
+      </div>
+      <div class="filter-option">
+        <input type="checkbox" id="category-spectacle" checked>
+        <label for="category-spectacle">Spectacle</label>
+      </div>
+    </div>
+  </div>
+  
+  <div class="filter-section">
+    <h4>Date</h4>
+    <div class="filter-options">
+      <div class="filter-option">
+        <input type="radio" id="date-all" name="date" checked>
+        <label for="date-all">Toutes dates</label>
+      </div>
+      <div class="filter-option">
+        <input type="radio" id="date-today" name="date">
+        <label for="date-today">Aujourd'hui</label>
+      </div>
+      <div class="filter-option">
+        <input type="radio" id="date-week" name="date">
+        <label for="date-week">Cette semaine</label>
+      </div>
+      <div class="filter-option">
+        <input type="radio" id="date-month" name="date">
+        <label for="date-month">Ce mois</label>
+      </div>
+      <div class="filter-option">
+        <input type="radio" id="date-custom" name="date">
+        <label for="date-custom">Personnalisée</label>
+      </div>
+      <input type="date" id="custom-date" style="margin-top: 0.5rem; width: 100%; padding: 0.5rem; display: none;">
+    </div>
+  </div>
+  
+  <div class="filter-section">
+    <h4>Lieu</h4>
+    <div class="filter-options">
+      <div class="filter-option">
+        <input type="checkbox" id="location-casa" checked>
+        <label for="location-casa">Casablanca</label>
+      </div>
+      <div class="filter-option">
+        <input type="checkbox" id="location-rabat" checked>
+        <label for="location-rabat">Rabat</label>
+      </div>
+      <div class="filter-option">
+        <input type="checkbox" id="location-marrakech" checked>
+        <label for="location-marrakech">Marrakech</label>
+      </div>
+      <div class="filter-option">
+        <input type="checkbox" id="location-tanger" checked>
+        <label for="location-tanger">Tanger</label>
+      </div>
+    </div>
+  </div>
+  
+  <div class="filter-section">
+    <h4>Prix</h4>
+    <input type="range" min="0" max="1000" value="500" class="price-range" id="priceRange">
+    <div class="price-inputs">
+      <input type="number" min="0" max="1000" placeholder="Min" value="0">
+      <input type="number" min="0" max="1000" placeholder="Max" value="1000">
+    </div>
+  </div>
+  
+  <div class="filter-actions">
+    <button class="reset-filter" id="resetFilter">Réinitialiser</button>
+    <button class="apply-filter" id="applyFilter">Appliquer</button>
+  </div>
+</div>
+
+<!-- Overlay for filter sidebar -->
+<div id="filterOverlay" class="filter-overlay"></div>
+
+<div id="sideMenu" aria-hidden="true" role="navigation" aria-label="Menu categories">
+  <h2>Catégories</h2>
+  <ul>
+    <li>
+      <a href="#">Sportif</a>
+      <ul>
+        <li><a href="#">Football</a></li>
+        <li><a href="#">Basketball</a></li>
+        <li><a href="#">Tennis</a></li>
+      </ul>
+    </li>
+    <li>
+      <a href="#">Concerts</a>
+      <ul>
+        <li><a href="#">Pop</a></li>
+        <li><a href="#">Rock</a></li>
+        <li><a href="#">Classique</a></li>
+      </ul>
+    </li>
+    <li><a href="#">Théatre</a></li>
+    <li><a href="#">Festival</a></li>
+    <li><a href="#">Cirque</a></li>
+    <li><a href="#">Humour</a></li>
+    <li><a href="#">Spectacle</a></li>
+  </ul>
+</div>
+
+<div id="overlay"></div>
+<!-- Dropdown panel for event categories -->
+
+
+
+    <!-- Hero Section with Slider -->
+    <section class="hero">
+        <div class="slider-wrapper">
+            <button class="slider-btn prev" onclick="prevSlide()">&#10094;</button>
+            <div class="slider-track" id="sliderTrack">
+                <img src="images/events/e1.png" alt="Image 1">
+                <img src="images/events/e2.png" alt="Image 2">
+                <img src="images/events/e3.png" alt="Image 3">
+                <img src="images/events/e4.png" alt="Image 1">
+                <img src="images/events/e5.png" alt="Image 2">
+                <img src="images/events/e3.png" alt="Image 3">
+                <!-- Add more images/events as needed -->
+            </div>
+            <button class="slider-btn next" onclick="nextSlide()">&#10095;</button>
+        </div>
+    </section>
+<!-- Popular Events Section -->
+<!-- Popular Events Section -->
+<section style="background-color: white; padding: 4rem 2rem;">
+  <h2 style="text-align: center; font-size: 2rem; margin-bottom: 2rem; color: #21243e;">
+    Les événements actuels
+  </h2>
+  <div style="display: flex; align-items: center; max-width: 1200px; margin: 0 auto 1.5rem auto;">
+    <!-- Filter Icon -->
+    <div style="display: flex; gap: 0.75rem; flex: 1; margin-left: -1rem;">
+      <button style="flex: 1; padding: 0.75rem; background-color: #21243e; color: white; border: none; border-radius: 6px; cursor: pointer;">Sportif</button>
+      <button style="flex: 1; padding: 0.75rem; background-color: lightgray; color: black; border: none; border-radius: 6px; cursor: pointer;">Concerts</button>
+      <button style="flex: 1; padding: 0.75rem; background-color: lightgray; color: black; border: none; border-radius: 6px; cursor: pointer;">Théatre</button>
+      <button style="flex: 1; padding: 0.75rem; background-color: lightgray; color: black; border: none; border-radius: 6px; cursor: pointer;">Festival</button>
+       <button style="flex: 1; padding: 0.75rem; background-color: lightgray; color: black; border: none; border-radius: 6px; cursor: pointer;">Cirque</button>
+      <button style="flex: 1; padding: 0.75rem; background-color: lightgray; color: black; border: none; border-radius: 6px; cursor: pointer;">Humour</button>
+       <button style="flex: 1; padding: 0.75rem; background-color: lightgray; color: black; border: none; border-radius: 6px; cursor: pointer;">Spectacle</button>
+    </div>
+  <!-- Filter Icon -->
+<div style="position: relative; max-width: 1200px; margin: 0 auto;">
+
+  <!-- Filter Button -->
+  <div style="position: relative; display: inline-block;">
+
+  <!-- Your filter icon container (unchanged style) -->
+  <div id="filterBtn" style="display: flex; align-items: center; gap: 0.5rem; color: #21243e; font-weight: 600; cursor: pointer;">
+    <i class="fa-solid fa-filter" style="font-size: 1.5rem;"></i> 
+    <span>Filtrer</span>
+  </div> 
+
+  <!-- Filter Panel (hidden by default) -->
+  <div id="filterPanel" style="
+    display: none;
+    position: absolute; 
+    top: 40px; 
+    left: 0; 
+    background: white; 
+    border: 1px solid #ccc; 
+    padding: 1rem; 
+    width: 300px; 
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    z-index: 100;
+    border-radius: 8px;
+  ">
+    <div>
+      <label for="filterDate">Date:</label>
+      <input type="date" id="filterDate" style="width: 100%; margin-top: 0.5rem; padding: 0.3rem;">
+    </div>
+
+    <div style="margin-top: 1rem;">
+      <label>Location:</label>
+      <button id="locationBtn" style="
+        margin-top: 0.5rem;
+        width: 100%;
+        padding: 0.5rem;
+        border: 1px solid #21243e;
+        border-radius: 6px;
+        background: white;
+        cursor: pointer;
+        color: #21243e;
+        font-weight: 600;
+      ">Choisir sur la carte</button>
+      
+      <!-- Map container hidden by default -->
+      <div id="mapContainer" style="
+        margin-top: 1rem;
+        display: none;
+        width: 100%;
+        height: 200px;
+        border: 1px solid #ccc;
+        border-radius: 6px;
+      ">
+        <p style="text-align:center; padding-top: 80px; color: #aaa;">[Carte ici]</p>
+      </div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+
+  <!-- Filter Buttons -->
+</div>
+
+</section>
+  <section style="background-color: white; padding: 13rem 2rem; margin-top: -15rem;">
+ 
+
+  <div style="
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 2rem;
+    max-width: 1200px;
+    margin: 0 auto;
+  ">
+    <!-- Repeat this Card Block for each event -->
+    <div style="background-color: #F9F9F9; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+      <img src="images/events/1.jpeg" alt="Event 1" style="width: 100%; height: 180px; object-fit: cover;">
+      <div style="padding: 1rem;">
+        <h3 style="font-size: 1.2rem; margin-bottom: 0.75rem;">Festival Musique</h3>
+
+        <p style="color: #555; margin: 0.3rem 0;">
+          <i class="fa-solid fa-calendar-days" style="margin-right: 8px;"></i>12 Août 2025
+        </p>
+        <p style="color: #555; margin: 0.3rem 0;">
+          <i class="fa-solid fa-location-dot" style="margin-right: 8px;"></i>Tanger
+        </p>
+        <p style="color: #555; margin: 0.3rem 0;">
+          <i class="fa-solid fa-users" style="margin-right: 8px;"></i>120 places disponibles
+        </p>
+        <p style="color: #555; margin: 0.3rem 0;">
+          <i class="fa-solid fa-tag" style="margin-right: 8px;"></i>150 MAD
+        </p>
+
+       <a href="reservation.html" class="event-btn reserver">Réserver</a>
+       <a href="more.html" class="event-btn">Voir plus</a>
+      <!-- <a href="more.html" class="event-btn">Voir plus</a> -->
+      </div>
+    </div>
+
+    <!-- You can duplicate the card block above and change the image/texts for each additional event -->
+    <!-- Repeat for Event 2 -->
+    <div style="background-color: #F9F9F9; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+      <img src="images/events/2.png" alt="Event 2" style="width: 100%; height: 180px; object-fit: cover;">
+      <div style="padding: 1rem;">
+        <h3 style="font-size: 1.2rem; margin-bottom: 0.75rem;">Conférence Tech</h3>
+        <p style="color: #555; margin: 0.3rem 0;">
+          <i class="fa-solid fa-calendar-days" style="margin-right: 8px;"></i>20 Août 2025
+        </p>
+        <p style="color: #555; margin: 0.3rem 0;">
+          <i class="fa-solid fa-location-dot" style="margin-right: 8px;"></i>Casablanca
+        </p>
+        <p style="color: #555; margin: 0.3rem 0;">
+          <i class="fa-solid fa-users" style="margin-right: 8px;"></i>80 places disponibles
+        </p>
+        <p style="color: #555; margin: 0.3rem 0;">
+          <i class="fa-solid fa-tag" style="margin-right: 8px;"></i>100 MAD
+        </p>
+        <a href="reservation.html" class="event-btn reserver">Réserver</a>
+      <a href="more.html" class="event-btn">Voir plus</a>
+      </div>
+    </div>
+
+    <!-- Event 3 -->
+    <div style="background-color: #F9F9F9; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+      <img src="images/events/3.jpg" alt="Event 3" style="width: 100%; height: 180px; object-fit: cover;">
+      <div style="padding: 1rem;">
+        <h3 style="font-size: 1.2rem; margin-bottom: 0.75rem;">Atelier Cuisine</h3>
+        <p style="color: #555; margin: 0.3rem 0;">
+          <i class="fa-solid fa-calendar-days" style="margin-right: 8px;"></i>28 Août 2025
+        </p>
+        <p style="color: #555; margin: 0.3rem 0;">
+          <i class="fa-solid fa-location-dot" style="margin-right: 8px;"></i>Rabat
+        </p>
+        <p style="color: #555; margin: 0.3rem 0;">
+          <i class="fa-solid fa-users" style="margin-right: 8px;"></i>60 places disponibles
+        </p>
+        <p style="color: #555; margin: 0.3rem 0;">
+          <i class="fa-solid fa-tag" style="margin-right: 8px;"></i>80 MAD
+        </p>
+        <a href="reservation.html" class="event-btn reserver">Réserver</a>
+      <a href="more.html" class="event-btn">Voir plus</a>
+      </div>
+    </div>
+     <div style="background-color: #F9F9F9; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+      <img src="images/events/1.jpeg" alt="Event 1" style="width: 100%; height: 180px; object-fit: cover;">
+      <div style="padding: 1rem;">
+        <h3 style="font-size: 1.2rem; margin-bottom: 0.75rem;">Festival Musique</h3>
+
+        <p style="color: #555; margin: 0.3rem 0;">
+          <i class="fa-solid fa-calendar-days" style="margin-right: 8px;"></i>12 Août 2025
+        </p>
+        <p style="color: #555; margin: 0.3rem 0;">
+          <i class="fa-solid fa-location-dot" style="margin-right: 8px;"></i>Tanger
+        </p>
+        <p style="color: #555; margin: 0.3rem 0;">
+          <i class="fa-solid fa-users" style="margin-right: 8px;"></i>120 places disponibles
+        </p>
+        <p style="color: #555; margin: 0.3rem 0;">
+          <i class="fa-solid fa-tag" style="margin-right: 8px;"></i>150 MAD
+        </p>
+
+        <a href="reservation.html" class="event-btn reserver">Réserver</a>
+      <a href="more.html" class="event-btn">Voir plus</a>
+      </div>
+    </div>
+
+    <!-- You can duplicate the card block above and change the image/texts for each additional event -->
+    <!-- Repeat for Event 2 -->
+    <div style="background-color: #F9F9F9; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+      <img src="images/events/2.png" alt="Event 2" style="width: 100%; height: 180px; object-fit: cover;">
+      <div style="padding: 1rem;">
+        <h3 style="font-size: 1.2rem; margin-bottom: 0.75rem;">Conférence Tech</h3>
+        <p style="color: #555; margin: 0.3rem 0;">
+          <i class="fa-solid fa-calendar-days" style="margin-right: 8px;"></i>20 Août 2025
+        </p>
+        <p style="color: #555; margin: 0.3rem 0;">
+          <i class="fa-solid fa-location-dot" style="margin-right: 8px;"></i>Casablanca
+        </p>
+        <p style="color: #555; margin: 0.3rem 0;">
+          <i class="fa-solid fa-users" style="margin-right: 8px;"></i>80 places disponibles
+        </p>
+        <p style="color: #555; margin: 0.3rem 0;">
+          <i class="fa-solid fa-tag" style="margin-right: 8px;"></i>100 MAD
+        </p>
+        <a href="reservation.html" class="event-btn reserver">Réserver</a>
+      <a href="more.html" class="event-btn">Voir plus</a>
+      </div>
+    </div>
+
+    <!-- Event 3 -->
+    <div style="background-color: #F9F9F9; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+      <img src="images/events/3.jpg" alt="Event 3" style="width: 100%; height: 180px; object-fit: cover;">
+      <div style="padding: 1rem;">
+        <h3 style="font-size: 1.2rem; margin-bottom: 0.75rem;">Atelier Cuisine</h3>
+        <p style="color: #555; margin: 0.3rem 0;">
+          <i class="fa-solid fa-calendar-days" style="margin-right: 8px;"></i>28 Août 2025
+        </p>
+        <p style="color: #555; margin: 0.3rem 0;">
+          <i class="fa-solid fa-location-dot" style="margin-right: 8px;"></i>Rabat
+        </p>
+        <p style="color: #555; margin: 0.3rem 0;">
+          <i class="fa-solid fa-users" style="margin-right: 8px;"></i>60 places disponibles
+        </p>
+        <p style="color: #555; margin: 0.3rem 0;">
+          <i class="fa-solid fa-tag" style="margin-right: 8px;"></i>80 MAD
+        </p>
+        <a href="reservation.html" class="event-btn reserver">Réserver</a>
+      <a href="more.html" class="event-btn">Voir plus</a>
+      </div>
+    </div>
+    <div style="background-color: #F9F9F9; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+      <img src="images/events/2.png" alt="Event 2" style="width: 100%; height: 180px; object-fit: cover;">
+      <div style="padding: 1rem;">
+        <h3 style="font-size: 1.2rem; margin-bottom: 0.75rem;">Conférence Tech</h3>
+        <p style="color: #555; margin: 0.3rem 0;">
+          <i class="fa-solid fa-calendar-days" style="margin-right: 8px;"></i>20 Août 2025
+        </p>
+        <p style="color: #555; margin: 0.3rem 0;">
+          <i class="fa-solid fa-location-dot" style="margin-right: 8px;"></i>Casablanca
+        </p>
+        <p style="color: #555; margin: 0.3rem 0;">
+          <i class="fa-solid fa-users" style="margin-right: 8px;"></i>80 places disponibles
+        </p>
+        <p style="color: #555; margin: 0.3rem 0;">
+          <i class="fa-solid fa-tag" style="margin-right: 8px;"></i>100 MAD
+        </p>
+        <a href="reservation.html" class="event-btn reserver">Réserver</a>
+      <a href="more.html" class="event-btn">Voir plus</a>
+      </div>
+    </div>
+
+    <!-- Event 3 -->
+    <div style="background-color: #F9F9F9; border-radius: 10px; overflow: hidden; box-shadow: 0 4px 10px rgba(0,0,0,0.05);">
+      <img src="images/events/3.jpg" alt="Event 3" style="width: 100%; height: 180px; object-fit: cover;">
+      <div style="padding: 1rem;">
+        <h3 style="font-size: 1.2rem; margin-bottom: 0.75rem;">Atelier Cuisine</h3>
+        <p style="color: #555; margin: 0.3rem 0;">
+          <i class="fa-solid fa-calendar-days" style="margin-right: 8px;"></i>28 Août 2025
+        </p>
+        <p style="color: #555; margin: 0.3rem 0;">
+          <i class="fa-solid fa-location-dot" style="margin-right: 8px;"></i>Rabat
+        </p>
+        <p style="color: #555; margin: 0.3rem 0;">
+          <i class="fa-solid fa-users" style="margin-right: 8px;"></i>60 places disponibles
+        </p>
+        <p style="color: #555; margin: 0.3rem 0;">
+          <i class="fa-solid fa-tag" style="margin-right: 8px;"></i>80 MAD
+        </p>
+        <a href="reservation.html" class="event-btn reserver">Réserver</a>
+      <a href="more.html" class="event-btn">Voir plus</a>
+      </div>
+    </div>
+  </div>
+    </section>
