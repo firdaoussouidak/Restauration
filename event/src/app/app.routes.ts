@@ -28,5 +28,21 @@ export const routes: Routes = [
     {
         path: 'chatbot',
         loadComponent: () => import('./chatbot/chatbot.component').then(m => m.ChatbotComponent)
-    }
+    },
+    {
+  path: 'events',
+  loadComponent: () => import('./events/index/index.component').then(m => m.IndexComponent)
+},
+{
+  path: 'events/details',
+  loadComponent: () => import('./events/details/details.component').then(m => m.DetailsComponent)
+},
+{
+  path: 'events/more',
+  loadComponent: () => import('./events/more/more.component').then(m => m.MoreComponent)
+},
+{
+  path: 'events/reservation',
+  loadComponent: () => import('./events/reservation/reservation.component').then(m => m.ReservationComponent)
+},
 ];
